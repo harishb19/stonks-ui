@@ -23,6 +23,7 @@ const theme = createTheme({
 function MyApp({Component, pageProps}) {
     const [loading, setLoading] = useState(true)
     const graphQlUri = process.env.GRAPHQL_URL
+    //todo: change all graphql related new links
     const httpLink = new HttpLink({
         uri: `https://${graphQlUri}/v1/graphql`,
     });
@@ -79,21 +80,13 @@ function MyApp({Component, pageProps}) {
                                 client.query({
                                     query: CHECK_USER, variables: {
                                         token: idTokenResult.token,
-                                        role: idTokenResult.claims['https://hasura.io/jwt/claims']['x-hasura-default-role']
                                     }
                                 }).then(({data, loading, error}) => {
                                     if (error) {
                                         console.log(error)
                                     }
                                     if (!loading && data && data.adminLogin) {
-                                        let user = {}
-
-                                        if (data.adminLogin.admin && data.adminLogin.admin.id) {
-                                            user = {...data.adminLogin.admin, role: "admin"}
-                                        }
-                                        if (data.adminLogin.provider && data.adminLogin.provider.id) {
-                                            user = {...data.adminLogin.provider, role: "provider"}
-                                        }
+                                        let user = {...data.users}
                                         if (user) {
                                             store.getActions().user.setUserDetails({...user})
                                             toast.success(`Welcome back ${user.name}`, {
@@ -131,7 +124,7 @@ function MyApp({Component, pageProps}) {
                                 })
                                 auth.signOut().then(() => {
                                     setLoading(false)
-                                    localStorage.setItem("babelKeyToSuccess", "")
+                                    localStorage.setItem("stonks69", "")
                                     sessionStorage.clear()
                                 })
 
@@ -141,7 +134,7 @@ function MyApp({Component, pageProps}) {
                 } else {
                     setLoading(false)
                     store.getActions().user.setUserDetails({})
-                    localStorage.setItem("babelKeyToSuccess", "")
+                    localStorage.setItem("stonks69", "")
                 }
             })
             return (() => {
@@ -150,13 +143,7 @@ function MyApp({Component, pageProps}) {
         }
 
     }, [])
-    useEffect(() => {
 
-        const script = document.createElement("script");
-        script.src = "https://upload-widget.cloudinary.com/global/all.js";
-        script.async = false;
-        document.body.appendChild(script);
-    }, [])
     if (loading) return <Loading/>
     return <StoreProvider store={store}>
         <ErrorBoundary>
