@@ -15,6 +15,9 @@ import store from "../store/storeProvider";
 import {firebaseConfig} from "../comfig/firebase";
 
 const theme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
     status: {
         danger: orange[500],
     },
