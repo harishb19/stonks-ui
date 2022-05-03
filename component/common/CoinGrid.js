@@ -1,7 +1,7 @@
 import {DataGrid, gridClasses} from '@mui/x-data-grid';
 import {styled} from '@mui/material/styles';
-import Sparkline from "./sparkline";
-import PriceUpDown from "./priceUpDown";
+import Sparkline from "./Sparkline";
+import PriceUpDown from "./PriceUpDown";
 import NumberFormat from "react-number-format";
 import React, {memo} from "react";
 

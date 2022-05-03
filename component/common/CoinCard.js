@@ -1,10 +1,11 @@
 import React, {memo} from "react";
-import {Card, CardActionArea, CardContent, Grid, makeStyles, Stack, Typography} from "@mui/material";
+import {Card, CardActionArea, CardContent, Grid, Stack, Typography} from "@mui/material";
 import NumberFormat from "react-number-format";
 import Color from "color";
-import Sparkline from "./sparkline";
-import PriceUpDown from "./priceUpDown";
+import Sparkline from "./Sparkline";
+import PriceUpDown from "./PriceUpDown";
 import Box from "@mui/material/Box";
+import {makeStyles} from "@mui/styles";
 
 const CoinCard = ({
                       id,

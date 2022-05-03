@@ -1,8 +1,9 @@
-import {makeStyles, Stack} from "@mui/material";
+import {Stack} from "@mui/material";
 import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
 import NumberFormat from "react-number-format";
 import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
 import React from "react";
+import {makeStyles} from "@mui/styles";
 
 const PriceUpDown = ({value}) => {
     const useStyles = makeStyles(() => ({
