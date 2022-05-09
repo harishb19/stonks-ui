@@ -12,7 +12,7 @@ import {orange} from "@mui/material/colors";
 import ErrorBoundary from "../component/common/error/ErrorBoundary";
 import Loading from "../component/common/loading/Loading";
 import store from "../store/storeProvider";
-import {firebaseConfig} from "../comfig/firebase";
+import {firebaseConfig} from "../config/firebase";
 
 const theme = createTheme({
     palette: {
