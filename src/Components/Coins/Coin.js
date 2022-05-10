@@ -184,11 +184,19 @@ const Coin = () => {
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <div className={coinStyle.sparkline}>
-                        <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
-                                   decreaseDetail={false}
-                                   height={120} lineTension={0.3}
-                                   neutralUpDown={coinDetails.coins_market_data.priceChangePercentage24h > 0 ? 1 : coinDetails.coins_market_data.priceChangePercentage24h < 0 ? 2 : 0}
-                                   fill={true}/>
+
+                        {coinDetails.coins_market_data.priceChangePercentage24h >= 0 &&
+                            <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
+                                       decreaseDetail={false}
+                                       height={120} lineTension={0.3}
+                                       neutralUpDown={1}
+                                       fill={true}/>}
+                        {coinDetails.coins_market_data.priceChangePercentage24h < 0 &&
+                            <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
+                                       decreaseDetail={false}
+                                       height={120} lineTension={0.3}
+                                       neutralUpDown={2}
+                                       fill={true}/>}
                     </div>
                 </Grid>
             </Grid>

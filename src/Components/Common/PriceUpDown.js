@@ -1,11 +1,10 @@
 import {Stack} from "@mui/material";
-import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
 import NumberFormat from "react-number-format";
-import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
 import React from "react";
 import {downColor, upColor} from "../../Common/Colors";
 import animateClass from "./css/animated.module.css"
 import {CSSTransition} from "react-transition-group";
+import {ArrowDownwardRounded, ArrowUpwardRounded} from "@mui/icons-material";
 
 const PriceUpDown = ({
                          value,
@@ -17,6 +16,7 @@ const PriceUpDown = ({
                          decimals = 2,
                          arrow = true
                      }) => {
+    // const styles = useSpring({ opacity: toggle ? 1 : 0 })
 
     if (value === null || value === undefined) {
         return <p>No Value</p>
@@ -27,7 +27,7 @@ const PriceUpDown = ({
                       alignItems="center"
                       spacing={0}>
             {arrow &&
-                <ArrowUpwardRoundedIcon className={animateClass.animate} sx={{color: upColor}} fontSize={arrowSize}/>}
+                <ArrowUpwardRounded className={animateClass.animate} sx={{color: upColor}} fontSize={arrowSize}/>}
             <CSSTransition key={value} timeout={1000}>
                 <NumberFormat key={value}
                               className={animateClass.animate}
@@ -51,8 +51,8 @@ const PriceUpDown = ({
                       justifyContent="flex-start"
                       alignItems="center"
                       spacing={0}>
-            {arrow && <ArrowDownwardRoundedIcon sx={{color: downColor}} className={animateClass.animate}
-                                                fontSize={arrowSize}/>}
+            {arrow && <ArrowDownwardRounded sx={{color: downColor}} className={animateClass.animate}
+                                            fontSize={arrowSize}/>}
             <CSSTransition key={value} timeout={1000}>
                 <NumberFormat key={value}
                               className={animateClass.animate}
