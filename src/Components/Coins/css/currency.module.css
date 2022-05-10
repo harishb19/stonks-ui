@@ -1,0 +1,16 @@
+.coinImage {
+    width: 25px;
+    height: 25px;
+}
+
+.percentUp {
+    color: #4EBF67;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.percentDown {
+    color: #FE7A68;
+    font-weight: bold;
+    font-size: 1.1em;
+}

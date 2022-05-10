@@ -21,12 +21,20 @@ import Coin from "./Components/Coins/Coin";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import PageNotFound from "./Components/Error/PageNotFound";
+import {downColor, upColor} from "./Common/Colors";
 
 const theme = createTheme({
     palette: {
-        mode: 'dark', primary: {
+        mode: 'dark',
+        primary: {
             main: '#1976d2',
         },
+        success: {
+            main: upColor
+        },
+        error: {
+            main: downColor
+        }
     },
 });
 

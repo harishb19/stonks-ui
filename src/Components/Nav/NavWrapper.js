@@ -16,7 +16,7 @@ import PrimaryAppBar from "./PrimaryAppBar";
 import {Dashboard, Login, Logout, SsidChart} from "@mui/icons-material";
 import {useStoreState} from "easy-peasy";
 import Toolbar from "@mui/material/Toolbar";
-import {Button, Typography} from "@mui/material";
+import {Button} from "@mui/material";
 import {getAuth, signOut} from "firebase/auth";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -67,7 +67,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 const NormalNav = ({children}) => {
     const theme = useTheme();
     const navigate = useNavigate()
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const userDetails = useStoreState(state => state.user.userDetails)
 
     const handleDrawer = () => {
@@ -168,7 +168,7 @@ const NormalNav = ({children}) => {
                 </ListItemButton>
             </List>
         </Drawer>
-        <Box component="main" sx={{flexGrow: 1, p: 3}}>
+        <Box component="main" sx={{flexGrow: 1}}>
             <DrawerHeader/>
             {children}
         </Box>
@@ -186,15 +186,15 @@ const AuthNav = ({children}) => {
                                 navigate("/")
                             }}
                     >
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{display: {xs: 'none', sm: 'block'}}}
-                        >
-                            Stonks
-                        </Typography>
-
+                        {/*<Typography*/}
+                        {/*    variant="h6"*/}
+                        {/*    noWrap*/}
+                        {/*    component="div"*/}
+                        {/*    sx={{display: {xs: 'none', sm: 'block'}}}*/}
+                        {/*>*/}
+                        {/*    Stonks*/}
+                        {/*</Typography>*/}
+                        <img src={"/stonks_logo_alt_white.png"} height={60} alt={"stonks"}/>
                     </Button>
 
                 </Toolbar>
