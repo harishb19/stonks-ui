@@ -192,7 +192,7 @@ const Coin = () => {
                     </div>
                 </Grid>
             </Grid>
-            <div style={{margin: '30px'}}>
+            <div style={{padding: '30px'}}>
                 <Box className={coinStyle.frostedDiv}>
                     <Stack direction={"row"} spacing={1} justifyContent={"space-evenly"} flexWrap={"wrap"}>
                         <Stack direction={"column"}>
