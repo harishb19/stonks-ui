@@ -38,4 +38,12 @@ export let GET_USER = gql`query Query($userId: String!) {
     }
 }`
 
-// export let UPDATE_USER = gql``
+export let UPDATE_USER = gql`mutation UpdateUser($updateUserId: String!, $firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!) {
+    updateUser(id: $updateUserId, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber) {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+    }
+}`

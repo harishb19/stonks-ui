@@ -11,18 +11,19 @@ import {
 } from "@mui/material";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// import {UPDATE_USER} from "../../graphql/queries";
+import {UPDATE_USER} from "../../graphql/queries";
 import {useMutation, useQuery} from "@apollo/client";
 import {GET_USER} from "../../graphql/queries"
 
 export default function UserProfile({userId}) {
+    console.log(userId)
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-    // const [updateUserFunc, { data, loading, error }] =
-        // useMutation(UPDATE_USER);
+    const [updateUserFunc, { data: dataUpdate, loading: loadingUpdate, error: errorUpdate }] =
+        useMutation(UPDATE_USER);
     const { loading, error, data } = useQuery(GET_USER, {
         fetchPolicy: "cache-and-network",
         variables: {
-            userId: Number(userId),
+            userId: userId,
         },
     });
     try{
@@ -45,14 +46,14 @@ export default function UserProfile({userId}) {
             }),
             onSubmit: values => {
                 console.log(values)
-                // updateUserFunc({
-                //     variables: {
-                //         FirstName: values.FirstName,
-                //         LastName: values.LastName,
-                //          Email: values.Email,
-                //         PhoneNumber: values.PhoneNumber,
-                //     }
-                // }).then(r => console.log(r))
+                updateUserFunc({
+                    variables: {
+                        FirstName: values.FirstName,
+                        LastName: values.LastName,
+                         Email: values.Email,
+                        PhoneNumber: values.PhoneNumber,
+                    }
+                }).then(r => console.log(r))
             },
         });
         return (
