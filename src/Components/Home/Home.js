@@ -13,6 +13,60 @@ import {COIN_SUBSCRIPTION} from "../../graphql/subscription";
 import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
 
+
+const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+const coinBox = (id, title, name, value, image) => <Link to={`/coins/${id}`}>
+    <Box className={homeStyle.frostedBox} sx={{margin:"10px"}}>
+        <Typography variant={"subtitle1"} component={"p"}>
+            {title}
+        </Typography>
+        <Stack direction={"row"} spacing={2} sx={{marginTop: '5px'}}>
+            <img src={image} alt={name} className={homeStyle.boxImage} onError={onMediaFallback}/>
+            <Typography variant={"body1"} component={"p"}>
+                {name}
+            </Typography>
+            <PriceUpDown fontSize={"1em"} arrow={false}
+                         value={value}/>
+        </Stack>
+    </Box>
+</Link>
+
+const coinTotalBox = (id, title, name, value, image) => <Link to={`/coins/${id}`}>
+    <Box className={homeStyle.frostedBox} sx={{margin:"10px"}}>
+        <Typography variant={"subtitle1"} component={"p"}>
+            {title}
+        </Typography>
+        <Stack direction={"row"} spacing={2} alignItems={"center"}
+               sx={{marginTop: '5px'}}>
+            <img src={image} alt={name} className={homeStyle.boxImage} onError={onMediaFallback}/>
+            <Typography variant={"body1"} component={"p"}>
+                {name}
+            </Typography>
+            <NumberFormat displayType={'text'}
+
+                          value={getDollarNumber(value)}
+                          thousandSeparator={true}
+                          decimalScale={2}
+                          prefix="$" decimalSeparator="."
+                          suffix={getDollarText(value)}/>
+        </Stack>
+    </Box>
+</Link>
+
+const totalBox = (title, value) =>
+    <Box className={homeStyle.frostedBoxNoClick} sx={{margin:"10px"}}>
+        <Typography variant={"subtitle1"} component={"p"} sx={{marginBottom: '5px'}}>
+            {title}
+        </Typography>
+        <NumberFormat displayType={'text'}
+                      value={getDollarNumber(value)}
+                      thousandSeparator={true}
+                      decimalScale={2}
+                      prefix="$" decimalSeparator="."
+                      suffix={getDollarText(value)}
+                      className={coinStyle.marketCap}/>
+    </Box>
+
 const Home = () => {
     const [coins, setCoins] = useState(null)
     const [topGainer, setTopGainer] = useState(null)
@@ -54,90 +108,41 @@ const Home = () => {
         }
     }, [coinData])
 
-    // useEffect(() => {
-    //     if (updateCoinData && updateCoinData.marketData.length > 0 && coins !== null && coins.length > 0) {
-    //         const newCoins = [...coins];
-    //         for (let newCoin of newCoins) {
-    //             const updateCoin = updateCoinData.marketData.find(x => x.id === newCoin.id)
-    //             if (updateCoin) {
-    //                 newCoin.coins_market_data = {
-    //                     ...newCoin.coins_market_data,
-    //                     currentPrice: updateCoin.currentPrice,
-    //                     priceChange24h: updateCoin.priceChange24h,
-    //                     priceChangePercentage24h: updateCoin.priceChangePercentage24h,
-    //                     high24: updateCoin.high24,
-    //                     low24: updateCoin.low24,
-    //                     totalVolume: updateCoin.totalVolume,
-    //                     sparkline: updateCoin.sparkline,
-    //                 }
-    //             }
-    //         }
-    //         setCoins(newCoins);
-    //     }
-    // }, [updateCoinData])
-
+    useEffect(() => {
+        if (updateCoinData && updateCoinData.marketData && coins !== null && coins.length > 0) {
+            setCoins((cns) => {
+                return cns.map(item =>
+                {
+                    const updateCoin = updateCoinData.marketData.find(x => x.id === item.id)
+                    if (updateCoin){
+                        return {...item,
+                            coins_market_data : {
+                            ...item.coins_market_data,
+                            currentPrice: updateCoin.currentPrice,
+                            priceChange24h: updateCoin.priceChange24h,
+                            priceChangePercentage24h: updateCoin.priceChangePercentage24h,
+                            high24: updateCoin.high24,
+                            low24: updateCoin.low24,
+                            totalVolume: updateCoin.totalVolume,
+                            sparkline: updateCoin.sparkline
+                        }
+                        };
+                    }
+                    return item;
+                });
+            });
+        }
+    }, [updateCoinData])
 
     if (coinLoading) return <Loading/>
     if (coinError) return <Error message={coinError.message} onClick={refetch}/>
 
-    const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
-    const coinBox = (id, title, name, value, image) => <Link to={`/coins/${id}`}>
-        <Box className={homeStyle.frostedBox}>
-            <Typography variant={"subtitle1"} component={"p"}>
-                {title}
-            </Typography>
-            <Stack direction={"row"} justifyContent={"space-around"} spacing={2} sx={{marginTop: '5px'}}>
-                <img src={image} alt={name} className={homeStyle.boxImage} onError={onMediaFallback}/>
-                <Typography variant={"body1"} component={"p"}>
-                    {name}
-                </Typography>
-                <PriceUpDown fontSize={"1em"} arrow={false}
-                             value={value}/>
-            </Stack>
-        </Box>
-    </Link>
-
-    const coinTotalBox = (id, title, name, value, image) => <Link to={`/coins/${id}`}>
-        <Box className={homeStyle.frostedBox}>
-            <Typography variant={"subtitle1"} component={"p"}>
-                {title}
-            </Typography>
-            <Stack direction={"row"} justifyContent={"space-around"} spacing={2} alignItems={"center"}
-                   sx={{marginTop: '5px'}}>
-                <img src={image} alt={name} className={homeStyle.boxImage} onError={onMediaFallback}/>
-                <Typography variant={"body1"} component={"p"}>
-                    {name}
-                </Typography>
-                <NumberFormat displayType={'text'}
-
-                              value={getDollarNumber(value)}
-                              thousandSeparator={true}
-                              decimalScale={2}
-                              prefix="$" decimalSeparator="."
-                              suffix={getDollarText(value)}/>
-            </Stack>
-        </Box>
-    </Link>
-
-    const totalBox = (title, value) =>
-        <Box className={homeStyle.frostedBoxNoClick}>
-            <Typography variant={"subtitle1"} component={"p"} sx={{marginBottom: '5px'}}>
-                {title}
-            </Typography>
-            <NumberFormat displayType={'text'}
-                          value={getDollarNumber(value)}
-                          thousandSeparator={true}
-                          decimalScale={2}
-                          prefix="$" decimalSeparator="."
-                          suffix={getDollarText(value)}
-                          className={coinStyle.marketCap}/>
-        </Box>
     if(coins) {
         return <div className={homeStyle.radialBG}>
-            <Stack direction={"column"} spacing={3} sx={{margin: "30px"}}>
+            <Stack direction={"column"} spacing={3} sx={{padding: "30px"}}>
                 <Typography variant={"h4"} component={"p"} textAlign={"center"} marginTop={"20px"}>All
                     Cryptocurrencies</Typography>
-                <Stack direction={"row"} spacing={3} sx={{margin: "10px"}}>
+                <Stack direction={{xs:"column", sm:"row"}} sx={{margin: "10px"}} flexWrap={"wrap"}>
                     {coinBox(topGainer.id, "Top Gainer", topGainer.name, topGainer.coins_market_data.priceChangePercentage24h, topGainer.image)}
                     {coinBox(topLoser.id, "Top Loser", topLoser.name, topLoser.coins_market_data.priceChangePercentage24h, topLoser.image)}
                     {coinTotalBox(topLoser.id, "Top Market Cap", topMarketCap.name, topMarketCap.coins_market_data.marketCap, topMarketCap.image)}

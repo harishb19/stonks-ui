@@ -73,6 +73,9 @@ const Sparkline = ({
     }, []);
 
     const options = {
+        animation: {
+            duration: 0
+        },
         maintainAspectRatio: false,
         responsive: true,
         plugins: {
