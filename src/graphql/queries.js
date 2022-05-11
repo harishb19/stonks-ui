@@ -19,13 +19,40 @@ export const LOGIN_USER = gql`
             }
         }
     }
-
-
 `
 
 export const GET_COIN = gql`
     query Coin($coinId: String!) {
         coin(id: $coinId) {
+            id
+            name
+            symbol
+            image
+            coins_market_data {
+                id
+                currentPrice
+                priceChange24h
+                priceChangePercentage24h
+                priceChangePercentage1h
+                priceChangePercentage7d
+                priceChangePercentage30d
+                priceChangePercentage1y
+                high24
+                low24
+                marketCap
+                rank
+                totalActiveCoins
+                totalCoins
+                totalVolume
+                sparkline
+            }
+        }
+    }
+`
+
+export const GET_ALL_COINS = gql`
+    query Coins {
+        coins {
             id
             name
             symbol
