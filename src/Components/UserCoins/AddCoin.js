@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {ADD_USER_COIN} from "../../graphql/queries";
+import {ADD_USER_COIN} from "../../graphql/mutation";
 import {useMutation} from "@apollo/client";
 
 export default function AddCoin({open,setOpen, coinId, userId}) {
