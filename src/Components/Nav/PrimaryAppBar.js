@@ -4,7 +4,6 @@ import {alpha, styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -167,14 +166,15 @@ const PrimaryAppBar = ({onClick, open}) => {
                         navigate("/")
                     }}
             >
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    sx={{display: {xs: 'none', sm: 'block'}}}
-                >
-                    Stonks
-                </Typography>
+                <img src={"/stonks_logo_alt_white.png"} height={60} alt={"stonks"}/>
+                {/*<Typography*/}
+                {/*    variant="h6"*/}
+                {/*    noWrap*/}
+                {/*    component="div"*/}
+                {/*    sx={{display: {xs: 'none', sm: 'block'}}}*/}
+                {/*>*/}
+                {/*    Stonks*/}
+                {/*</Typography>*/}
 
             </Button>
             <Search>

@@ -1,0 +1,57 @@
+.coinImage {
+    width: 50px;
+    height: 50px;
+}
+
+.chart {
+    overflow: hidden;
+}
+
+.chart svg {
+    left: -10px !important;
+    top: 5px !important;
+}
+
+.price {
+    font-size: 2.3em;
+    font-weight: 500;
+    margin: 10px;
+}
+
+.sparkline {
+    mask: linear-gradient(to left, #fff, #fff, transparent);
+}
+
+.marketCap {
+    font-size: 1.2em;
+}
+
+.radialBGDown {
+    background: radial-gradient(circle at 90% 10%, rgba(254, 1, 22, 0.1), black 50%);
+}
+
+.radialBGUp {
+    background: radial-gradient(circle at 90% 10%, rgba(0, 224, 142, 0.1), black 50%);
+}
+
+.frostedHeader {
+    background-color: rgba(50, 50, 50, 0.3);
+    border-bottom: 1px solid rgba(53, 53, 53);
+    /*backdrop-filter: blur(5px);*/
+}
+
+.frostedDiv {
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(53, 53, 53);
+    /*backdrop-filter: blur(5px);*/
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.frostedDivNoPad {
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(53, 53, 53);
+    /*backdrop-filter: blur(5px);*/
+    border-radius: 10px;
+}
+

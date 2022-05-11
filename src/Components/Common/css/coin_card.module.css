@@ -1,0 +1,31 @@
+.content {
+    color: white;
+    background-color: #252731;;
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.coinImage {
+    width: 50px;
+    height: 50px;
+    margin: 15px;
+}
+
+.symbol {
+    color: #808191;
+    font-weight: bold
+}
+
+.price {
+    font-size: 2.3em;
+    font-weight: 500;
+    margin: 10px;
+}
+
+.actionArea {
+    border-radius: 2rem !important;
+    transition: 0.2s;
+}
+
+.actionArea:hover {
+    transform: scale(1.1);
+}
