@@ -5,9 +5,9 @@
 }
 
 .coinImage {
-    width: 50px;
-    height: 50px;
-    margin: 15px;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
 }
 
 .symbol {
@@ -15,17 +15,11 @@
     font-weight: bold
 }
 
-.price {
-    font-size: 2.3em;
-    font-weight: 500;
-    margin: 10px;
-}
 
 .actionArea {
-    border-radius: 2rem !important;
     transition: 0.2s;
 }
 
 .actionArea:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
