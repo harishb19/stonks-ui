@@ -23,13 +23,19 @@ import AnimatedNumberFormat from "../Common/AnimatedNumberFormat";
 import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
 import useScrollBlock from "../../Common/useScrollBlock";
+import AddCoin from "../UserCoins/AddCoin";
+import DeleteCoin from "../UserCoins/DeleteCoin";
+import UpdateCoin from "../UserCoins/UpdateCoin";
+import {useStoreState} from "easy-peasy";
 
 
 const Coin = () => {
     const {id} = useParams()
     const [blockScroll, allowScroll] = useScrollBlock();
-
-
+    const userDetails = useStoreState(state => state.user.userDetails)
+    const [openAdd,setOpenAdd] = useState(false)
+    const [openDelete,setOpenDelete] = useState(false)
+    const [openUpdate,setOpenUpdate] = useState(false)
     const [chartData, setChartData] = useState(null)
     const [chartDuration, setChartDuration] = useState({days: "30", interval: "daily"})
     const [chartType, setChartType] = useState(0)
@@ -165,16 +171,25 @@ const Coin = () => {
                             </Stack>
                         </Stack>
                         <Stack direction={"row"} spacing={3} sx={{marginTop: '20px'}}>
-                            <Button variant="outlined" startIcon={<AddIcon/>} color={"success"}>
+                            <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
+                                setOpenAdd(true)
+                            }}>
                                 Add
                             </Button>
-                            <Button variant="outlined" startIcon={<RemoveIcon/>} color={"error"}>
+                            <AddCoin open={openAdd} setOpen={setOpenAdd} coinId = {coinDetails.id} userId={userDetails.id}/>
+                            <Button variant="outlined" startIcon={<RemoveIcon/>} color={"error"} onClick={() => {
+                                setOpenDelete(true)
+                            }}>
                                 Remove
                             </Button>
-                            <Button variant="outlined" startIcon={<EditIcon/>} color={"secondary"}
+                            <DeleteCoin open={openDelete} setOpen={setOpenDelete} coinId = {coinDetails.id} userId={userDetails.id}/>
+                            <Button variant="outlined" startIcon={<EditIcon/>} color={"secondary"} onClick={() => {
+                                setOpenUpdate(true)
+                            }}
                                     sx={{color: `${Color(pinkColor).lighten(0.35)}`}}>
                                 Edit
                             </Button>
+                            <UpdateCoin open={openUpdate} setOpen={setOpenUpdate} coinId = {coinDetails.id} userId={userDetails.id}/>
                             <IconButton aria-label="fingerprint">
                                 <StarOutlineIcon/>
                             </IconButton>
