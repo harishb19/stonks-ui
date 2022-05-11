@@ -6,7 +6,7 @@ const getDollarNumber = function (num) {
     return x.toFixed(2)
 }
 const getDollarText = function (num) {
-    if (num.toString().length <= 6) return num;
+    if (num.toString().length <= 6) return "";
     let units = ["M", "B", "T", "Q"]
     let unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
     return units[Math.floor(unit / 3) - 2]

@@ -6,13 +6,25 @@ import {
     LinearScale,
     LineElement,
     PointElement,
+    registerables as registerablesJS,
     Title,
-    Tooltip,
+    Tooltip
 } from 'chart.js';
 import React, {useEffect, useRef, useState} from 'react';
 import {Chart} from 'react-chartjs-2'
 import {downColor, neutralColor, pinkColor, upColor} from "../../Common/Colors";
 
+ChartJS.register(...registerablesJS);
+
+ChartJS.register(
+    Filler,
+    Legend,
+    LinearScale,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip
+);
 const Sparkline = ({
                        id,
                        labels,
