@@ -93,3 +93,4 @@ export const GET_CHART = gql`
         }
     }
 `
+
