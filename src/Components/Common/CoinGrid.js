@@ -2,7 +2,6 @@ import {DataGrid, gridClasses} from '@mui/x-data-grid';
 import {styled} from '@mui/material/styles';
 import Sparkline from "./Sparkline";
 import PriceUpDown from "./PriceUpDown";
-import React from "react";
 import {Box, Grid, LinearProgress, Stack, Tooltip, tooltipClasses, Typography} from "@mui/material";
 import {greyColor} from "../../Common/Colors";
 import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
@@ -10,7 +9,8 @@ import {InfoOutlined} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 import AnimatedNumberFormat from "./AnimatedNumberFormat";
 import NotificationActions from "../Notification/NotificationActions";
-
+import {useStoreState} from "easy-peasy";
+import React from "react"
 
 const StyledDataGrid = styled(DataGrid)(({theme}) => ({
     border: 'none', boxShadow: 0, '.MuiDataGrid-cell': {
@@ -49,7 +49,7 @@ const HtmlTooltip = styled(({className, ...props}) => (
     },
 }));
 
-const columns = [
+let columns = [
     {
         field: 'rank',
         headerName: 'Rank',
@@ -288,20 +288,25 @@ const columns = [
         renderCell: (params) => (
             <Sparkline id={params.row.id} data={params.row.coins_market_data.sparkline} decreaseDetail={false}
                        height={"75px"}/>)
-    }, {
-        field: 'notification',
-        headerAlign: 'center',
-        headerName: 'Notification',
-        minWidth: 30,
-        editable: false,
-        filterable: false,
-        sortable: false,
-        renderCell: (params) => (
-            <NotificationActions/>)
     },];
 
 const CoinGrid = ({coins}) => {
+    const userDetails = useStoreState(state => state.user.userDetails)
     let navigate = useNavigate();
+    if (userDetails && userDetails.id) {
+        columns.push({
+            field: 'notification',
+            headerAlign: 'center',
+            headerName: 'Notification',
+            minWidth: 30,
+            editable: false,
+            filterable: false,
+            sortable: false,
+            renderCell: (params) => (
+                <NotificationActions/>)
+        })
+        console.log(columns)
+    }
     return (<Box style={{height: '475px'}}>
         <StyledDataGrid
             rows={coins}
