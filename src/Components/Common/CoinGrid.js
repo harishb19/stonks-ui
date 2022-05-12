@@ -27,7 +27,7 @@ const StyledDataGrid = styled(DataGrid)(({theme}) => ({
     [`& .${gridClasses.row}.transparentRow`]: {
         borderBottom: '1px solid rgba(53, 53, 53)',
         transition: 'all 200ms ease-out',
-        backgroundColor: 'rgba(50, 50, 50, 0.35)',
+        backgroundColor: 'rgba(50, 50, 50, 0.35)', cursor: "pointer",
         '&:hover, &.Mui-hovered': {
             transition: 'all 200ms ease-im',
             backgroundColor: 'rgba(50, 50, 50, 0.55)',
