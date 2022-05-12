@@ -10,7 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -54,6 +53,35 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
         },
     },
 }));
+
+function stringToColor(string) {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+        hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = '#';
+
+    for (i = 0; i < 3; i += 1) {
+        const value = (hash >> (i * 8)) & 0xff;
+        color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return color;
+}
+
+function stringAvatar(name) {
+    return {
+        sx: {
+            bgcolor: stringToColor(name),
+        },
+        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+}
 
 const PrimaryAppBar = ({onClick, open}) => {
     const navigate = useNavigate()
@@ -143,7 +171,7 @@ const PrimaryAppBar = ({onClick, open}) => {
                 aria-haspopup="true"
                 color="inherit"
             >
-                <AccountCircle/>
+                <Avatar {...stringAvatar(`${userDetails.firstName} ${userDetails.lastName}`)} />
             </IconButton>
             <p>Profile</p>
         </MenuItem>
@@ -211,7 +239,7 @@ const PrimaryAppBar = ({onClick, open}) => {
                         onClick={handleProfileMenuOpen}
                         color="inherit"
                     >
-                        <Avatar alt={`${userDetails.firstName} ${userDetails.lastName}`}/>
+                        <Avatar {...stringAvatar(`${userDetails.firstName} ${userDetails.lastName ?? "."}`)} />
 
                     </IconButton>
                 </Box>

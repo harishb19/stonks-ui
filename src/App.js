@@ -22,17 +22,16 @@ import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import PageNotFound from "./Components/Error/PageNotFound";
 import {downColor, upColor} from "./Common/Colors";
+import ProtectedRoutes from "./Components/Auth/ProtectedRoutes";
+import LoginCheck from "./Components/LoginCheck";
 
 const theme = createTheme({
     palette: {
-        mode: 'dark',
-        primary: {
+        mode: 'dark', primary: {
             main: '#1976d2',
-        },
-        success: {
+        }, success: {
             main: upColor
-        },
-        error: {
+        }, error: {
             main: downColor
         }
     },
@@ -94,11 +93,15 @@ function App() {
                                 <NavWrapper>
                                     <Routes>
                                         <Route path="/" element={<Home/>}/>
-                                        <Route path="/wallet" element={<Wallet/>}/>
-                                        <Route path="/profile" element={<Profile/>}/>
+                                        <Route path="/wallet" element={<ProtectedRoutes>
+                                            <Wallet/>
+                                        </ProtectedRoutes>}/>
+                                        <Route path="/profile" element={<ProtectedRoutes>
+                                            <Profile/>
+                                        </ProtectedRoutes>}/>
                                         <Route path="/coins/:id" element={<Coin/>}/>
-                                        <Route path="/auth/login" element={<Login/>}/>
-                                        <Route path="/auth/signup" element={<Signup/>}/>
+                                        <Route path="/auth/login" element={<LoginCheck><Login/></LoginCheck>}/>
+                                        <Route path="/auth/signup" element={<LoginCheck><Signup/></LoginCheck>}/>
                                         <Route path="*" element={<PageNotFound/>}/>
                                     </Routes>
                                 </NavWrapper>

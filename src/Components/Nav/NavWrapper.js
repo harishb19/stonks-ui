@@ -16,7 +16,7 @@ import PrimaryAppBar from "./PrimaryAppBar";
 import {Dashboard, Login, Logout, SsidChart} from "@mui/icons-material";
 import {useStoreState} from "easy-peasy";
 import Toolbar from "@mui/material/Toolbar";
-import {Button, useMediaQuery} from "@mui/material";
+import {Button, Tooltip, useMediaQuery} from "@mui/material";
 import {getAuth, signOut} from "firebase/auth";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -155,14 +155,17 @@ const NormalNav = ({children}) => {
                     }}
                     onClick={handleAuth}
                 >
-                    <ListItemIcon
-                        sx={{
-                            minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
-                        }}
-                    >
-                        {userDetails && userDetails.id ? <Logout/> : <Login/>}
+                    <Tooltip title={userDetails && userDetails.id ? "Logout" : "Login / signup"}>
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                            }}
+                        >
+                            {userDetails && userDetails.id ? <Logout color={"error"}/> : <Login/>}
 
-                    </ListItemIcon>
+                        </ListItemIcon>
+                    </Tooltip>
+
                     <ListItemText primary={userDetails && userDetails.id ? "Logout" : "Login / signup"}
                                   sx={{opacity: open ? 1 : 0}}/>
                 </ListItemButton>
