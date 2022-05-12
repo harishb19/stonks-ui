@@ -51,22 +51,21 @@ const coinTotalBox = (id, title, name, value, image) => <Link to={`/coins/${id}`
     </Box>
 </Link>
 
-const totalBox = (title, value) =>
-    <Box className={homeStyle.frostedBoxNoClick} sx={{margin: "10px"}}>
-        <Typography variant={"subtitle1"} component={"p"} sx={{marginBottom: '5px'}}>
-            {title}
-        </Typography>
-        <AnimatedNumberFormat displayType={'text'}
-                              value={getDollarNumber(value)}
-                              thousandSeparator={true}
-                              decimalScale={2}
-                              prefix="$" decimalSeparator="."
-                              suffix={getDollarText(value)}
-        />
-    </Box>
+const totalBox = (title, value) => <Box className={homeStyle.frostedBoxNoClick} sx={{margin: "10px"}}>
+    <Typography variant={"subtitle1"} component={"p"} sx={{marginBottom: '5px'}}>
+        {title}
+    </Typography>
+    <AnimatedNumberFormat displayType={'text'}
+                          value={getDollarNumber(value)}
+                          thousandSeparator={true}
+                          decimalScale={2}
+                          prefix="$" decimalSeparator="."
+                          suffix={getDollarText(value)}
+    />
+</Box>
 
 const Home = () => {
-    const [coins, setCoins] = useState(null)
+    const [coins, setCoins] = useState([])
     const [topGainer, setTopGainer] = useState(null)
     const [topLoser, setTopLoser] = useState(null)
     const [topMarketCap, setTopMarketCap] = useState(null)
@@ -78,24 +77,51 @@ const Home = () => {
 
     useEffect(() => {
         if (coinData) {
-            setCoins(coinData.coins);
-            let topG = coinData.coins[0], totalMarketCap = 0, totalVol = 0, topL = coinData.coins[0],
-                topM = coinData.coins[0], topV = coinData.coins[0];
-            for (let coin of coinData.coins) {
-                totalMarketCap += coin.coins_market_data.marketCap
-                totalVol += coin.coins_market_data.totalVolume
-                if (coin.coins_market_data.priceChangePercentage24h > topG.coins_market_data.priceChangePercentage24h) {
-                    topG = coin
+            setCoins([...coinData.coins]);
+
+        }
+    }, [coinData])
+    useEffect(() => {
+        if (updateCoinData && updateCoinData.marketData && updateCoinData.marketData.length > 0 && coins !== null && coins.length > 0) {
+            setCoins((cns) =>
+                cns.map(item => {
+                    const updateCoin = updateCoinData.marketData.find(x => x.id === item.id)
+                    if (updateCoin) {
+                        return {
+                            ...item,
+                            coins_market_data: {
+                                ...item.coins_market_data,
+                                ...updateCoin
+                            }
+                        };
+                    }
+                    return item;
+                })
+            )
+            // setCoins((cns) => [...cns, ...updateCoinData.marketData]);
+        }
+    }, [updateCoinData])
+    useEffect(() => {
+        if (coins && coins.length > 0) {
+            let topG = coins[0], totalMarketCap = 0, totalVol = 0, topL = coins[0], topM = coins[0], topV = coins[0];
+            for (let coin of coins) {
+                if (coin.coins_market_data) {
+                    totalMarketCap += coin.coins_market_data.marketCap
+                    totalVol += coin.coins_market_data.totalVolume
+                    if (coin.coins_market_data.priceChangePercentage24h > topG.coins_market_data.priceChangePercentage24h) {
+                        topG = coin
+                    }
+                    if (coin.coins_market_data.priceChangePercentage24h < topL.coins_market_data.priceChangePercentage24h) {
+                        topL = coin
+                    }
+                    if (coin.coins_market_data.marketCap > topM.coins_market_data.marketCap) {
+                        topM = coin
+                    }
+                    if (coin.coins_market_data.totalVolume > topV.coins_market_data.totalVolume) {
+                        topV = coin
+                    }
                 }
-                if (coin.coins_market_data.priceChangePercentage24h < topL.coins_market_data.priceChangePercentage24h) {
-                    topL = coin
-                }
-                if (coin.coins_market_data.marketCap > topM.coins_market_data.marketCap) {
-                    topM = coin
-                }
-                if (coin.coins_market_data.totalVolume > topV.coins_market_data.totalVolume) {
-                    topV = coin
-                }
+
             }
             setTopGainer(topG)
             setTopLoser(topL)
@@ -104,38 +130,12 @@ const Home = () => {
             setTotalMarketCap(totalMarketCap)
             setTotalVolume(totalVol)
         }
-    }, [coinData])
-
-    useEffect(() => {
-        if (updateCoinData && updateCoinData.marketData && coins !== null && coins.length > 0) {
-            setCoins((cns) => {
-                return cns.map(item => {
-                    const updateCoin = updateCoinData.marketData.find(x => x.id === item.id)
-                    if (updateCoin) {
-                        return {
-                            ...item,
-                            coins_market_data: {
-                                ...item.coins_market_data,
-                                currentPrice: updateCoin.currentPrice,
-                                priceChange24h: updateCoin.priceChange24h,
-                                priceChangePercentage24h: updateCoin.priceChangePercentage24h,
-                                high24: updateCoin.high24,
-                                low24: updateCoin.low24,
-                                totalVolume: updateCoin.totalVolume,
-                                sparkline: updateCoin.sparkline
-                            }
-                        };
-                    }
-                    return item;
-                });
-            });
-        }
-    }, [updateCoinData])
+    }, [coins])
 
     if (coinLoading) return <Loading/>
     if (coinError) return <Error message={coinError.message} onClick={refetch}/>
 
-    if (coins) {
+    if (coins && coins.length > 0 && topGainer && topLoser && topMarketCap && topVolume && totalMarketCap && totalVolume) {
         return <div className={homeStyle.radialBG}>
             <Stack direction={"column"} spacing={3} sx={{padding: "30px"}}>
                 <Typography variant={"h4"} component={"p"} textAlign={"center"} marginTop={"20px"}>All
