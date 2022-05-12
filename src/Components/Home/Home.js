@@ -2,7 +2,6 @@ import {useQuery, useSubscription} from "@apollo/client";
 import {GET_ALL_COINS} from "../../graphql/queries";
 import {useEffect, useState} from "react";
 import {Box, Stack, Typography} from "@mui/material";
-import coinStyle from "../Coins/css/coin.module.css"
 import homeStyle from "./css/home.module.css"
 import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import PriceUpDown from "../Common/PriceUpDown";
@@ -63,7 +62,7 @@ const totalBox = (title, value) =>
                               decimalScale={2}
                               prefix="$" decimalSeparator="."
                               suffix={getDollarText(value)}
-                              className={coinStyle.marketCap}/>
+        />
     </Box>
 
 const Home = () => {
@@ -144,8 +143,8 @@ const Home = () => {
                 <Stack direction={{xs: "column", sm: "row"}} sx={{margin: "10px"}} flexWrap={"wrap"}>
                     {coinBox(topGainer.id, "Top Gainer", topGainer.name, topGainer.coins_market_data.priceChangePercentage24h, topGainer.image)}
                     {coinBox(topLoser.id, "Top Loser", topLoser.name, topLoser.coins_market_data.priceChangePercentage24h, topLoser.image)}
-                    {coinTotalBox(topLoser.id, "Top Market Cap", topMarketCap.name, topMarketCap.coins_market_data.marketCap, topMarketCap.image)}
-                    {coinTotalBox(topLoser.id, "Top Volume", topVolume.name, topVolume.coins_market_data.totalVolume, topVolume.image)}
+                    {coinTotalBox(topMarketCap.id, "Top Market Cap", topMarketCap.name, topMarketCap.coins_market_data.marketCap, topMarketCap.image)}
+                    {coinTotalBox(topVolume.id, "Top Volume", topVolume.name, topVolume.coins_market_data.totalVolume, topVolume.image)}
                     {totalBox("Total Market Cap", totalMarketCap)}
                     {totalBox("Total Volume", totalVolume)}
                 </Stack>

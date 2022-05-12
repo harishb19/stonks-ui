@@ -7,7 +7,7 @@ import {Box, Grid, LinearProgress, Stack, Tooltip, tooltipClasses, Typography} f
 import {greyColor} from "../../Common/Colors";
 import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import {InfoOutlined} from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import AnimatedNumberFormat from "./AnimatedNumberFormat";
 
 
@@ -27,7 +27,7 @@ const StyledDataGrid = styled(DataGrid)(({theme}) => ({
     [`& .${gridClasses.row}.transparentRow`]: {
         borderBottom: '1px solid rgba(53, 53, 53)',
         transition: 'all 200ms ease-out',
-        backgroundColor: 'rgba(50, 50, 50, 0.35)',
+        backgroundColor: 'rgba(50, 50, 50, 0.35)', cursor: "pointer",
         '&:hover, &.Mui-hovered': {
             transition: 'all 200ms ease-im',
             backgroundColor: 'rgba(50, 50, 50, 0.55)',
@@ -55,6 +55,7 @@ const columns = [
         editable: false,
         width: 55,
         headerAlign: 'center',
+        type: 'number',
         align: 'center',
         valueGetter: (params) => `${params.row.coins_market_data.rank || ''}`
     },
@@ -85,12 +86,12 @@ const columns = [
         editable: false,
         renderCell: (params) => (<Stack direction={"row"} spacing={1} alignItems={"center"}>
             <AnimatedNumberFormat displayType={'text'}
-                          value={params.row.coins_market_data.currentPrice || 0}
-                          thousandSeparator={true}
-                          prefix="$"
-                          decimalSeparator="."
-                          decimalScale={2}
-                          fixedDecimalScale={true}/>
+                                  value={params.row.coins_market_data.currentPrice || 0}
+                                  thousandSeparator={true}
+                                  prefix="$"
+                                  decimalSeparator="."
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}/>
             <HtmlTooltip
                 title={
                     <React.Fragment>
@@ -150,6 +151,7 @@ const columns = [
         headerName: '% Change',
         description: 'This column has a value getter and is not sortable.',
         editable: false,
+        type: 'number',
         minWidth: 70,
         align: "center",
         renderCell: (params) => (
@@ -164,13 +166,13 @@ const columns = [
         minWidth: 80,
         editable: false,
         renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                               value={getDollarNumber(params.row.coins_market_data.marketCap)}
-                                               thousandSeparator={true}
-                                               decimalSeparator="."
-                                               decimalScale={2}
-                                               fixedDecimalScale={true}
-                                               prefix={"$"}
-                                               suffix={getDollarText(params.row.coins_market_data.marketCap)}/>),
+                                                       value={getDollarNumber(params.row.coins_market_data.marketCap)}
+                                                       thousandSeparator={true}
+                                                       decimalSeparator="."
+                                                       decimalScale={2}
+                                                       fixedDecimalScale={true}
+                                                       prefix={"$"}
+                                                       suffix={getDollarText(params.row.coins_market_data.marketCap)}/>),
         valueGetter: (params) => `${params.row.coins_market_data.marketCap || '0'}`
     }, {
         field: 'volume',
@@ -180,13 +182,13 @@ const columns = [
         minWidth: 110,
         editable: false,
         renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                               value={getDollarNumber(params.row.coins_market_data.totalVolume)}
-                                               thousandSeparator={true}
-                                               decimalSeparator="."
-                                               decimalScale={2}
-                                               fixedDecimalScale={true}
-                                               prefix={"$"}
-                                               suffix={getDollarText(params.row.coins_market_data.totalVolume)}/>),
+                                                       value={getDollarNumber(params.row.coins_market_data.totalVolume)}
+                                                       thousandSeparator={true}
+                                                       decimalSeparator="."
+                                                       decimalScale={2}
+                                                       fixedDecimalScale={true}
+                                                       prefix={"$"}
+                                                       suffix={getDollarText(params.row.coins_market_data.totalVolume)}/>),
         valueGetter: (params) => `${params.row.coins_market_data.totalVolume || '0'}`
     }, {
         field: 'high24',
@@ -196,12 +198,12 @@ const columns = [
         minWidth: 110,
         editable: false,
         renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                               value={params.row.coins_market_data.high24 || 0}
-                                               thousandSeparator={true}
-                                               prefix="$"
-                                               decimalSeparator="."
-                                               decimalScale={2}
-                                               fixedDecimalScale={true}/>),
+                                                       value={params.row.coins_market_data.high24 || 0}
+                                                       thousandSeparator={true}
+                                                       prefix="$"
+                                                       decimalSeparator="."
+                                                       decimalScale={2}
+                                                       fixedDecimalScale={true}/>),
         valueGetter: (params) => `${params.row.coins_market_data.high24 || '0'}`
     }, {
         field: 'low24',
@@ -211,12 +213,12 @@ const columns = [
         minWidth: 110,
         editable: false,
         renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                               value={params.row.coins_market_data.low24 || 0}
-                                               thousandSeparator={true}
-                                               prefix="$"
-                                               decimalSeparator="."
-                                               decimalScale={2}
-                                               fixedDecimalScale={true}/>),
+                                                       value={params.row.coins_market_data.low24 || 0}
+                                                       thousandSeparator={true}
+                                                       prefix="$"
+                                                       decimalSeparator="."
+                                                       decimalScale={2}
+                                                       fixedDecimalScale={true}/>),
         valueGetter: (params) => `${params.row.coins_market_data.low24 || '0'}`
     }, {
         field: 'activeCoins',
@@ -225,6 +227,8 @@ const columns = [
         type: 'number',
         minWidth: 140,
         editable: false,
+        filterable: false,
+        sortable: false,
         renderCell: (params) => {
             let val = 100;
             if (params.row.coins_market_data.totalCoins) {
@@ -287,31 +291,30 @@ const columns = [
     },];
 
 
-
 const CoinGrid = ({coins}) => {
     let navigate = useNavigate();
     return (<Box style={{height: '475px'}}>
-            <StyledDataGrid
-                rows={coins}
-                initialState={{
-                    sorting: {
-                        sortModel: [{field: 'marketCap', sort: 'desc'}],
-                    },
-                }}
-                columns={columns}
-                autoPageSize
-                disableSelectionOnClick={true}
-                rowHeight={75}
-                pageSize={50}
-                disableColumnMenu={true}
-                disableColumnSorting={true}
-                getRowClassName={() =>
-                    'transparentRow'
-                }
-                onRowClick={(params, event) => {
-                    navigate(`/coins/${params.row.id}`);
-                }}
-            />
+        <StyledDataGrid
+            rows={coins}
+            initialState={{
+                sorting: {
+                    sortModel: [{field: 'marketCap', sort: 'desc'}],
+                },
+            }}
+            columns={columns}
+            autoPageSize
+            disableSelectionOnClick={true}
+            rowHeight={75}
+            pageSize={50}
+            disableColumnMenu={true}
+            disableColumnSorting={true}
+            getRowClassName={() =>
+                'transparentRow'
+            }
+            onRowClick={(params, event) => {
+                navigate(`/coins/${params.row.id}`);
+            }}
+        />
     </Box>);
 }
 
