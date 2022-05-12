@@ -1,0 +1,31 @@
+
+.radialBG {
+    background: radial-gradient(circle at 50% 50%, rgba(144, 0, 255, 0.2), black 70%);
+}
+
+.frostedBox {
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(53, 53, 53);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.frostedBoxNoClick {
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(53, 53, 53);
+    /*backdrop-filter: blur(5px);*/
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+.frostedBox:hover {
+    background-color: rgba(50, 50, 50, 0.5);
+    cursor: pointer;
+}
+
+.boxImage {
+    width: 25px;
+    height: 25px;
+}
+
