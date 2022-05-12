@@ -14,7 +14,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import {Avatar, Button} from "@mui/material";
+import {Avatar, Button, useMediaQuery} from "@mui/material";
 import {useStoreState} from "easy-peasy";
 import {useNavigate} from "react-router-dom";
 
@@ -57,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 const PrimaryAppBar = ({onClick, open}) => {
     const navigate = useNavigate()
-
+    const matches = useMediaQuery('(max-width:600px)');
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -165,8 +165,12 @@ const PrimaryAppBar = ({onClick, open}) => {
                     onClick={() => {
                         navigate("/")
                     }}
-            >
-                <img src={"/stonks_logo_alt_white.png"} height={60} alt={"stonks"}/>
+            >{
+                matches ?
+                    <img src={"/stonks-rocket.png"} height={60} alt={"stonks"}/> :
+                    <img src={"/stonks_logo_alt_white.png"} height={60}
+                         alt={"stonks"}/>
+            }
                 {/*<Typography*/}
                 {/*    variant="h6"*/}
                 {/*    noWrap*/}

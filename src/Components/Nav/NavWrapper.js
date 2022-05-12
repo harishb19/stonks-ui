@@ -16,7 +16,7 @@ import PrimaryAppBar from "./PrimaryAppBar";
 import {Dashboard, Login, Logout, SsidChart} from "@mui/icons-material";
 import {useStoreState} from "easy-peasy";
 import Toolbar from "@mui/material/Toolbar";
-import {Button} from "@mui/material";
+import {Button, useMediaQuery} from "@mui/material";
 import {getAuth, signOut} from "firebase/auth";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -176,6 +176,7 @@ const NormalNav = ({children}) => {
 }
 const AuthNav = ({children}) => {
     const navigate = useNavigate()
+    const matches = useMediaQuery('(max-width:600px)');
 
     return (<>
         <AppBar position="fixed">
@@ -194,7 +195,12 @@ const AuthNav = ({children}) => {
                         {/*>*/}
                         {/*    Stonks*/}
                         {/*</Typography>*/}
-                        <img src={"/stonks_logo_alt_white.png"} height={60} alt={"stonks"}/>
+                        {
+                            matches ?
+                                <img src={"/stonks-rocket.png"} height={60} alt={"stonks"}/> :
+                                <img src={"/stonks_logo_alt_white.png"} height={60}
+                                     alt={"stonks"}/>
+                        }
                     </Button>
 
                 </Toolbar>

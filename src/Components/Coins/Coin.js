@@ -43,10 +43,10 @@ const Coin = () => {
     const {data: coinData, loading: coinLoading, error: coinError, refetch} = useQuery(GET_COIN, {
         variables: {coinId: id},
     });
-    const {data: updateCoinData, error: updateCoinDataError} = useSubscription(COIN_SUBSCRIPTION, {
+    const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION, {
         variables: {coinId: id},
     });
-    const {data: chartRawData, loading: chartDataLoading, error: chartDataError} = useQuery(GET_CHART, {
+    const {data: chartRawData} = useQuery(GET_CHART, {
         variables: {coinChartId: id, days: chartDuration.days, interval: chartDuration.interval},
     });
 
@@ -61,12 +61,6 @@ const Coin = () => {
     }
 
     const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
-
-    function getRandom(value) {
-        const min = value * 0.95;
-        const max = value * 1.05;
-        return Math.random() * (max - min) + min;
-    }
 
     const stopScroll = () => {
         blockScroll()
@@ -199,17 +193,16 @@ const Coin = () => {
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <div className={coinStyle.sparkline}>
-
                         {coinDetails.coins_market_data.priceChangePercentage24h >= 0 &&
                             <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
                                        decreaseDetail={false}
-                                       height={120} lineTension={0.3}
+                                       height={200} lineTension={0.3}
                                        neutralUpDown={1}
                                        fill={true}/>}
                         {coinDetails.coins_market_data.priceChangePercentage24h < 0 &&
                             <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
                                        decreaseDetail={false}
-                                       height={120} lineTension={0.3}
+                                       height={200} lineTension={0.3}
                                        neutralUpDown={2}
                                        fill={true}/>}
                     </div>
@@ -371,7 +364,7 @@ const Coin = () => {
                                     }}>
                                         <CircularProgress/>
                                     </div> :
-                                    <ChartClass type={"hybrid"}
+                                    <ChartClass type={"svg"}
                                                 ratio={2}
                                                 data={chartData}
                                                 chartType={chartType}/>}
@@ -385,7 +378,7 @@ const Coin = () => {
     }
     return (
         <div>
-            No coins found
+            Loading Coin Page
         </div>
     )
 }

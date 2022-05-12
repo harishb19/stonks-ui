@@ -11,7 +11,7 @@
 @keyframes animateKeyFrame {
     50.0% {
         color: white;
-        transform: scale(1.02);
+        transform: scale(1.03);
     }
 }
 
