@@ -29,3 +29,6 @@
     height: 25px;
 }
 
+.sort{
+    min-width: 100px !important
+}

@@ -10,6 +10,7 @@ import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import PriceUpDown from "../Common/PriceUpDown";
 import {downColor, upColor} from "../../Common/Colors";
 import UserDonutChart from "./UserDonutChart";
+import walletStyles from "./css/wallet.module.css"
 
 
 const Wallet = ({userCoins}) => {
@@ -17,7 +18,7 @@ const Wallet = ({userCoins}) => {
     const [totalPortfolio, setTotalPortfolio] = useState(0)
     const [totalProfit, setTotalProfit] = useState(0)
     const [totalProfitPer, setTotalProfitPer] = useState(0)
-    const [selected, setSelected] = useState("name")
+    const [selected, setSelected] = useState("")
     const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION, {
         variables: {coinIds: userCoins.map(x => x.coinId)},
     });
@@ -154,7 +155,7 @@ const Wallet = ({userCoins}) => {
             <Box padding={"5% 5% 0% 5%"}>
                 <FormControl>
                     <InputLabel id="demo-simple-select-label">Sort</InputLabel>
-                    <Select
+                    <Select className={walletStyles.sort}
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={selected}
