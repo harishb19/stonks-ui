@@ -13,7 +13,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PrimaryAppBar from "./PrimaryAppBar";
-import {Dashboard, Login, Logout, SsidChart} from "@mui/icons-material";
+import {AccountBalanceWallet, Dashboard, Login, Logout, SsidChart} from "@mui/icons-material";
 import {useStoreState} from "easy-peasy";
 import Toolbar from "@mui/material/Toolbar";
 import {Button, Tooltip, useMediaQuery} from "@mui/material";
@@ -145,6 +145,24 @@ const NormalNav = ({children}) => {
                     </ListItemIcon>
                     <ListItemText primary={"Chart"} sx={{opacity: open ? 1 : 0}}/>
                 </ListItemButton>
+                {userDetails && userDetails.id &&
+                    <ListItemButton
+                        sx={{
+                            minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                        }}
+                        onClick={() => navigate("/wallet")}
+                    > <Tooltip title={"Wallet"}>
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                            }}
+                        >
+                            <AccountBalanceWallet/>
+                        </ListItemIcon>
+                    </Tooltip>
+                        <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
+                    </ListItemButton>
+                }
             </List>
             <Divider/>
             <List sx={{marginTop: "auto",}}>

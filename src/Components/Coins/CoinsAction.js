@@ -1,4 +1,4 @@
-import {Button, Stack} from "@mui/material";
+import {Button, Grid, Stack} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import UserCoinAction from "../UserCoins/AddCoin";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -12,6 +12,7 @@ import {USER_COIN_BY_COIN_ID} from "../../graphql/queries";
 import Error from "../Error/CustomError";
 import {useEffect, useState} from "react";
 import NotificationActions from "../Notification/NotificationActions";
+import UserCoinDetails from "./UserCoinDetails";
 
 const CoinsAction = ({coinDetails}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
@@ -25,7 +26,9 @@ const CoinsAction = ({coinDetails}) => {
 
     useEffect(() => {
         if (!loading && data && data.userCoins && data.userCoins[0]) {
-            setUserCoinData({...data.userCoins[0]})
+            setUserCoinData({
+                ...data.userCoins[0]
+            })
         }
     }, [data, loading, userDetails])
     useEffect(() => {
@@ -41,45 +44,52 @@ const CoinsAction = ({coinDetails}) => {
     if (error) return <Error message={error.message}/>
     if (userDetails && userDetails.id) {
         return (<>
-            <Stack direction={"row"} spacing={3} sx={{marginTop: '20px'}}>
-                {userCoinData && userCoinData.id ?
+            <Grid container direction="row"
+                  justifyContent="space-between"
+                  alignItems="center" padding={" 5px 15px"}>
+                {
+                    userCoinData && userCoinData.quantity &&
+                    <Grid item>
+                        <UserCoinDetails value={userCoinData.quantity * coinDetails.coins_market_data.currentPrice}
+                                         quantity={userCoinData.quantity}
+                                         price={userCoinData.totalPrice}
+                                         profit={(coinDetails.coins_market_data.currentPrice - userCoinData.totalPrice) * userCoinData.quantity}/>
 
-                    <>
-                        <NotificationActions/>
-                        <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
-                            setOpenCoinActionMore(true)
-                        }}>
-                            Add more
-                        </Button>
-                        <Button variant="outlined" startIcon={<EditIcon/>} color={"secondary"} onClick={() => {
-                            setOpenCoinAction(true)
-                        }}
-                                sx={{color: `${Color(pinkColor).lighten(0.35)}`}}>
-                            Edit
-                        </Button>
-                        <Button variant="outlined" startIcon={<RemoveIcon/>} color={"error"} onClick={() => {
-                            setOpenDelete(true)
-                        }}>
-                            Remove
-                        </Button>
-
-
-                    </> :
-                    <>
-                        <NotificationActions/>
-                        <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
-                            setOpenCoinAction(true)
-                        }}>
-                            Add
-                        </Button>
-                    </>}
-
-
-                {/*<IconButton aria-label="fingerprint">*/}
-                {/*    <StarOutlineIcon/>*/}
-                {/*</IconButton>*/}
-
-            </Stack>
+                    </Grid>
+                }
+                <Grid>
+                    <Stack direction={"row"} spacing={3} sx={{marginTop: '20px'}}>
+                        {userCoinData && userCoinData.id ?
+                            <>
+                                <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
+                                    setOpenCoinActionMore(true)
+                                }}>
+                                    Add more
+                                </Button>
+                                <Button variant="outlined" startIcon={<EditIcon/>} color={"secondary"} onClick={() => {
+                                    setOpenCoinAction(true)
+                                }}
+                                        sx={{color: `${Color(pinkColor).lighten(0.35)}`}}>
+                                    Edit
+                                </Button>
+                                <Button variant="outlined" startIcon={<RemoveIcon/>} color={"error"} onClick={() => {
+                                    setOpenDelete(true)
+                                }}>
+                                    Remove
+                                </Button>
+                                <NotificationActions/>
+                            </> :
+                            <>
+                                <NotificationActions/>
+                                <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
+                                    setOpenCoinAction(true)
+                                }}>
+                                    Add
+                                </Button>
+                            </>}
+                    </Stack>
+                </Grid>
+            </Grid>
             <UserCoinAction open={openCoinAction} setOpen={setOpenCoinAction} userCoinData={userCoinData}
                             coinId={coinDetails.id} setUserCoinData={setUserCoinData}/>
             <UserCoinAction open={openCoinActionMore} setOpen={setOpenCoinActionMore} userCoinData={{}}

@@ -101,7 +101,43 @@ export const USER_COIN_BY_COIN_ID = gql`
             quantity
             totalPrice
             userId
+            coinId,
+        }
+    }
+`
+
+export const ALL_USER_COINS = gql`
+    query UserCoins($userId: String!) {
+        userCoins(userId: $userId) {
+            id
+            quantity
+            totalPrice
+            userId
             coinId
+            coins_static {
+                id
+                name
+                symbol
+                image
+                coins_market_data {
+                    id
+                    currentPrice
+                    priceChange24h
+                    priceChangePercentage24h
+                    priceChangePercentage1h
+                    priceChangePercentage7d
+                    priceChangePercentage30d
+                    priceChangePercentage1y
+                    high24
+                    low24
+                    marketCap
+                    rank
+                    totalActiveCoins
+                    totalCoins
+                    totalVolume
+                    sparkline
+                }
+            }
         }
     }
 `
