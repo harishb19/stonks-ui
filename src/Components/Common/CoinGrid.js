@@ -9,6 +9,7 @@ import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import {InfoOutlined} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 import AnimatedNumberFormat from "./AnimatedNumberFormat";
+import NotificationActions from "../Notification/NotificationActions";
 
 
 const StyledDataGrid = styled(DataGrid)(({theme}) => ({
@@ -276,7 +277,6 @@ const columns = [
         },
         valueGetter: (params) => `${params.row.coins_market_data.totalActiveCoins || '0'}`
     },
-
     {
         field: 'sparkline',
         headerAlign: 'center',
@@ -288,8 +288,17 @@ const columns = [
         renderCell: (params) => (
             <Sparkline id={params.row.id} data={params.row.coins_market_data.sparkline} decreaseDetail={false}
                        height={"75px"}/>)
+    }, {
+        field: 'notification',
+        headerAlign: 'center',
+        headerName: 'Notification',
+        minWidth: 30,
+        editable: false,
+        filterable: false,
+        sortable: false,
+        renderCell: (params) => (
+            <NotificationActions/>)
     },];
-
 
 const CoinGrid = ({coins}) => {
     let navigate = useNavigate();

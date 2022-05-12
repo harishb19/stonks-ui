@@ -1,5 +1,5 @@
-import {EditNotifications, NotificationAdd, NotificationsOff} from "@mui/icons-material";
 import {IconButton, Stack} from "@mui/material";
+import {EditNotificationsOutlined,NotificationsOffOutlined,NotificationAddOutlined} from '@mui/icons-material';
 import {useState} from "react";
 
 const NotificationActions = ({coinId}) => {
@@ -7,17 +7,17 @@ const NotificationActions = ({coinId}) => {
 
     return (<>
         {userNotification && userNotification.id ? <>
-            <Stack>
+            <Stack direction={"row"}>
                 <IconButton color="primary" aria-label="edit notification">
-                    <EditNotifications/>
+                    <EditNotificationsOutlined/>
                 </IconButton>
-                <IconButton color="primary" aria-label="delete notification">
-                    <NotificationsOff/>
+                <IconButton color="error" aria-label="delete notification">
+                    <NotificationsOffOutlined/>
                 </IconButton>
             </Stack>
         </> : <>
             <IconButton color="primary" aria-label="add notification">
-                <NotificationAdd/>
+                <NotificationAddOutlined/>
             </IconButton>
         </>}
 

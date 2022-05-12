@@ -11,6 +11,7 @@ import {useLazyQuery} from "@apollo/client";
 import {USER_COIN_BY_COIN_ID} from "../../graphql/queries";
 import Error from "../Error/CustomError";
 import {useEffect, useState} from "react";
+import NotificationActions from "../Notification/NotificationActions";
 
 const CoinsAction = ({coinDetails}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
@@ -44,6 +45,7 @@ const CoinsAction = ({coinDetails}) => {
                 {userCoinData && userCoinData.id ?
 
                     <>
+                        <NotificationActions/>
                         <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
                             setOpenCoinActionMore(true)
                         }}>
@@ -62,11 +64,15 @@ const CoinsAction = ({coinDetails}) => {
                         </Button>
 
 
-                    </> : <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
-                        setOpenCoinAction(true)
-                    }}>
-                        Add
-                    </Button>}
+                    </> :
+                    <>
+                        <NotificationActions/>
+                        <Button variant="outlined" startIcon={<AddIcon/>} color={"success"} onClick={() => {
+                            setOpenCoinAction(true)
+                        }}>
+                            Add
+                        </Button>
+                    </>}
 
 
                 {/*<IconButton aria-label="fingerprint">*/}
