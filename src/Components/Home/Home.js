@@ -76,11 +76,11 @@ const Home = () => {
     const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION);
 
     useEffect(() => {
-        if (coinData) {
+        if (coinData && !coinLoading) {
             setCoins([...coinData.coins]);
 
         }
-    }, [coinData])
+    }, [coinData, coinLoading])
     useEffect(() => {
         if (updateCoinData && updateCoinData.marketData && updateCoinData.marketData.length > 0 && coins !== null && coins.length > 0) {
             setCoins((cns) =>
