@@ -12,7 +12,9 @@ const Error = ({onClick, message}) => {
             <Button
                 type="button"
                 className="outline"
-                onClick={onClick}
+                onClick={onClick ? onClick : () => {
+                    window.location.reload()
+                }}
             >
                 Refresh
             </Button>

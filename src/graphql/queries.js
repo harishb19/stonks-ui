@@ -94,3 +94,14 @@ export const GET_CHART = gql`
     }
 `
 
+export const USER_COIN_BY_COIN_ID = gql`
+    query User($userId: String!, $coinId: String) {
+        userCoins(userId: $userId,coinId: $coinId) {
+            id
+            quantity
+            totalPrice
+            userId
+            coinId
+        }
+    }
+`
