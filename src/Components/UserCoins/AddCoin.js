@@ -46,7 +46,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
         }).then(({data}) => {
             if (data) {
                 setUserCoinData({...data.addUserCoin})
-                toast.success(`Coins added`, {
+                toast.success(`Coin added`, {
                     position: "bottom-right",
                     autoClose: 5000,
                     hideProgressBar: true,

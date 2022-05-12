@@ -2,6 +2,7 @@ import {useSubscription} from "@apollo/client";
 import {useEffect, useState} from "react";
 import {Box, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography} from "@mui/material";
 import homeStyle from "./css/wallet.module.css"
+import walletStyles from "./css/wallet.module.css"
 import {COIN_SUBSCRIPTION} from "../../graphql/subscription";
 import CoinCard from "../Common/CoinCard";
 import coinStyle from '../Coins/css/coin.module.css'
@@ -10,7 +11,7 @@ import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import PriceUpDown from "../Common/PriceUpDown";
 import {downColor, upColor} from "../../Common/Colors";
 import UserDonutChart from "./UserDonutChart";
-import walletStyles from "./css/wallet.module.css"
+import BlankWallet from "./BlankWallet";
 
 
 const Wallet = ({userCoins}) => {
@@ -22,6 +23,24 @@ const Wallet = ({userCoins}) => {
     const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION, {
         variables: {coinIds: userCoins.map(x => x.coinId)},
     });
+
+    const coinCards = () => {
+        if (coins && coins.length > 0) {
+            return coins.slice(0, 6).map(x =>
+                <Grid key={x.id} item xs={12} md={6}>
+                    <CoinCard key={x.coins_static.id} id={x.coins_static.id} image={x.coins_static.image}
+                              name={x.coins_static.name} symbol={x.coins_static.symbol} decreaseDetail={true}
+                              currentPrice={x.coins_static.coins_market_data.currentPrice}
+                              priceChangePercentage24h={x.coins_static.coins_market_data.priceChangePercentage24h}
+                              sparkLine={x.coins_static.coins_market_data.sparkline}
+                              value={x.quantity * x.coins_static.coins_market_data.currentPrice}
+                              quantity={x.quantity}
+                              price={x.totalPrice}
+                              profit={(x.coins_static.coins_market_data.currentPrice - x.totalPrice) * x.quantity}/>
+                </Grid>)
+        }
+        return null
+    }
 
     useEffect(() => {
         if (updateCoinData && updateCoinData.marketData && updateCoinData.marketData.length > 0 && coins !== null && coins.length > 0) {
@@ -80,67 +99,53 @@ const Wallet = ({userCoins}) => {
                 setCoins([...coins].sort((a, b) => a.a.coins_static.name > b.coins_static.name ? 1 : -1))
         }
     }
-
-
-    if (coins) {
-        let coinCards = coins.slice(0, 6).map(x =>
-            <Grid key={x.id} item xs={12} md={6}>
-                <CoinCard key={x.coins_static.id} id={x.coins_static.id} image={x.coins_static.image}
-                          name={x.coins_static.name} symbol={x.coins_static.symbol} decreaseDetail={true}
-                          currentPrice={x.coins_static.coins_market_data.currentPrice}
-                          priceChangePercentage24h={x.coins_static.coins_market_data.priceChangePercentage24h}
-                          sparkLine={x.coins_static.coins_market_data.sparkline}
-                          value={x.quantity * x.coins_static.coins_market_data.currentPrice}
-                          quantity={x.quantity}
-                          price={x.totalPrice}
-                          profit={(x.coins_static.coins_market_data.currentPrice - x.totalPrice) * x.quantity}/>
-            </Grid>)
-        return <div className={homeStyle.radialBG}>
-            <Grid container justifyContent={"space-between"} className={coinStyle.frostedHeader}
-                  sx={{
-                      padding: '15px 0px 15px 30px',
-                  }}>
-                <Grid item flexGrow={1}>
-                    <Stack direction={"row"} sx={{marginTop: "20px"}}
-                           justifyContent={"space-between"}>
-                        <Stack direction={"row"} alignItems={"center"} spacing={5}>
-                            <Stack direction={"column"} alignItems={"start"}>
-                                <Typography variant={"h5"} fontWeight={"500"}
-                                            textAlign={"center"}>
-                                    Total Portfolio
-                                </Typography>
+    return <div className={homeStyle.radialBG} style={{minHeight: "100vh"}}>
+        <Grid container justifyContent={"space-between"} className={coinStyle.frostedHeader}
+              sx={{
+                  padding: '15px 0px 15px 30px',
+              }}>
+            <Grid item flexGrow={1}>
+                <Stack direction={"row"} sx={{marginTop: "20px"}}
+                       justifyContent={"space-between"}>
+                    <Stack direction={"row"} alignItems={"center"} spacing={5}>
+                        <Stack direction={"column"} alignItems={"start"}>
+                            <Typography variant={"h5"} fontWeight={"500"}
+                                        textAlign={"center"}>
+                                Total Portfolio
+                            </Typography>
+                            <AnimatedNumberFormat displayType={'text'}
+                                                  value={getDollarNumber(totalPortfolio)}
+                                                  thousandSeparator={true}
+                                                  fixedDecimalScale={true}
+                                                  decimalScale={2}
+                                                  prefix="$" decimalSeparator="."
+                                                  suffix={getDollarText(totalPortfolio)}
+                                                  style={{fontWeight: "500", fontSize: "2.5em"}}/> </Stack>
+                        <Stack direction={"column"} alignItems={"start"}>
+                            <Typography variant={"h5"} fontWeight={"500"}
+                                        textAlign={"center"}>
+                                {totalProfit > 0 ? "Profit" : "Loss"}
+                            </Typography>
+                            <Stack direction={"row"} spacing={1} alignItems={"baseline"}>
                                 <AnimatedNumberFormat displayType={'text'}
-                                                      value={getDollarNumber(totalPortfolio)}
+                                                      value={getDollarNumber(totalProfit)}
                                                       thousandSeparator={true}
-                                                      fixedDecimalScale={true}
                                                       decimalScale={2}
+                                                      fixedDecimalScale={true}
                                                       prefix="$" decimalSeparator="."
-                                                      suffix={getDollarText(totalPortfolio)}
-                                                      style={{fontWeight: "500", fontSize: "2.5em"}}/> </Stack>
-                            <Stack direction={"column"} alignItems={"start"}>
-                                <Typography variant={"h5"} fontWeight={"500"}
-                                            textAlign={"center"}>
-                                    {totalProfit > 0 ? "Profit" : "Loss"}
-                                </Typography>
-                                <Stack direction={"row"} spacing={1} alignItems={"baseline"}>
-                                    <AnimatedNumberFormat displayType={'text'}
-                                                          value={getDollarNumber(totalProfit)}
-                                                          thousandSeparator={true}
-                                                          decimalScale={2}
-                                                          fixedDecimalScale={true}
-                                                          prefix="$" decimalSeparator="."
-                                                          suffix={getDollarText(totalProfit)}
-                                                          style={{
-                                                              fontWeight: "500",
-                                                              fontSize: "2.5em",
-                                                              color: totalProfit > 0 ? upColor : downColor
-                                                          }}/>
-                                    <PriceUpDown value={totalProfitPer}
-                                                 prefix={""} arrow={false} fontWeight={500} fontSize={"1.5em"}/>
-                                </Stack>
+                                                      suffix={getDollarText(totalProfit)}
+                                                      style={{
+                                                          fontWeight: "500",
+                                                          fontSize: "2.5em",
+                                                          color: totalProfit > 0 ? upColor : downColor
+                                                      }}/>
+                                <PriceUpDown value={totalProfitPer}
+                                             prefix={""} arrow={false} fontWeight={500} fontSize={"1.5em"}/>
                             </Stack>
                         </Stack>
-                        <Stack direction={"column"} alignItems={"center"} spacing={1}>
+                    </Stack>
+                    {
+                        coins && coins.length > 0 ? <Stack direction={"column"} alignItems={"center"} spacing={1}>
                             <Typography variant={"h5"} fontWeight={"500"}
                                         textAlign={"center"}>
                                 Distribution
@@ -148,19 +153,21 @@ const Wallet = ({userCoins}) => {
                             <Box sx={{height: "150px"}}>
                                 <UserDonutChart userCoins={coins}/>
                             </Box>
-                        </Stack>
-                    </Stack>
-                </Grid>
+                        </Stack> : null
+                    }
+                </Stack>
             </Grid>
-            <Box padding={"5% 5% 0% 5%"}>
+        </Grid>
+        {
+            coins && coins.length > 0 ? <Box padding={"5% 5% 0% 5%"}>
                 <FormControl>
                     <InputLabel id="demo-simple-select-label">Sort</InputLabel>
                     <Select className={walletStyles.sort}
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={selected}
-                        label="Sort"
-                        onChange={handleSelectedChange}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={selected}
+                            label="Sort"
+                            onChange={handleSelectedChange}
                     >
                         <MenuItem value={"name"}>Name</MenuItem>
                         <MenuItem value={"profit"}>Profit</MenuItem>
@@ -168,14 +175,15 @@ const Wallet = ({userCoins}) => {
                         <MenuItem value={"quantity"}>Quantity</MenuItem>
                     </Select>
                 </FormControl>
-            </Box>
-            <Grid container spacing={8} padding={"2% 5% 5% 5%"}>
-
+            </Box> : null
+        }
+        {
+            coins && coins.length > 0 ? <Grid container spacing={8} padding={"2% 5% 5% 5%"}>
                 {coinCards}
-            </Grid>
-        </div>
-    }
-    return <div>Home</div>
+            </Grid> : <BlankWallet/>
+        }
+    </div>
+
 }
 
 export default Wallet;

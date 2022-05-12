@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Color from "color";
 import {pinkColor} from "../../Common/Colors";
 import {useStoreState} from "easy-peasy";
-import {useLazyQuery} from "@apollo/client";
+import {useQuery} from "@apollo/client";
 import {USER_COIN_BY_COIN_ID} from "../../graphql/queries";
 import Error from "../Error/CustomError";
 import {useEffect, useState} from "react";
@@ -22,8 +22,12 @@ const CoinsAction = ({coinDetails}) => {
 
     const [openDelete, setOpenDelete] = useState(false)
     const [userCoinData, setUserCoinData] = useState({})
-    const [fetchUserCoin, {data, error, loading}] = useLazyQuery(USER_COIN_BY_COIN_ID)
-
+    // const [fetchUserCoin, {data, error, loading}] = useLazyQuery(USER_COIN_BY_COIN_ID)
+    const {data, loading, error} = useQuery(USER_COIN_BY_COIN_ID, {
+        variables: {
+            coinId: coinDetails.id, userId: userDetails.id
+        },
+    });
     useEffect(() => {
         if (!loading && data && data.userCoins && data.userCoins[0]) {
             setUserCoinData({
@@ -31,15 +35,15 @@ const CoinsAction = ({coinDetails}) => {
             })
         }
     }, [data, loading, userDetails])
-    useEffect(() => {
-        if (userDetails && userDetails.id) {
-            fetchUserCoin({
-                variables: {
-                    coinId: coinDetails.id, userId: userDetails.id
-                }
-            })
-        }
-    }, [coinDetails.id, fetchUserCoin, userDetails])
+    // useEffect(() => {
+    //     if (userDetails && userDetails.id) {
+    //         fetchUserCoin({
+    //             variables: {
+    //                 coinId: coinDetails.id, userId: userDetails.id
+    //             }
+    //         })
+    //     }
+    // }, [coinDetails.id, fetchUserCoin, userDetails])
 
     if (error) return <Error message={error.message}/>
     if (userDetails && userDetails.id) {

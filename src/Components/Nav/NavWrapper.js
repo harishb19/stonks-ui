@@ -13,7 +13,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PrimaryAppBar from "./PrimaryAppBar";
-import {AccountBalanceWallet, Dashboard, Login, Logout, SsidChart} from "@mui/icons-material";
+import {AccountBalanceWallet, AccountCircle, Home, Login, Logout} from "@mui/icons-material";
 import {useStoreState} from "easy-peasy";
 import Toolbar from "@mui/material/Toolbar";
 import {Button, Tooltip, useMediaQuery} from "@mui/material";
@@ -121,32 +121,19 @@ const NormalNav = ({children}) => {
                     sx={{
                         minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                     }}
+                    onClick={() => navigate("/")}
                 >
                     <ListItemIcon
                         sx={{
                             minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
                         }}
                     >
-                        <Dashboard/>
+                        <Home/>
                     </ListItemIcon>
-                    <ListItemText primary={"Dashboard"} sx={{opacity: open ? 1 : 0}}/>
-                </ListItemButton>
-                <ListItemButton
-                    sx={{
-                        minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
-                    }}
-                >
-                    <ListItemIcon
-                        sx={{
-                            minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
-                        }}
-                    >
-                        <SsidChart/>
-                    </ListItemIcon>
-                    <ListItemText primary={"Chart"} sx={{opacity: open ? 1 : 0}}/>
+                    <ListItemText primary={"Home"} sx={{opacity: open ? 1 : 0}}/>
                 </ListItemButton>
                 {userDetails && userDetails.id &&
-                    <ListItemButton
+                    <> <ListItemButton
                         sx={{
                             minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                         }}
@@ -162,6 +149,22 @@ const NormalNav = ({children}) => {
                     </Tooltip>
                         <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
                     </ListItemButton>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                            }}
+                            onClick={() => navigate("/")}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                                }}
+                            >
+                                <AccountCircle/>
+                            </ListItemIcon>
+                            <ListItemText primary={"Profile"} sx={{opacity: open ? 1 : 0}}/>
+                        </ListItemButton>
+                    </>
                 }
             </List>
             <Divider/>
