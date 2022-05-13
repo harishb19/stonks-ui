@@ -20,6 +20,7 @@ const Wallet = ({userCoins}) => {
     const [totalProfit, setTotalProfit] = useState(0)
     const [totalProfitPer, setTotalProfitPer] = useState(0)
     const [selected, setSelected] = useState("")
+
     const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION, {
         variables: {coinIds: userCoins.map(x => x.coinId)},
     });

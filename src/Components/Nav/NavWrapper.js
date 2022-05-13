@@ -133,22 +133,23 @@ const NormalNav = ({children}) => {
                     <ListItemText primary={"Home"} sx={{opacity: open ? 1 : 0}}/>
                 </ListItemButton>
                 {userDetails && userDetails.id &&
-                    <> <ListItemButton
-                        sx={{
-                            minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
-                        }}
-                        onClick={() => navigate("/wallet")}
-                    > <Tooltip title={"Wallet"}>
-                        <ListItemIcon
+                    <>
+                        <ListItemButton
                             sx={{
-                                minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                                minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                             }}
-                        >
-                            <AccountBalanceWallet/>
-                        </ListItemIcon>
-                    </Tooltip>
-                        <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
-                    </ListItemButton>
+                            onClick={() => navigate("/wallet")}
+                        > <Tooltip title={"Wallet"}>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                                }}
+                            >
+                                <AccountBalanceWallet/>
+                            </ListItemIcon>
+                        </Tooltip>
+                            <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
+                        </ListItemButton>
                         <ListItemButton
                             sx={{
                                 minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
