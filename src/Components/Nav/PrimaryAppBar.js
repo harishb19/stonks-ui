@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {alpha, styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,7 +9,6 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -17,6 +16,9 @@ import {Avatar, Button, useMediaQuery} from "@mui/material";
 import {useStoreState} from "easy-peasy";
 import {useNavigate} from "react-router-dom";
 import Color from "color";
+import {useQuery} from "@apollo/client";
+import {GET_ALL_COINS} from "../../graphql/queries";
+import SearchBar from "./SearchBar";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -89,11 +91,18 @@ const PrimaryAppBar = ({onClick, open}) => {
     const matches = useMediaQuery('(max-width:600px)');
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
+    const [coins, setCoins] = useState([])
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const userDetails = useStoreState(state => state.user.userDetails)
+    const {data, loading, error} = useQuery(GET_ALL_COINS)
+
+    useEffect(() => {
+        if (data && data.coins) {
+            setCoins(data.coins)
+        }
+    }, [data, loading])
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -210,15 +219,16 @@ const PrimaryAppBar = ({onClick, open}) => {
                 {/*</Typography>*/}
 
             </Button>
-            <Search>
-                <SearchIconWrapper>
-                    <SearchIcon/>
-                </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{'aria-label': 'search'}}
-                />
-            </Search>
+            {/*<Search>*/}
+            {/*    <SearchIconWrapper>*/}
+            {/*        <SearchIcon/>*/}
+            {/*    </SearchIconWrapper>*/}
+            {/*    <StyledInputBase*/}
+            {/*        placeholder="Search…"*/}
+            {/*        inputProps={{'aria-label': 'search'}}*/}
+            {/*    />*/}
+            {/*</Search>*/}
+            <SearchBar coins={coins}/>
             <Box sx={{flexGrow: 1}}/>
             {userDetails && userDetails.id && <>
                 <Box sx={{display: {xs: 'none', md: 'flex'}}}>
@@ -258,7 +268,6 @@ const PrimaryAppBar = ({onClick, open}) => {
                 </Box>
             </>
             }
-
         </Toolbar>
         {renderMobileMenu}
         {renderMenu}

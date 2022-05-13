@@ -20,6 +20,7 @@ import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
 import useScrollBlock from "../../Common/useScrollBlock";
 import CoinsAction from "./CoinsAction";
+import BlankCoin from "./BlankCoin";
 
 
 const Coin = () => {
@@ -103,7 +104,7 @@ const Coin = () => {
 
     if (coinLoading) return <Loading/>
     if (coinError) return <Error message={coinError.message} onClick={refetch}/>
-    if (coinDetails && coinDetails.id) {
+    if (coinDetails && coinDetails.id && coinDetails.coins_market_data) {
         return <div
             className={coinDetails.coins_market_data.priceChangePercentage24h > 0 ? coinStyle.radialBGUp : coinStyle.radialBGDown}>
             <Box className={coinStyle.frostedHeader}
@@ -151,7 +152,7 @@ const Coin = () => {
                                                sx={{marginTop: "5px"}}>
                                             <AnimatedNumberFormat displayType={'text'}
                                                                   value={coinDetails.coins_market_data.currentPrice}
-                                                                  thousandSeparator={true} decimalScale={5}
+                                                                  thousandSeparator={true} decimalScale={2}
                                                                   fixedDecimal={true}
                                                                   prefix="$" decimalSeparator="."
                                                                   className={coinStyle.price}/>
@@ -352,9 +353,7 @@ const Coin = () => {
         </div>
     }
     return (
-        <div>
-            Loading Coin Page
-        </div>
+        <BlankCoin coinId={id}/>
     )
 }
 

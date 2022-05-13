@@ -179,7 +179,7 @@ const Wallet = ({userCoins}) => {
         }
         {
             coins && coins.length > 0 ? <Grid container spacing={8} padding={"2% 5% 5% 5%"}>
-                {coinCards}
+                {coinCards()}
             </Grid> : <BlankWallet/>
         }
     </div>
