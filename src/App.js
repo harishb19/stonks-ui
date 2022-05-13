@@ -15,7 +15,6 @@ import ErrorBoundary from "./Components/Error/ErrorBoundary";
 import AuthProvider from "./Components/Auth/AuthProvider";
 import NavWrapper from "./Components/Nav/NavWrapper";
 import Home from "./Components/Home/Home";
-import Wallet from "./Components/Wallet/Wallet";
 import Profile from "./Components/Profile/Profile";
 import Coin from "./Components/Coins/Coin";
 import Login from "./Components/Auth/Login";
@@ -24,6 +23,7 @@ import PageNotFound from "./Components/Error/PageNotFound";
 import {downColor, upColor} from "./Common/Colors";
 import ProtectedRoutes from "./Components/Auth/ProtectedRoutes";
 import LoginCheck from "./Components/LoginCheck";
+import WalletFetchUser from "./Components/Wallet/WalletFetchUser";
 
 const theme = createTheme({
     palette: {
@@ -94,7 +94,7 @@ function App() {
                                     <Routes>
                                         <Route path="/" element={<Home/>}/>
                                         <Route path="/wallet" element={<ProtectedRoutes>
-                                            <Wallet/>
+                                            <WalletFetchUser/>
                                         </ProtectedRoutes>}/>
                                         <Route path="/profile" element={<ProtectedRoutes>
                                             <Profile/>

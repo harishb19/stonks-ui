@@ -7,11 +7,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import Color from "color";
 import {greyColor, pinkColor} from "../../Common/Colors";
 import {useStoreState} from "easy-peasy";
-import {useLazyQuery} from "@apollo/client";
 import {USER_COIN_BY_COIN_ID} from "../../graphql/queries";
 import Error from "../Error/CustomError";
 import {useEffect, useState} from "react";
 import NotificationActions from "../Notification/NotificationActions";
+import UserCoinDetails from "./UserCoinDetails";
+import {useLazyQuery} from "@apollo/client";
 
 const CoinsAction = ({coinDetails}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
@@ -25,20 +26,15 @@ const CoinsAction = ({coinDetails}) => {
         fetchPolicy: "network-only"
     })
 
+
     useEffect(() => {
         if (!loading && data && data.userCoins && data.userCoins[0]) {
-            setUserCoinData({...data.userCoins[0]})
-        }
-    }, [data, loading, userDetails])
-    useEffect(() => {
-        if (userDetails && userDetails.id) {
-            fetchUserCoin({
-                variables: {
-                    coinId: coinDetails.id, userId: userDetails.id
-                }
+            setUserCoinData({
+                ...data.userCoins[0]
             })
         }
     }, [coinDetails, fetchUserCoin, userDetails])
+
 
     if (error) return <Error message={error.message}/>
     if (userDetails && userDetails.id) {
@@ -97,18 +93,22 @@ const CoinsAction = ({coinDetails}) => {
             </Stack>
             {userCoinData && userCoinData.id ?
                 <Stack direction={"row"} alignItems={"baseline"} spacing={1} sx={{marginTop: "1em"}}>
-                    <Typography component={"p"} fontWeight={"500"} lineHeight={1}>
-                        Quantity :
-                    </Typography>
-                    <Typography component={"p"} color={greyColor}>
-                        {userCoinData && userCoinData.quantity ? userCoinData.quantity : 0}
-                    </Typography>
-                    <Typography component={"p"} fontWeight={"500"} lineHeight={1}>
-                        Price :
-                    </Typography>
-                    <Typography component={"p"} color={greyColor}>
-                        {userCoinData && userCoinData.totalPrice ? `$${userCoinData.totalPrice}` : `$0`}
-                    </Typography>
+                    <UserCoinDetails value={userCoinData.quantity * coinDetails.coins_market_data.currentPrice}
+                                     quantity={userCoinData.quantity}
+                                     price={userCoinData.totalPrice}
+                                     profit={(coinDetails.coins_market_data.currentPrice - userCoinData.totalPrice) * userCoinData.quantity}/>
+                    {/*<Typography component={"p"} fontWeight={"500"} lineHeight={1}>*/}
+                    {/*    Quantity :*/}
+                    {/*</Typography>*/}
+                    {/*<Typography component={"p"} color={greyColor}>*/}
+                    {/*    {userCoinData && userCoinData.quantity ? userCoinData.quantity : 0}*/}
+                    {/*</Typography>*/}
+                    {/*<Typography component={"p"} fontWeight={"500"} lineHeight={1}>*/}
+                    {/*    Price :*/}
+                    {/*</Typography>*/}
+                    {/*<Typography component={"p"} color={greyColor}>*/}
+                    {/*    {userCoinData && userCoinData.totalPrice ? `$${userCoinData.totalPrice}` : `$0`}*/}
+                    {/*</Typography>*/}
                 </Stack> :
                 <Typography component={"p"} color={greyColor}>
                     No holdings

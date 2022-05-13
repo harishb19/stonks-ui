@@ -16,6 +16,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import {Avatar, Button, useMediaQuery} from "@mui/material";
 import {useStoreState} from "easy-peasy";
 import {useNavigate} from "react-router-dom";
+import Color from "color";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -70,14 +71,14 @@ function stringToColor(string) {
         color += `00${value.toString(16)}`.slice(-2);
     }
     /* eslint-enable no-bitwise */
-
     return color;
 }
 
 function stringAvatar(name) {
     return {
         sx: {
-            bgcolor: stringToColor(name),
+            backgroundColor: stringToColor(name),
+            color: Color(stringToColor(name)).isLight() ? "black" : "white"
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
@@ -157,7 +158,7 @@ const PrimaryAppBar = ({onClick, open}) => {
                 aria-label="show 17 new notifications"
                 color="inherit"
             >
-                <Badge badgeContent={17} color="error">
+                <Badge badgeContent={17} color="primary">
                     <NotificationsIcon/>
                 </Badge>
             </IconButton>
@@ -226,7 +227,7 @@ const PrimaryAppBar = ({onClick, open}) => {
                         aria-label="show 17 new notifications"
                         color="inherit"
                     >
-                        <Badge badgeContent={17} color="error">
+                        <Badge badgeContent={17} color="primary">
                             <NotificationsIcon/>
                         </Badge>
                     </IconButton>
