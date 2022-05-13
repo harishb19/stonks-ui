@@ -105,3 +105,25 @@ export const USER_COIN_BY_COIN_ID = gql`
         }
     }
 `
+
+export const USER_COIN_NOTIFICATION = gql`
+    query userCoinNotification($coinId: String, $userId: String!) {
+        notifications(coinId: $coinId, userId: $userId) {
+            id
+            userId
+            coinId
+            topic
+            condition {
+                gt
+                lt
+                eq
+            }
+            isActive
+            coin {
+                id
+                name
+            }
+        }
+    }
+
+`

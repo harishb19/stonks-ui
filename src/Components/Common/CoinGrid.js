@@ -300,6 +300,7 @@ const CoinGrid = ({coins}) => {
                 sorting: {
                     sortModel: [{field: 'marketCap', sort: 'desc'}],
                 },
+                pinnedColumns: {left: ['rank'], right: ['notification']}
             }}
             columns={columns}
             autoPageSize

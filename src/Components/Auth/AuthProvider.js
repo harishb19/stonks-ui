@@ -6,17 +6,27 @@ import {useMutation} from "@apollo/client";
 import {useStoreActions} from "easy-peasy";
 import Loading from "../Loading/Loading";
 import {firebaseConfig} from "../../config/firebase";
-
+import NotificationProvider from "../Notification/NotificationProvider";
+import {getMessaging, isSupported} from 'firebase/messaging/sw'
 
 const AuthUserProvider = ({children}) => {
     const [processing, setProcessing] = useState(true)
     const [fetchUser] = useMutation(LOGIN_USER)
-
+    const [messaging, setMessaging] = useState(null)
     const setUserDetails = useStoreActions(actions => actions.user.setUserDetails)
     useEffect(() => {
         const firebaseInit = initializeApp(firebaseConfig)
 
         if (firebaseInit) {
+            isSupported().then(() => {
+                let localMessaging = getMessaging(firebaseInit)
+                setMessaging(localMessaging)
+            }).catch((e) => {
+                console.log(e)
+                setMessaging(null)
+            })
+
+
             const auth = getAuth(firebaseInit)
             let unsubscribe = auth.onAuthStateChanged((user) => {
                 if (user) {
@@ -62,7 +72,9 @@ const AuthUserProvider = ({children}) => {
 
 
     if (processing) return <Loading/>;
-    return children
+    return (<>
+        <NotificationProvider messaging={messaging}/>
+        {children}</>)
 }
 
 export default AuthUserProvider
