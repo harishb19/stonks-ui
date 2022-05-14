@@ -7,9 +7,10 @@ import {useStoreActions} from "easy-peasy";
 import Loading from "../Loading/Loading";
 import {firebaseConfig} from "../../config/firebase";
 import NotificationProvider from "../Notification/NotificationProvider";
-import {getMessaging, isSupported} from 'firebase/messaging/sw'
+import {getMessaging, isSupported} from 'firebase/messaging'
 
 const AuthUserProvider = ({children}) => {
+
     const [processing, setProcessing] = useState(true)
     const [fetchUser] = useMutation(LOGIN_USER)
     const [messaging, setMessaging] = useState(null)

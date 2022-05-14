@@ -6,6 +6,7 @@ import {useStoreState} from "easy-peasy";
 import {USER_COIN_NOTIFICATION} from "../../graphql/queries";
 import AddUpdateNotification from "./AddUpdateNotification";
 import Error from "../Error/CustomError";
+import CoinNotification from "./CoinNotification";
 
 const NotificationActions = ({coinId}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
@@ -69,7 +70,9 @@ const NotificationActions = ({coinId}) => {
         <AddUpdateNotification coinId={coinId} open={openAddUpdate} setOpen={setOpenAddUpdate}
                                setUserNotification={setUserNotification}
                                userNotification={userNotification}/>
-
+        <CoinNotification open={openNotificationList} setOpen={setOpenNotificationList}
+                          setUserNotification={setUserNotification} coinId={coinId}
+                          userNotification={userNotification}/>
 
     </>)
 }

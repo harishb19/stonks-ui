@@ -163,3 +163,20 @@ export const USER_COIN_NOTIFICATION = gql`
     }
 
 `
+export const GET_NOTIFICATION_LOGS = gql`
+    query NotificationLogs($userId: String!) {
+        notificationLogs(userId: $userId) {
+            id
+            notificationId
+            topic
+            data {
+                coinId
+                coinIcon
+            }
+            notification {
+                title
+                body
+            }
+            createdAt
+        }
+    }`

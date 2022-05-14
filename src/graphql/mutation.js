@@ -99,3 +99,12 @@ export const GET_TOPICS = gql`
         subscribeToTopic(userId: $userId, token: $token, topics: $topics)
     }
 `
+
+export const DELETE_NOTIFICATIONS = gql`
+    mutation Mutation($id: String!, $userId: String!) {
+        deleteNotification(id: $id, userId: $userId) {
+            id
+            isActive
+        }
+    }
+`
