@@ -15,6 +15,9 @@ const AuthUserProvider = ({children}) => {
     const [fetchUser] = useMutation(LOGIN_USER)
     const [messaging, setMessaging] = useState(null)
     const setUserDetails = useStoreActions(actions => actions.user.setUserDetails)
+    const setIsPasswordProvider = useStoreActions(actions => actions.user.setIsPasswordProvider)
+    const setUserImage = useStoreActions(actions => actions.user.setUserImage)
+
     useEffect(() => {
         const firebaseInit = initializeApp(firebaseConfig)
 
@@ -31,6 +34,14 @@ const AuthUserProvider = ({children}) => {
             const auth = getAuth(firebaseInit)
             let unsubscribe = auth.onAuthStateChanged((user) => {
                 if (user) {
+                    if (user && user.photoURL) {
+                        setUserImage(user.photoURL)
+                    }
+                    if (user && user.providerData) {
+                        const isPassword = user.providerData.find(provider => provider.providerId === "password")
+                        console.log(!!isPassword)
+                        setIsPasswordProvider(!!isPassword)
+                    }
                     user.getIdTokenResult(true) // 1
                         .then((idTokenResult) => {
                             console.log(idTokenResult.token)

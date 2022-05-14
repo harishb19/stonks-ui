@@ -40,13 +40,12 @@ const Login = () => {
 export default Login
 
 
-
-
-
 const LoginContainer = ({setIsForgotPassword}) => {
     const navigate = useNavigate()
     const auth = getAuth();
+
     const handleUserCheck = (user) => {
+
         user.getIdTokenResult(true) // 1
             .then((idTokenResult) => {
                 if (!("stonks" in idTokenResult.claims) || idTokenResult.claims.stonks === null) {
@@ -122,13 +121,13 @@ const LoginContainer = ({setIsForgotPassword}) => {
     return (
         <Box justifyContent='center' display='flex' alignItems='center' className={loginStyle.div}>
             {/*<Paper className={loginStyle.paper}>*/}
-                <div  className={loginStyle.paper}>
-            <div className={loginStyle.titleContainer}>
-                <Typography variant={"h5"} component={"div"} className={loginStyle.titleText}>
-                    <b>Sign In</b>
-                </Typography>
-            </div>
-            {/*<div>*/}
+            <div className={loginStyle.paper}>
+                <div className={loginStyle.titleContainer}>
+                    <Typography variant={"h5"} component={"div"} className={loginStyle.titleText}>
+                        <b>Sign In</b>
+                    </Typography>
+                </div>
+                {/*<div>*/}
                 <Formik
                     initialValues={{email: "", password: ""}}
                     onSubmit={(values, {setSubmitting, setFieldError}) => {
@@ -161,9 +160,10 @@ const LoginContainer = ({setIsForgotPassword}) => {
                                         <InputLabel htmlFor="email">Email</InputLabel>
                                         <TextField
                                             multiline
-                                            type = "email"
+                                            type="email"
                                             id="email"
                                             name="email"
+                                            error={(errors.email && touched.email)}
                                             // label="Email"
                                             value={values.email}
                                             onChange={handleChange}
@@ -191,6 +191,7 @@ const LoginContainer = ({setIsForgotPassword}) => {
                                             id="password"
                                             name="password"
                                             // label="Password"
+                                            error={(errors.password && touched.password)}
                                             type="password"
                                             value={values.password}
                                             onChange={handleChange}
@@ -232,28 +233,28 @@ const LoginContainer = ({setIsForgotPassword}) => {
 
                 </Formik>
 
-                        <Typography className={`${loginStyle.smalltext} ${loginStyle.minilink}`}
-                                    onClick={() => {
-                                                       setIsForgotPassword(true)
-                                                }}>
-                        Forgot your password?</Typography>
-                                    <Typography className={loginStyle.smalltext}>
-                                        or continue with
-                                    </Typography>
-                                        <div>
-                                            <IconButton
-                                                className={loginStyle.avatar}
-                                                aria-label="google signin"
-                                                color="primary"
-                                                onClick={handleSignInWithGoogle}
-                                            >
-                                                <Google />
-                                            </IconButton>
-                                        </div>
-                                    <Typography className={loginStyle.smalltext}>
-                                        No Account? <a className={loginStyle.minilink} href={'/auth/signup'}>Signup</a>
-                                    </Typography>
+                <Typography className={`${loginStyle.smalltext} ${loginStyle.minilink}`}
+                            onClick={() => {
+                                setIsForgotPassword(true)
+                            }}>
+                    Forgot your password?</Typography>
+                <Typography className={loginStyle.smalltext}>
+                    or continue with
+                </Typography>
+                <div>
+                    <IconButton
+                        className={loginStyle.avatar}
+                        aria-label="google signin"
+                        color="primary"
+                        onClick={handleSignInWithGoogle}
+                    >
+                        <Google/>
+                    </IconButton>
                 </div>
+                <Typography className={loginStyle.smalltext}>
+                    No Account? <a className={loginStyle.minilink} href={'/auth/signup'}>Signup</a>
+                </Typography>
+            </div>
         </Box>
     )
 }
@@ -314,10 +315,11 @@ const ForgotContainer = ({setIsForgotPassword}) => {
                                         <InputLabel htmlFor="email">Email</InputLabel>
                                         <TextField
                                             multiline
-                                            type = "email"
+                                            type="email"
                                             id="email"
                                             name="email"
                                             // label="Email"
+                                            error={(errors.email && touched.email)}
                                             value={values.email}
                                             onChange={handleChange}
                                             variant={"outlined"}

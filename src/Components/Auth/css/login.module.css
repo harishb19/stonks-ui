@@ -393,6 +393,13 @@
     letter-spacing: 3px;
 }
 
+.button:disabled {
+    border: 1px rgba(111, 94, 212, 0.58) solid !important;
+    color: rgba(255, 255, 255, 0.53) !important;
+    background-color: transparent !important;
+    /*opacity: .8 !important;*/
+}
+
 .buttonsignup:disabled {
     margin-left: 70px;
 }

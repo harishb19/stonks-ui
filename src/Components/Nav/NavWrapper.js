@@ -12,7 +12,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PrimaryAppBar from "./PrimaryAppBar";
+import PrimaryAppBar, {NotificationBadge, UserProfile} from "./PrimaryAppBar";
 import {AccountBalanceWallet, AccountCircle, Home, Login, Logout, Settings} from "@mui/icons-material";
 import {useStoreState} from "easy-peasy";
 import Toolbar from "@mui/material/Toolbar";
@@ -71,6 +71,7 @@ const NormalNav = ({children}) => {
     const [open, setOpen] = useState(false);
     const userDetails = useStoreState(state => state.user.userDetails)
     const [openSettings, setOpenSettings] = useState(false)
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const handleDrawer = () => {
         setOpen((val) => !val);
@@ -135,41 +136,43 @@ const NormalNav = ({children}) => {
                     </ListItemIcon>
                     <ListItemText primary={"Home"} sx={{opacity: open ? 1 : 0}}/>
                 </ListItemButton>
-                {userDetails && userDetails.id &&
-                    <>
-                        <ListItemButton
+                {userDetails && userDetails.id && <>
+                    <ListItemButton
+                        sx={{
+                            minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                        }}
+                        onClick={() => navigate("/wallet")}
+                    > <Tooltip title={"Wallet"}>
+                        <ListItemIcon
                             sx={{
-                                minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                                minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
                             }}
-                            onClick={() => navigate("/wallet")}
-                        > <Tooltip title={"Wallet"}>
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
-                                }}
-                            >
-                                <AccountBalanceWallet/>
-                            </ListItemIcon>
-                        </Tooltip>
-                            <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
-                            }}
-                            onClick={() => navigate("/profile")}
                         >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
-                                }}
-                            >
-                                <AccountCircle/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Profile"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </>
-                }
+                            <AccountBalanceWallet/>
+                        </ListItemIcon>
+                    </Tooltip>
+                        <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
+                    </ListItemButton>
+
+                    <ListItemButton
+                        sx={{
+                            minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                        }}
+                        onClick={() => navigate("/profile")}
+                    >
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                            }}
+                        >
+                            {isMobile ? <UserProfile/> : <AccountCircle/>}
+
+                        </ListItemIcon>
+                        <ListItemText primary={"Profile"} sx={{opacity: open ? 1 : 0}}/>
+                    </ListItemButton>
+
+                    <NotificationBadge sideMenu={true} open={open}/>
+                </>}
                 <ListItemButton
                     sx={{
                         minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
@@ -231,12 +234,9 @@ const AuthNav = ({children}) => {
                                 navigate("/")
                             }}
                     >
-                        {
-                            matches ?
-                                <img src={"/stonks-rocket.png"} height={60} alt={"stonks"}/> :
-                                <img src={"/stonks_logo_alt_white.png"} height={60}
-                                     alt={"stonks"}/>
-                        }
+                        {matches ? <img src={"/stonks-rocket.png"} height={60} alt={"stonks"}/> :
+                            <img src={"/stonks_logo_alt_white.png"} height={60}
+                                 alt={"stonks"}/>}
                     </Button>
 
                 </Toolbar>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {Avatar, Box, Button, Grid, InputAdornment, InputLabel, Paper, TextField, Typography} from "@mui/material";
+import {Box, Button, Divider, Grid, InputAdornment, InputLabel, Paper, TextField, Typography} from "@mui/material";
 import {Formik} from 'formik';
-import {AccountCircle, Badge, Email, LocalPhone} from '@mui/icons-material'
+import {Badge, Email, LocalPhone} from '@mui/icons-material'
 import "yup-phone";
 import * as Yup from 'yup';
 import {UPDATE_USER} from "../../graphql/mutation";
@@ -11,13 +11,13 @@ import {toast} from "react-toastify";
 import Password from "./Password";
 import loginStyle from "../Auth/css/login.module.css";
 import userStyle from "./css/profile.module.css";
+import {UserProfile} from "../Nav/PrimaryAppBar";
 
 export default function Profile() {
     const [updatePassword, setUpdatePassword] = useState(false)
     const userDetails = useStoreState(state => state.user.userDetails)
-    console.log(userDetails)
+    const isPasswordProvider = useStoreState(state => state.user.isPasswordProvider)
     const setUserDetails = useStoreActions(actions => actions.user.setUserDetails)
-    console.log(userDetails)
     const [initialValues, setInitialValues] = useState({})
     const [updateUserFunc] = useMutation(UPDATE_USER);
     const validationSchema = Yup.object({
@@ -80,13 +80,11 @@ export default function Profile() {
         })
     }, [userDetails])
 
-    return (
-        <Box justifyContent='center' display='flex' alignItems='center' className={userStyle.mainDiv}>
+    return (<Box justifyContent='center' display='flex' alignItems='center' className={userStyle.mainDiv}>
             <Paper elevation={2} className={`${userStyle.root}`}>
-                <Box justifyContent='center' display='flex' alignItems='center'>
-                    <Avatar className={userStyle.avatar}>
-                        <AccountCircle className={userStyle.avatarImage}/>
-                    </Avatar>
+                <Box justifyContent='center' display='flex' alignItems='center'
+                     sx={{height: "69px", marginBottom: "2em"}}>
+                    <UserProfile sx={{width: 69, height: 69}}/>
                 </Box>
                 <Box justifyContent='center' display='flex' alignItems='center' className={userStyle.div}>
                     <Formik
@@ -123,22 +121,19 @@ export default function Profile() {
                                                     id={"firstName"}
                                                     value={values.firstName}
                                                     onChange={handleChange}
+                                                    error={(errors.firstName && touched.firstName)}
                                                     onBlur={handleBlur}
                                                     variant={"outlined"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
-                                                        startAdornment: (
-                                                            <InputAdornment position="start">
-                                                                <Badge/>
-                                                            </InputAdornment>
-                                                        ),
+                                                        startAdornment: (<InputAdornment position="start">
+                                                            <Badge/>
+                                                        </InputAdornment>),
                                                     }}
                                                 />
                                                 <p className={`${loginStyle.error}`}>
-                                                    {
-                                                        (errors.firstName && touched.firstName) && errors.firstName
-                                                    }
+                                                    {(errors.firstName && touched.firstName) && errors.firstName}
                                                 </p>
 
                                             </Grid>
@@ -153,21 +148,18 @@ export default function Profile() {
                                                     value={values.lastName}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
+                                                    error={(errors.lastName && touched.lastName)}
                                                     variant={"outlined"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
-                                                        startAdornment: (
-                                                            <InputAdornment position="start">
-                                                                <Badge/>
-                                                            </InputAdornment>
-                                                        ),
+                                                        startAdornment: (<InputAdornment position="start">
+                                                            <Badge/>
+                                                        </InputAdornment>),
                                                     }}
                                                 />
                                                 <p className={`${loginStyle.error}`}>
-                                                    {
-                                                        (errors.lastName && touched.lastName) && errors.lastName
-                                                    }
+                                                    {(errors.lastName && touched.lastName) && errors.lastName}
                                                 </p>
 
                                             </Grid>
@@ -180,24 +172,22 @@ export default function Profile() {
                                                     id="email"
                                                     name="email"
                                                     // label="Email"
+                                                    error={(errors.email && touched.email)}
                                                     value={values.email}
                                                     onChange={handleChange}
                                                     variant={"outlined"}
                                                     fullWidth
                                                     onBlur={handleBlur}
                                                     className={loginStyle.inputbox}
+                                                    helperText={"Cannot change email"}
                                                     InputProps={{
-                                                        startAdornment: (
-                                                            <InputAdornment position="start">
-                                                                <Email/>
-                                                            </InputAdornment>
-                                                        ),
+                                                        startAdornment: (<InputAdornment position="start">
+                                                            <Email/>
+                                                        </InputAdornment>),
                                                     }}
                                                 />
                                                 <p className={`${loginStyle.error}`}>
-                                                    {
-                                                        (errors.email && touched.email) && errors.email
-                                                    }
+                                                    {(errors.email && touched.email) && errors.email}
                                                 </p>
 
 
@@ -210,23 +200,20 @@ export default function Profile() {
                                                     name={"phoneNumber"}
                                                     value={values.phoneNumber}
                                                     // label="Phone Number"
+                                                    error={(errors.phoneNumber && touched.phoneNumber)}
                                                     onChange={handleChange}
                                                     variant={"outlined"}
                                                     fullWidth
                                                     onBlur={handleBlur}
                                                     className={loginStyle.inputbox}
                                                     InputProps={{
-                                                        startAdornment: (
-                                                            <InputAdornment position="start">
-                                                                <LocalPhone/>
-                                                            </InputAdornment>
-                                                        ),
+                                                        startAdornment: (<InputAdornment position="start">
+                                                            <LocalPhone/>
+                                                        </InputAdornment>),
                                                     }}
                                                 />
                                                 <p className={`${loginStyle.error}`}>
-                                                    {
-                                                        (errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber
-                                                    }
+                                                    {(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber}
                                                 </p>
 
                                             </Grid>
@@ -241,27 +228,30 @@ export default function Profile() {
                                                 </Button>
                                                 {/*</div>*/}
                                             </Grid>
-                                            <Grid item xs={12} md={12} lg={12}>
-                                                {updatePassword ?
-                                                    <Password setUpdatePassword={setUpdatePassword}/>
-                                                    :
-                                                    <Grid item xs={12} alignItems="center">
-                                                        <Typography
-                                                            className={`${loginStyle.smalltext} ${loginStyle.minilink}`}
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                setUpdatePassword(true)
-                                                            }}>
-                                                            Update Password</Typography>
 
-                                                    </Grid>}
-                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </form>)
                         }}
                     </Formik>
                 </Box>
+
+                {isPasswordProvider && <Grid container sx={{marginTop: "1em"}} spacing={3}>
+                    <Grid item xs={12}>
+                        <Divider/>
+                    </Grid>
+                    <Grid item xs={12}/>
+                    <Grid item xs={12}>
+                        <Typography variant={"h6"} component={"div"}>
+                            Change password
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} md={12} lg={12}>
+                        <Password setUpdatePassword={setUpdatePassword}/>
+                    </Grid></Grid>
+                }
+
+
             </Paper>
         </Box>
 
