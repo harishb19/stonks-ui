@@ -20,7 +20,6 @@ const WalletFetchUser = () => {
 
     useEffect(() => {
         if (userDetails && userDetails.id) {
-            console.log('fired')
             fetchUserCoins({
                 variables: {
                     userId: userDetails.id
@@ -31,14 +30,12 @@ const WalletFetchUser = () => {
 
     useEffect(() => {
         if (!loading && data && data.userCoins) {
-            console.log(data)
             setUserCoinData(data.userCoins)
         }
     }, [data, loading, userDetails])
 
     if (loading) return <Loading/>
     if (error) return <Error message={error.message} onClick={refetch}/>
-    console.log(userCoinData)
     if (userCoinData && userCoinData.length > 0) {
         return <Wallet userCoins={userCoinData}/>
     }

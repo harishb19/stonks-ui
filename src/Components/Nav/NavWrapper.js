@@ -13,13 +13,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PrimaryAppBar from "./PrimaryAppBar";
-import {AccountBalanceWallet, AccountCircle, Home, Login, Logout} from "@mui/icons-material";
+import {AccountBalanceWallet, AccountCircle, Home, Login, Logout, Settings} from "@mui/icons-material";
 import {useStoreState} from "easy-peasy";
 import Toolbar from "@mui/material/Toolbar";
 import {Button, Tooltip, useMediaQuery} from "@mui/material";
 import {getAuth, signOut} from "firebase/auth";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
+import SettingsDialog from "../Settings/SettingsDialog";
 
 const drawerWidth = 240;
 
@@ -69,6 +70,7 @@ const NormalNav = ({children}) => {
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const userDetails = useStoreState(state => state.user.userDetails)
+    const [openSettings, setOpenSettings] = useState(false)
 
     const handleDrawer = () => {
         setOpen((val) => !val);
@@ -168,10 +170,26 @@ const NormalNav = ({children}) => {
                         </ListItemButton>
                     </>
                 }
+                <ListItemButton
+                    sx={{
+                        minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                    }}
+                    onClick={() => setOpenSettings(true)}
+                > <Tooltip title={"Settings"}>
+                    <ListItemIcon
+                        sx={{
+                            minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                        }}
+                    >
+                        <Settings/>
+                    </ListItemIcon>
+                </Tooltip>
+                    <ListItemText primary={"Settings"} sx={{opacity: open ? 1 : 0}}/>
+                </ListItemButton>
+                <SettingsDialog open={openSettings} setOpen={setOpenSettings}/>
             </List>
             <Divider/>
             <List sx={{marginTop: "auto",}}>
-
                 <ListItemButton
                     sx={{
                         minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
