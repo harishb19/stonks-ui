@@ -7,9 +7,7 @@ import {greyColor} from "../../Common/Colors";
 import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import {InfoOutlined} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
-import NotificationActions from "../Notification/NotificationActions";
-import {useStoreState} from "easy-peasy";
-import React, {useEffect, useState} from "react"
+import React from "react"
 import AnimatedNumber from "./AnimatedNumber";
 
 const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
@@ -228,7 +226,7 @@ const defaultColumns = [{
     sortable: false,
     renderCell: (params) => {
         if (!params.row.coins_market_data || !params.row.coins_market_data.totalCoins || !params.row.coins_market_data.totalActiveCoins)
-            return <Box/>
+            return <Typography variant={"body2"} component={"p"}>Data not available</Typography>
         let val = 100;
         if (params.row.coins_market_data.totalCoins) {
             val = (params.row.coins_market_data.totalActiveCoins / params.row.coins_market_data.totalCoins) * 100
@@ -287,26 +285,7 @@ const defaultColumns = [{
                        height={"75px"}/>)
 },]
 const CoinGrid = ({coins}) => {
-    const userDetails = useStoreState(state => state.user.userDetails)
-    const [columns, setColumns] = useState([])
     let navigate = useNavigate();
-
-    useEffect(() => {
-        if (userDetails && userDetails.id) {
-            setColumns([...defaultColumns, {
-                field: 'notification',
-                headerAlign: 'center',
-                headerName: '',
-                minWidth: 30,
-                editable: false,
-                filterable: false,
-                sortable: false,
-                renderCell: (params) => (<NotificationActions coinId={params.row.id}/>)
-            }])
-        } else {
-            setColumns([...defaultColumns])
-        }
-    }, [userDetails])
     return (<Box style={{height: '775px'}}>
         <StyledDataGrid
             rows={coins}
@@ -316,7 +295,7 @@ const CoinGrid = ({coins}) => {
                 },
                 pinnedColumns: {left: ['rank'], right: ['notification']}
             }}
-            columns={columns}
+            columns={defaultColumns}
             autoPageSize
             disableSelectionOnClick={true}
             rowHeight={75}

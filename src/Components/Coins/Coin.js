@@ -19,8 +19,8 @@ import AnimatedNumberWrapper from "../Common/AnimatedNumberWrapper";
 import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
 import useScrollBlock from "../../Common/useScrollBlock";
-import CoinsAction from "./CoinsAction";
 import BlankCoin from "./BlankCoin";
+import CoinsAction from "./CoinsAction";
 
 
 const Coin = () => {
@@ -109,78 +109,75 @@ const Coin = () => {
             <Box className={coinStyle.frostedHeader}
                  sx={{
                      padding: '15px 0px 15px 30px',
-                     // backgroundImage: coinDetails.coins_market_data.priceChangePercentage24h > 0 ? `linear-gradient(to right, #0F0F0F, #0F0F0F, ${Color(downColor).darken(0.6).alpha(0.1)})` : `linear-gradient(to right, #0F0F0F, #0F0F0F, ${Color(downColor).darken(0.6).alpha(0.2)})`,
                  }}>
-                <Stack direction={"column"}>
-                    <Grid flexGrow={1} container justifyContent={"space-between"}>
-                        <Grid item xs={12} md={4}>
-                            <Stack direction={"column"}>
-                                <Breadcrumbs aria-label="breadcrumb">
-                                    <Link underline="hover" color="inherit" href="/" sx={{fontSize: "0.8em"}}>
-                                        Home
-                                    </Link>
-                                    <Typography color="text.primary" fontSize={"0.8em"}>{coinDetails.name}</Typography>
-                                </Breadcrumbs>
-                                <Stack direction={"row"} sx={{marginTop: "20px"}} spacing={1}>
-                                    <Stack direction={"column"} justifyContent={"space-around"}>
-                                        <img src={coinDetails.image} alt={coinDetails.name}
-                                             className={coinStyle.coinImage}
-                                             onError={onMediaFallback} style={{marginBottom: '10px'}}/>
-                                        <Stack direction={"column"}>
-                                            <Typography variant={"body2"} color={greyColor} fontWeight={"500"}
-                                                        textAlign={"center"}>
-                                                {coinDetails.symbol.toUpperCase()}
-                                            </Typography>
-                                            <Typography variant={"body2"} color={greyColor} fontWeight={"500"}
-                                                        textAlign={"center"}>
-                                                Price
-                                            </Typography>
-                                        </Stack>
+                <Grid flexGrow={1} container justifyContent={"space-between"}>
+                    <Grid item xs={12} md={4}>
+                        <Stack direction={"column"}>
+                            <Breadcrumbs aria-label="breadcrumb">
+                                <Link underline="hover" color="inherit" href="/" sx={{fontSize: "0.8em"}}>
+                                    Home
+                                </Link>
+                                <Typography color="text.primary" fontSize={"0.8em"}>{coinDetails.name}</Typography>
+                            </Breadcrumbs>
+                            <Stack direction={"row"} sx={{marginTop: "20px"}} spacing={1}>
+                                <Stack direction={"column"} justifyContent={"space-around"}>
+                                    <img src={coinDetails.image} alt={coinDetails.name}
+                                         className={coinStyle.coinImage}
+                                         onError={onMediaFallback} style={{marginBottom: '10px'}}/>
+                                    <Stack direction={"column"}>
+                                        <Typography variant={"body2"} color={greyColor} fontWeight={"500"}
+                                                    textAlign={"center"}>
+                                            {coinDetails.symbol.toUpperCase()}
+                                        </Typography>
+                                        <Typography variant={"body2"} color={greyColor} fontWeight={"500"}
+                                                    textAlign={"center"}>
+                                            Price
+                                        </Typography>
                                     </Stack>
-                                    <Stack direction={"column"} justifyContent={"space-around"}>
-                                        <Stack direction={"row"} alignItems={"baseline"} spacing={1}>
-                                            <Typography component={"p"} fontWeight={"500"} fontSize={"3em"}
-                                                        lineHeight={1}>
-                                                {coinDetails.name}
-                                            </Typography>
-                                            <Typography component={"p"} color={greyColor}>
-                                                {`(${coinDetails.symbol.toUpperCase()})`}
-                                            </Typography>
-                                        </Stack>
-                                        <Stack direction={"row"} spacing={1} alignItems={"baseline"}
-                                               sx={{marginTop: "5px"}}>
-                                            <AnimatedNumberWrapper
-                                                displayType={'text'}
-                                                value={coinDetails.coins_market_data.currentPrice}
-                                                thousandSeparator={true} decimalScale={2} fixedDecimal={true}
-                                                prefix="$" decimalSeparator="." className={coinStyle.price}/>
-                                            <PriceUpDown value={coinDetails.coins_market_data.priceChangePercentage24h}
-                                                         fontSize={"1.5em"}
-                                                         fontWeight={"500"}/>
-                                        </Stack>
+                                </Stack>
+                                <Stack direction={"column"} justifyContent={"space-around"}>
+                                    <Stack direction={"row"} alignItems={"baseline"} spacing={1}>
+                                        <Typography component={"p"} fontWeight={"500"} fontSize={"3em"}
+                                                    lineHeight={1}>
+                                            {coinDetails.name}
+                                        </Typography>
+                                        <Typography component={"p"} color={greyColor}>
+                                            {`(${coinDetails.symbol.toUpperCase()})`}
+                                        </Typography>
+                                    </Stack>
+                                    <Stack direction={"row"} spacing={1} alignItems={"baseline"}
+                                           sx={{marginTop: "5px"}}>
+                                        <AnimatedNumberWrapper
+                                            displayType={'text'}
+                                            value={coinDetails.coins_market_data.currentPrice}
+                                            thousandSeparator={true} decimalScale={2} fixedDecimal={true}
+                                            prefix="$" decimalSeparator="." className={coinStyle.price}/>
+                                        <PriceUpDown value={coinDetails.coins_market_data.priceChangePercentage24h}
+                                                     fontSize={"1.5em"}
+                                                     fontWeight={"500"}/>
                                     </Stack>
                                 </Stack>
                             </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={3}>
-                            <div className={coinStyle.sparkline}>
-                                {coinDetails.coins_market_data.priceChangePercentage24h >= 0 &&
-                                    <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
-                                               decreaseDetail={false}
-                                               height={200} lineTension={0.3}
-                                               neutralUpDown={1}
-                                               fill={true}/>}
-                                {coinDetails.coins_market_data.priceChangePercentage24h < 0 &&
-                                    <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
-                                               decreaseDetail={false}
-                                               height={200} lineTension={0.3}
-                                               neutralUpDown={2}
-                                               fill={true}/>}
-                            </div>
-                        </Grid>
+                            <CoinsAction coinDetails={coinDetails}/>
+                        </Stack>
                     </Grid>
-                    <CoinsAction coinDetails={coinDetails}/>
-                </Stack>
+                    <Grid item xs={12} md={3}>
+                        <div className={coinStyle.sparkline}>
+                            {coinDetails.coins_market_data.priceChangePercentage24h >= 0 &&
+                                <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
+                                           decreaseDetail={false}
+                                           height={200} lineTension={0.3}
+                                           neutralUpDown={1}
+                                           fill={true}/>}
+                            {coinDetails.coins_market_data.priceChangePercentage24h < 0 &&
+                                <Sparkline id={coinDetails.id} data={coinDetails.coins_market_data.sparkline}
+                                           decreaseDetail={false}
+                                           height={200} lineTension={0.3}
+                                           neutralUpDown={2}
+                                           fill={true}/>}
+                        </div>
+                    </Grid>
+                </Grid>
             </Box>
             <div style={{padding: '30px'}}>
                 <Box className={coinStyle.frostedDiv}>

@@ -66,14 +66,16 @@ const CurrencyConverter = ({image, symbol, value}) => {
         </Stack>
         <IconButton aria-label="switch"
                     component="span"
+                    disabled
                     sx={{
                         position: 'relative',
                         top: '-10px',
                         left: "50%",
                         zIndex: '3',
-                        backgroundColor: "#0F0F0F",
+                        backgroundColor: "#0F0F0F !important",
                         border: "1px solid #222324",
                         padding: '4px',
+                        color: 'white !important'
                     }}>
             <ImportExportIcon/>
         </IconButton>

@@ -83,7 +83,7 @@ const AuthUserProvider = ({children}) => {
     }, [fetchUser, setUserDetails]);
 
 
-    if (processing) return <Loading/>;
+    if (processing) return <div style={{height: "100vh"}}><Loading/></div>;
     return (<>
         <NotificationProvider messaging={messaging}/>
         {children}</>)
