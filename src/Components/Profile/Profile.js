@@ -1,22 +1,19 @@
-import React from 'react'
-import {
-    Button,
-    Grid
-} from "@mui/material";
-import {Form, Formik} from 'formik';
+import React, {useEffect, useState} from 'react'
+import {Avatar, Box, Button, Grid, InputAdornment, InputLabel, Paper, TextField, Typography} from "@mui/material";
+import {Formik} from 'formik';
+import {AccountCircle, Badge, Email, LocalPhone} from '@mui/icons-material'
 import "yup-phone";
 import * as Yup from 'yup';
 import {UPDATE_USER} from "../../graphql/mutation";
 import {useMutation} from "@apollo/client";
 import {useStoreActions, useStoreState} from "easy-peasy";
-import {useState,useEffect} from "react";
 import {toast} from "react-toastify";
 import Password from "./Password";
 import loginStyle from "../Auth/css/login.module.css";
 import userStyle from "./css/profile.module.css";
 
 export default function Profile() {
-    const [updatePassword,setUpdatePassword] = useState(false)
+    const [updatePassword, setUpdatePassword] = useState(false)
     const userDetails = useStoreState(state => state.user.userDetails)
     console.log(userDetails)
     const setUserDetails = useStoreActions(actions => actions.user.setUserDetails)
@@ -75,147 +72,199 @@ export default function Profile() {
 
 
     useEffect(() => {
-        setInitialValues({firstName: userDetails.firstName,lastName: userDetails.lastName,email: userDetails.email,phoneNumber: userDetails.phoneNumber})
+        setInitialValues({
+            firstName: userDetails.firstName,
+            lastName: userDetails.lastName,
+            email: userDetails.email,
+            phoneNumber: userDetails.phoneNumber
+        })
     }, [userDetails])
 
     return (
-        <div>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-                enableReinitialize
-                validateOnMount
-            >
-                {(props) => {
-                    const {
-                        values,
-                        touched,
-                        errors,
-                        dirty,
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        isValid,
-                        isSubmitting,
-                    } = props;
+        <Box justifyContent='center' display='flex' alignItems='center' className={userStyle.mainDiv}>
+            <Paper elevation={2} className={`${userStyle.root}`}>
+                <Box justifyContent='center' display='flex' alignItems='center'>
+                    <Avatar className={userStyle.avatar}>
+                        <AccountCircle className={userStyle.avatarImage}/>
+                    </Avatar>
+                </Box>
+                <Box justifyContent='center' display='flex' alignItems='center' className={userStyle.div}>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                        enableReinitialize
+                        validateOnMount
+                    >
+                        {(props) => {
+                            const {
+                                values,
+                                touched,
+                                errors,
+                                dirty,
+                                handleChange,
+                                handleBlur,
+                                handleSubmit,
+                                isValid,
+                                isSubmitting,
+                            } = props;
 
-                    return (<Form onSubmit={handleSubmit}>
-                        <Grid container  className={userStyle.center} spacing={2}>
-                            <Grid item xs={12} md={6} lg={3}>
-                                <label htmlFor={"firstName"} className={`${loginStyle.label}`}>
-                                    First Name
-                                </label>
-                                <input type="firstName"
-                                       id={"firstName"}
-                                       name={"firstName"}
-                                       value={values.firstName}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
+                            return (
 
-                                       className={`${loginStyle.input} ${(errors.firstName && touched.firstName) ? loginStyle.errorBorder : ""}`}
+                                <form onSubmit={handleSubmit}>
+                                    <Grid container alignItems="center" spacing={2}>
+                                        <Grid container item xs={12} md={12} lg={12} spacing={2}>
+                                            <Grid item xs={12} md={6} lg={6}>
+                                                <InputLabel htmlFor="firstName">First Name</InputLabel>
+                                                <TextField
+                                                    multiline
+                                                    type="text"
+                                                    name={"firstName"}
+                                                    id={"firstName"}
+                                                    value={values.firstName}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    variant={"outlined"}
+                                                    fullWidth
+                                                    className={loginStyle.inputboxmini}
+                                                    InputProps={{
+                                                        startAdornment: (
+                                                            <InputAdornment position="start">
+                                                                <Badge/>
+                                                            </InputAdornment>
+                                                        ),
+                                                    }}
+                                                />
+                                                <p className={`${loginStyle.error}`}>
+                                                    {
+                                                        (errors.firstName && touched.firstName) && errors.firstName
+                                                    }
+                                                </p>
 
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.firstName && touched.firstName) && errors.firstName}
+                                            </Grid>
+                                            <Grid item xs={12} md={6} lg={6}>
+                                                <InputLabel htmlFor="lastName">Last Name</InputLabel>
+                                                <TextField
+                                                    multiline
+                                                    // label={"Last Name"}
+                                                    type="text"
+                                                    name={"lastName"}
+                                                    id={"lastName"}
+                                                    value={values.lastName}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    variant={"outlined"}
+                                                    fullWidth
+                                                    className={loginStyle.inputboxmini}
+                                                    InputProps={{
+                                                        startAdornment: (
+                                                            <InputAdornment position="start">
+                                                                <Badge/>
+                                                            </InputAdornment>
+                                                        ),
+                                                    }}
+                                                />
+                                                <p className={`${loginStyle.error}`}>
+                                                    {
+                                                        (errors.lastName && touched.lastName) && errors.lastName
+                                                    }
+                                                </p>
 
-                                </p>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={3}>
-                                <label htmlFor={"lastName"} className={`${loginStyle.label}`}>
-                                    Last Name
-                                </label>
-                                <input type="lastName"
-                                       id={"lastName"}
-                                       name={"lastName"}
-                                       value={values.lastName}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
+                                            </Grid>
+                                            <Grid item xs={12} md={12} lg={12}>
+                                                <InputLabel htmlFor="email">Email</InputLabel>
+                                                <TextField
+                                                    disabled
+                                                    multiline
+                                                    type="email"
+                                                    id="email"
+                                                    name="email"
+                                                    // label="Email"
+                                                    value={values.email}
+                                                    onChange={handleChange}
+                                                    variant={"outlined"}
+                                                    fullWidth
+                                                    onBlur={handleBlur}
+                                                    className={loginStyle.inputbox}
+                                                    InputProps={{
+                                                        startAdornment: (
+                                                            <InputAdornment position="start">
+                                                                <Email/>
+                                                            </InputAdornment>
+                                                        ),
+                                                    }}
+                                                />
+                                                <p className={`${loginStyle.error}`}>
+                                                    {
+                                                        (errors.email && touched.email) && errors.email
+                                                    }
+                                                </p>
 
-                                       className={`${loginStyle.input} ${(errors.lastName && touched.lastName) ? loginStyle.errorBorder : ""}`}
 
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.lastName && touched.lastName) && errors.lastName}
+                                            </Grid>
+                                            <Grid item xs={12} md={12} lg={12}>
+                                                <InputLabel htmlFor="phoneNumber">Phone Number</InputLabel>
+                                                <TextField
+                                                    type="text"
+                                                    id={"phoneNumber"}
+                                                    name={"phoneNumber"}
+                                                    value={values.phoneNumber}
+                                                    // label="Phone Number"
+                                                    onChange={handleChange}
+                                                    variant={"outlined"}
+                                                    fullWidth
+                                                    onBlur={handleBlur}
+                                                    className={loginStyle.inputbox}
+                                                    InputProps={{
+                                                        startAdornment: (
+                                                            <InputAdornment position="start">
+                                                                <LocalPhone/>
+                                                            </InputAdornment>
+                                                        ),
+                                                    }}
+                                                />
+                                                <p className={`${loginStyle.error}`}>
+                                                    {
+                                                        (errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber
+                                                    }
+                                                </p>
 
-                                </p>
-                            </Grid>
-                            <Grid item xs={12}/>
-                            <Grid item xs={12} md={6} lg={6}>
-                                <label htmlFor={"email"} className={`${loginStyle.label}`}>
-                                    Email
-                                </label>
-                                <input type="email"
-                                       disabled={true}
-                                       id={"email"}
-                                       name={"email"}
-                                       value={values.email}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
+                                            </Grid>
+                                            <Grid item xs={12} md={12} lg={12}>
+                                                {/*<div className={`${loginStyle.alignLeft}`}>*/}
+                                                <Button color={"secondary"} fullWidth
+                                                        className={`${loginStyle.button}`}
+                                                        disabled={isSubmitting || !(isValid && dirty)}
+                                                        type={"submit"}
+                                                >
+                                                    Update
+                                                </Button>
+                                                {/*</div>*/}
+                                            </Grid>
+                                            <Grid item xs={12} md={12} lg={12}>
+                                                {updatePassword ?
+                                                    <Password setUpdatePassword={setUpdatePassword}/>
+                                                    :
+                                                    <Grid item xs={12} alignItems="center">
+                                                        <Typography
+                                                            className={`${loginStyle.smalltext} ${loginStyle.minilink}`}
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setUpdatePassword(true)
+                                                            }}>
+                                                            Update Password</Typography>
 
-                                       className={`${loginStyle.input} ${(errors.email && touched.email) ? loginStyle.errorBorder : ""}`}
+                                                    </Grid>}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </form>)
+                        }}
+                    </Formik>
+                </Box>
+            </Paper>
+        </Box>
 
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.email && touched.email) && errors.email}
-
-                                </p>
-                            </Grid>
-                            <Grid item xs={12}/>
-                            <Grid item xs={12} md={6} lg={6}>
-                                <label htmlFor={"phoneNumber"} className={`${loginStyle.label}`}>
-                                    Phone Number
-                                </label>
-                                <input type="phoneNumber"
-                                       id={"phoneNumber"}
-                                       name={"phoneNumber"}
-                                       value={values.phoneNumber}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       className={`${loginStyle.input} ${(errors.phoneNumber && touched.phoneNumber) ? loginStyle.errorBorder : ""}`}
-
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber}
-
-                                </p>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <div className={`${loginStyle.alignLeft}`}>
-                                    <Button variant={"contained"} color={"secondary"}
-                                            className={`${loginStyle.button} `}
-                                            disabled={isSubmitting || !(isValid && dirty)}
-                                            type={"submit"}
-                                    >
-                                        Update
-                                    </Button>
-                                </div>
-                            </Grid>
-                            {updatePassword?
-                                <>
-                                    <Grid item xs={12}/>
-                                    <Password setUpdatePassword = {setUpdatePassword}/>
-                                </>
-                                :
-                                <Grid item xs={12}>
-                                    <div className={`${loginStyle.alignLeft}`}>
-                                        <Button variant={"contained"} color={"secondary"}
-                                                className={`${userStyle.btn} `}
-                                                type={"submit"}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setUpdatePassword(true)
-                                                }}
-                                        >
-                                            Update password?
-                                        </Button>
-                                    </div>
-                                </Grid>}
-                        </Grid>
-                    </Form>)
-                }}
-            </Formik>
-        </div>
 
     )
 }

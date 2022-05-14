@@ -1,21 +1,18 @@
-import React from 'react'
-import {
-    Button,
-    Grid
-} from "@mui/material";
-import {Form, Formik} from 'formik';
+import React, {useEffect, useState} from 'react'
+import {Button, Grid, InputAdornment, InputLabel, TextField} from "@mui/material";
+import {Lock} from '@mui/icons-material'
+import {Formik} from 'formik';
 import "yup-phone";
 import * as Yup from 'yup';
 import {useStoreState} from "easy-peasy";
-import {useState,useEffect} from "react";
 import loginStyle from "../Auth/css/login.module.css";
-import {getAuth,updatePassword, signInWithEmailAndPassword} from "firebase/auth"
+import {getAuth, signInWithEmailAndPassword, updatePassword} from "firebase/auth"
 import {toast} from "react-toastify";
 
 export default function Password({setUpdatePassword}) {
     const userDetails = useStoreState(state => state.user.userDetails)
     console.log(userDetails)
-    const [submitState,setSubmitState] = useState(false)
+    const [submitState, setSubmitState] = useState(false)
     const [initialValues, setInitialValues] = useState({})
     const validationSchema = Yup.object({
         currentPassword: Yup.string().required('Current Password is required'),
@@ -25,7 +22,7 @@ export default function Password({setUpdatePassword}) {
     })
     const handleSubmitOnClick = (values) => {
         setSubmitState(true)
-        if(values.currentPassword === values.passwordConfirmation) {
+        if (values.currentPassword === values.passwordConfirmation) {
             toast.error(`New password and current password can't be the same`, {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -105,87 +102,114 @@ export default function Password({setUpdatePassword}) {
                     isSubmitting,
                 } = props;
 
-                return (<Form>
-                    <Grid container alignItems="flex-start" spacing={2}>
-                        <Grid item xs={12} md={6}>
-                            <label htmlFor={"currentPassword"} className={`${loginStyle.label}`}>
-                                Current Password
-                            </label>
-                            <input type="password"
-                                   autoComplete="new-password"
-                                   id={"currentPassword"}
-                                   name={"currentPassword"}
-                                   value={values.currentPassword}
-                                   onChange={handleChange}
-                                   onBlur={handleBlur}
-
-                                   className={`${loginStyle.input} ${(errors.currentPassword && touched.currentPassword) ? loginStyle.errorBorder : ""}`}
-
-                            />
-                            <p className={`${loginStyle.error}`}>
-                                {(errors.currentPassword && touched.currentPassword) && errors.currentPassword}
-
-                            </p>
-                        </Grid>
-                        <Grid item xs={12}/>
-                        <Grid item xs={12} md={6}>
-                            <label htmlFor={"password"} className={`${loginStyle.label}`}>
-                                New Password
-                            </label>
-                            <input type="password"
-                                   autoComplete="new-password"
-                                   id={"password"}
-                                   name={"password"}
-                                   value={values.password}
-                                   onChange={handleChange}
-                                   onBlur={handleBlur}
-
-                                   className={`${loginStyle.input} ${(errors.password && touched.password) ? loginStyle.errorBorder : ""}`}
-
-                            />
-                            <p className={`${loginStyle.error}`}>
-                                {(errors.password && touched.password) && errors.password}
-
-                            </p>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <label htmlFor={"passwordConfirmation"} className={`${loginStyle.label}`}>
-                                Confirm New Password
-                            </label>
-                            <input type="password"
-                                   autoComplete="new-password"
-                                   id={"passwordConfirmation"}
-                                   name={"passwordConfirmation"}
-                                   value={values.passwordConfirmation}
-                                   onChange={handleChange}
-                                   onBlur={handleBlur}
-
-                                   className={`${loginStyle.input} ${(errors.passwordConfirmation && touched.passwordConfirmation) ? loginStyle.errorBorder : ""}`}
-
-                            />
-                            <p className={`${loginStyle.error}`}>
-                                {(errors.passwordConfirmation && touched.passwordConfirmation) && errors.passwordConfirmation}
-
-                            </p>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <div className={`${loginStyle.alignLeft}`}>
-                                <Button variant={"contained"} color={"secondary"}
-                                        className={`${loginStyle.button} `}
-                                        disabled={submitState || !(isValid && dirty)}
-                                        type={"submit"}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            handleSubmitOnClick(values)
+                return (
+                    <form onSubmit={handleSubmit}>
+                        <Grid container alignItems="center" spacing={2}>
+                            <Grid container item xs={12} md={12} lg={12} spacing={2}>
+                                <Grid item xs={12} md={12} lg={12}>
+                                    <InputLabel htmlFor="currentPassword">New Password</InputLabel>
+                                    <TextField
+                                        type="password"
+                                        autoComplete="new-password"
+                                        id={"currentPassword"}
+                                        name={"currentPassword"}
+                                        value={values.currentPassword}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        // label="Confirm Password"
+                                        variant={"outlined"}
+                                        fullWidth
+                                        className={loginStyle.inputbox}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Lock/>
+                                                </InputAdornment>
+                                            ),
                                         }}
-                                >
-                                    Update Password
-                                </Button>
-                            </div>
+                                    />
+                                    <p className={`${loginStyle.error}`}>
+                                        {
+                                            (errors.password && touched.password) && errors.password
+                                        }
 
+                                    </p>
+                                </Grid>
+                                <Grid item xs={12} md={6} lg={6}>
+                                    <InputLabel htmlFor="password">New Password</InputLabel>
+                                    <TextField
+                                        type="password"
+                                        autoComplete="new-password"
+                                        id={"password"}
+                                        name={"password"}
+                                        value={values.password}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        // label="Confirm Password"
+                                        variant={"outlined"}
+                                        fullWidth
+                                        className={loginStyle.inputbox}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Lock/>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                    <p className={`${loginStyle.error}`}>
+                                        {
+                                            (errors.password && touched.password) && errors.password
+                                        }
+
+                                    </p>
+                                </Grid>
+                                <Grid item xs={12} md={6} lg={6}>
+                                    <InputLabel htmlFor="passwordConfirmation">Confirm New Password</InputLabel>
+                                    <TextField
+                                        type="password"
+                                        autoComplete="new-password"
+                                        id={"passwordConfirmation"}
+                                        name={"passwordConfirmation"}
+                                        value={values.passwordConfirmation}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        // label="Confirm Password"
+                                        variant={"outlined"}
+                                        fullWidth
+                                        className={loginStyle.inputbox}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Lock/>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                    <p className={`${loginStyle.error}`}>
+                                        {
+                                            (errors.passwordConfirmation && touched.passwordConfirmation) && errors.passwordConfirmation
+                                        }
+
+                                    </p>
+                                </Grid>
+                                <Grid item xs={12} md={12} lg={12}>
+                                    <Button variant={"contained"} color={"secondary"}
+                                            className={`${loginStyle.button} `}
+                                            disabled={submitState || !(isValid && dirty)}
+                                            type={"submit"}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleSubmitOnClick(values)
+                                            }}
+                                    >
+                                        Update Password
+                                    </Button>
+
+                                </Grid>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Form>)
+                    </form>)
             }}
         </Formik>
     )

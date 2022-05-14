@@ -2,6 +2,36 @@
 
     padding: 5em;
 }
+
 .btn {
     padding: 30px;
+}
+
+.root {
+    margin: auto;
+    max-width: 60vw;
+    padding: 1em 2em;
+    border-radius: 10px !important;
+}
+
+.div {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+.mainDiv {
+    height: 100%;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+    background-color: #000000;
+}
+
+.avatarImage {
+    width: 100%;
+    height: 100%;
 }
