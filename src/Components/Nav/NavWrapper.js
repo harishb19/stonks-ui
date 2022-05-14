@@ -78,6 +78,7 @@ const NormalNav = ({children}) => {
             const auth = getAuth()
             signOut(auth).then(() => {
                 navigate("/")
+                window.location.reload();
                 toast.success(`See you soon!`, {
                     position: "bottom-right",
                     autoClose: 5000,
