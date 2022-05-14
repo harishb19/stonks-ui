@@ -28,10 +28,12 @@
 
 .radialBGDown {
     background: radial-gradient(circle at 90% 10%, rgba(254, 1, 22, 0.1), black 50%);
+    min-height: 100% !important;
 }
 
 .radialBGUp {
     background: radial-gradient(circle at 90% 10%, rgba(0, 224, 142, 0.1), black 50%);
+    min-height: 100% !important;
 }
 
 .frostedHeader {
