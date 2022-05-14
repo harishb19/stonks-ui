@@ -153,7 +153,7 @@ const NormalNav = ({children}) => {
                             sx={{
                                 minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                             }}
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/profile")}
                         >
                             <ListItemIcon
                                 sx={{
@@ -211,14 +211,6 @@ const AuthNav = ({children}) => {
                                 navigate("/")
                             }}
                     >
-                        {/*<Typography*/}
-                        {/*    variant="h6"*/}
-                        {/*    noWrap*/}
-                        {/*    component="div"*/}
-                        {/*    sx={{display: {xs: 'none', sm: 'block'}}}*/}
-                        {/*>*/}
-                        {/*    Stonks*/}
-                        {/*</Typography>*/}
                         {
                             matches ?
                                 <img src={"/stonks-rocket.png"} height={60} alt={"stonks"}/> :
