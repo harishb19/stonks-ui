@@ -15,7 +15,7 @@ import ChartSelector from "../Chart/ChartSelector";
 import Sparkline from "../Common/Sparkline";
 import PriceUpDown from "../Common/PriceUpDown";
 import ChartClass from "../Chart/ChartFunctional";
-import AnimatedNumberFormat from "../Common/AnimatedNumberFormat";
+import AnimatedNumberWrapper from "../Common/AnimatedNumberWrapper";
 import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
 import useScrollBlock from "../../Common/useScrollBlock";
@@ -150,12 +150,11 @@ const Coin = () => {
                                         </Stack>
                                         <Stack direction={"row"} spacing={1} alignItems={"baseline"}
                                                sx={{marginTop: "5px"}}>
-                                            <AnimatedNumberFormat displayType={'text'}
-                                                                  value={coinDetails.coins_market_data.currentPrice}
-                                                                  thousandSeparator={true} decimalScale={2}
-                                                                  fixedDecimal={true}
-                                                                  prefix="$" decimalSeparator="."
-                                                                  className={coinStyle.price}/>
+                                            <AnimatedNumberWrapper
+                                                value={coinDetails.coins_market_data.currentPrice}
+                                                prefix="$"
+                                                decimalScale={2}
+                                                className={coinStyle.price}/>
                                             <PriceUpDown value={coinDetails.coins_market_data.priceChangePercentage24h}
                                                          fontSize={"1.5em"}
                                                          fontWeight={"500"}/>
@@ -208,47 +207,47 @@ const Coin = () => {
                             <Typography variant={"body2"} color={greyColor}>
                                 MARKET CAP
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.marketCap)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  prefix="$" decimalSeparator="."
-                                                  suffix={getDollarText(coinDetails.coins_market_data.marketCap)}
-                                                  className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.marketCap)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={5}
+                                                   prefix="$" decimalSeparator="."
+                                                   suffix={getDollarText(coinDetails.coins_market_data.marketCap)}
+                                                   className={coinStyle.marketCap}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
                                 VOLUME
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.totalVolume)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  prefix="$" decimalSeparator="."
-                                                  suffix={getDollarText(coinDetails.coins_market_data.totalVolume)}
-                                                  className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.totalVolume)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={5}
+                                                   prefix="$" decimalSeparator="."
+                                                   suffix={getDollarText(coinDetails.coins_market_data.totalVolume)}
+                                                   className={coinStyle.marketCap}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
                                 TOTAL COINS
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.totalCoins)}
-                                                  suffix={getDollarText(coinDetails.coins_market_data.totalCoins)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  decimalSeparator="." className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.totalCoins)}
+                                                   suffix={getDollarText(coinDetails.coins_market_data.totalCoins)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={5}
+                                                   decimalSeparator="." className={coinStyle.marketCap}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
                                 ACTIVE COINS
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.totalActiveCoins)}
-                                                  suffix={getDollarText(coinDetails.coins_market_data.totalActiveCoins)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  decimalSeparator="." className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.totalActiveCoins)}
+                                                   suffix={getDollarText(coinDetails.coins_market_data.totalActiveCoins)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={5}
+                                                   decimalSeparator="." className={coinStyle.marketCap}/>
                         </Stack>
                         <div>
                             <Stack direction={"row"}>

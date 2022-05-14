@@ -6,5 +6,11 @@ const store = createStore({
             state.userDetails = payload
         })),
     },
+    settings: {
+        numberStyle: 2,
+        setNumberStyle: action((state, payload) => {
+            state.numberStyle = payload;
+        }),
+    }
 })
 export default store

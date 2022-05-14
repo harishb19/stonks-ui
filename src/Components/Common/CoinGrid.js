@@ -7,10 +7,11 @@ import {greyColor} from "../../Common/Colors";
 import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import {InfoOutlined} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
-import AnimatedNumberFormat from "./AnimatedNumberFormat";
+import AnimatedNumber from "./AnimatedNumber";
 import NotificationActions from "../Notification/NotificationActions";
 import {useStoreState} from "easy-peasy";
 import React, {useEffect, useState} from "react"
+import AnimatedNumberWrapper from "./AnimatedNumberWrapper";
 
 const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
 
@@ -85,13 +86,13 @@ const defaultColumns = [{
     minWidth: 110,
     editable: false,
     renderCell: (params) => (<Stack direction={"row"} spacing={1} alignItems={"center"}>
-        <AnimatedNumberFormat displayType={'text'}
-                              value={params.row.coins_market_data && params.row.coins_market_data.currentPrice ? params.row.coins_market_data.currentPrice : 0}
-                              thousandSeparator={true}
-                              prefix="$"
-                              decimalSeparator="."
-                              decimalScale={2}
-                              fixedDecimalScale={true}/>
+        <AnimatedNumberWrapper displayType={'text'}
+                               value={params.row.coins_market_data && params.row.coins_market_data.currentPrice ? params.row.coins_market_data.currentPrice : 0}
+                               thousandSeparator={true}
+                               prefix="$"
+                               decimalSeparator="."
+                               decimalScale={2}
+                               fixedDecimalScale={true}/>
         <HtmlTooltip
             title={<React.Fragment>
                 <Typography color="inherit" textAlign={"center"} component={"p"}
@@ -162,14 +163,14 @@ const defaultColumns = [{
     type: 'number',
     minWidth: 80,
     editable: false,
-    renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                                   value={getDollarNumber(params.row.coins_market_data && params.row.coins_market_data.marketCap ? params.row.coins_market_data.marketCap : 0)}
-                                                   thousandSeparator={true}
-                                                   decimalSeparator="."
-                                                   decimalScale={2}
-                                                   fixedDecimalScale={true}
-                                                   prefix={"$"}
-                                                   suffix={getDollarText(params.row.coins_market_data && params.row.coins_market_data.marketCap ? params.row.coins_market_data.marketCap : 0)}/>),
+    renderCell: (params) => (<AnimatedNumberWrapper displayType={'text'}
+                                                    value={getDollarNumber(params.row.coins_market_data && params.row.coins_market_data.marketCap ? params.row.coins_market_data.marketCap : 0)}
+                                                    thousandSeparator={true}
+                                                    decimalSeparator="."
+                                                    decimalScale={2}
+                                                    fixedDecimalScale={true}
+                                                    prefix={"$"}
+                                                    suffix={getDollarText(params.row.coins_market_data && params.row.coins_market_data.marketCap ? params.row.coins_market_data.marketCap : 0)}/>),
     valueGetter: (params) => `${params.row.coins_market_data && params.row.coins_market_data.marketCap ? params.row.coins_market_data.marketCap : '0'}`
 }, {
     field: 'volume',
@@ -178,14 +179,14 @@ const defaultColumns = [{
     type: 'number',
     minWidth: 110,
     editable: false,
-    renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                                   value={getDollarNumber(params.row.coins_market_data && params.row.coins_market_data.totalVolume ? params.row.coins_market_data.totalVolume : 0)}
-                                                   thousandSeparator={true}
-                                                   decimalSeparator="."
-                                                   decimalScale={2}
-                                                   fixedDecimalScale={true}
-                                                   prefix={"$"}
-                                                   suffix={getDollarText(params.row.coins_market_data && params.row.coins_market_data.totalVolume ? params.row.coins_market_data.totalVolume : 0)}/>),
+    renderCell: (params) => (<AnimatedNumberWrapper displayType={'text'}
+                                                    value={getDollarNumber(params.row.coins_market_data && params.row.coins_market_data.totalVolume ? params.row.coins_market_data.totalVolume : 0)}
+                                                    thousandSeparator={true}
+                                                    decimalSeparator="."
+                                                    decimalScale={2}
+                                                    fixedDecimalScale={true}
+                                                    prefix={"$"}
+                                                    suffix={getDollarText(params.row.coins_market_data && params.row.coins_market_data.totalVolume ? params.row.coins_market_data.totalVolume : 0)}/>),
     valueGetter: (params) => `${params.row.coins_market_data && params.row.coins_market_data.totalVolume ? params.row.coins_market_data.totalVolume : '0'}`
 }, {
     field: 'high24',
@@ -194,13 +195,13 @@ const defaultColumns = [{
     type: 'number',
     minWidth: 110,
     editable: false,
-    renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                                   value={params.row.coins_market_data && params.row.coins_market_data.high24 ? params.row.coins_market_data.high24 : 0}
-                                                   thousandSeparator={true}
-                                                   prefix="$"
-                                                   decimalSeparator="."
-                                                   decimalScale={2}
-                                                   fixedDecimalScale={true}/>),
+    renderCell: (params) => (<AnimatedNumberWrapper displayType={'text'}
+                                                    value={params.row.coins_market_data && params.row.coins_market_data.high24 ? params.row.coins_market_data.high24 : 0}
+                                                    thousandSeparator={true}
+                                                    prefix="$"
+                                                    decimalSeparator="."
+                                                    decimalScale={2}
+                                                    fixedDecimalScale={true}/>),
     valueGetter: (params) => `${params.row.coins_market_data && params.row.coins_market_data.high24 ? params.row.coins_market_data.high24 : '0'}`
 }, {
     field: 'low24',
@@ -209,13 +210,13 @@ const defaultColumns = [{
     type: 'number',
     minWidth: 110,
     editable: false,
-    renderCell: (params) => (<AnimatedNumberFormat displayType={'text'}
-                                                   value={params.row.coins_market_data && params.row.coins_market_data.low24 ? params.row.coins_market_data.low24 : 0}
-                                                   thousandSeparator={true}
-                                                   prefix="$"
-                                                   decimalSeparator="."
-                                                   decimalScale={2}
-                                                   fixedDecimalScale={true}/>),
+    renderCell: (params) => (<AnimatedNumberWrapper displayType={'text'}
+                                                    value={params.row.coins_market_data && params.row.coins_market_data.low24 ? params.row.coins_market_data.low24 : 0}
+                                                    thousandSeparator={true}
+                                                    prefix="$"
+                                                    decimalSeparator="."
+                                                    decimalScale={2}
+                                                    fixedDecimalScale={true}/>),
     valueGetter: (params) => `${params.row.coins_market_data && params.row.coins_market_data.low24 ? params.row.coins_market_data.low24 : '0'}`
 }, {
     field: 'activeCoins',
@@ -235,12 +236,12 @@ const defaultColumns = [{
         }
         return <Stack direction={"column"} width={"100%"} spacing={1}>
             <Stack direction={"row"} spacing={1} alignItems={"center"}>
-                <AnimatedNumberFormat
+                <AnimatedNumber
                     decimalScale={0}
                     suffix={"%"}
                     displayType={'text'}
                     value={val}>
-                </AnimatedNumberFormat>
+                </AnimatedNumber>
                 <HtmlTooltip
                     title={<React.Fragment>
                         <Typography variant={"subtitle2"} component={"p"} color="inherit"

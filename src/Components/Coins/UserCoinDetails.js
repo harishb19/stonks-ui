@@ -1,6 +1,6 @@
 import {Stack, Typography} from "@mui/material";
 import {downColor, greyColor, upColor} from "../../Common/Colors";
-import AnimatedNumberFormat from "../Common/AnimatedNumberFormat";
+import AnimatedNumberWrapper from "../Common/AnimatedNumberWrapper";
 import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import PriceUpDown from "../Common/PriceUpDown";
 import NumberFormat from "react-number-format";
@@ -12,14 +12,14 @@ const UserCoinDetails = ({value, profit, price, quantity}) => {
             <Typography color={greyColor} variant={"body2"} fontWeight={600} component={"p"}>
                 Value
             </Typography>
-            <AnimatedNumberFormat displayType={'text'}
-                                  value={getDollarNumber(value)}
-                                  thousandSeparator={true}
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  prefix="$" decimalSeparator="."
-                                  suffix={getDollarText(value)}
-                                  style={{fontSize: "1.6em", fontWeight: "600"}}
+            <AnimatedNumberWrapper displayType={'text'}
+                                   value={getDollarNumber(value)}
+                                   thousandSeparator={true}
+                                   decimalScale={2}
+                                   fixedDecimalScale={true}
+                                   prefix="$" decimalSeparator="."
+                                   suffix={getDollarText(value)}
+                                   style={{fontSize: "1.6em", fontWeight: "600"}}
             />
         </Stack>
         <Stack direction={"column"} alignItems={"start"}>
@@ -27,18 +27,18 @@ const UserCoinDetails = ({value, profit, price, quantity}) => {
                 {profit > 0 ? "Profit" : "Loss"}
             </Typography>
             <Stack direction={"row"} spacing={1}>
-                <AnimatedNumberFormat displayType={'text'}
-                                      value={getDollarNumber(profit)}
-                                      fixedDecimalScale={true}
-                                      thousandSeparator={true}
-                                      decimalScale={2}
-                                      prefix="$" decimalSeparator="."
-                                      suffix={getDollarText(profit)}
-                                      style={{
-                                          fontSize: "1.6em",
-                                          fontWeight: "600",
-                                          color: profit > 0 ? upColor : downColor
-                                      }}/>
+                <AnimatedNumberWrapper displayType={'text'}
+                                       value={getDollarNumber(profit)}
+                                       fixedDecimalScale={true}
+                                       thousandSeparator={true}
+                                       decimalScale={2}
+                                       prefix="$" decimalSeparator="."
+                                       suffix={getDollarText(profit)}
+                                       style={{
+                                           fontSize: "1.6em",
+                                           fontWeight: "600",
+                                           color: profit > 0 ? upColor : downColor
+                                       }}/>
                 <PriceUpDown fontSize={'0.9em'} arrowSize={"small"} value={profit / value * 100}/>
             </Stack>
         </Stack>
