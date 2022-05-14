@@ -1,5 +1,5 @@
 import {useStoreState} from "easy-peasy";
-import {Button, Grid, Paper, Typography} from "@mui/material";
+import {Button, Grid, InputAdornment, InputLabel, Paper, TextField, Typography} from "@mui/material";
 import loginStyle from "./css/login.module.css"
 import {Formik} from "formik";
 import * as Yup from "yup";
@@ -13,6 +13,9 @@ import {
 } from "firebase/auth";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {Email, Google, Lock} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
 
 const Login = () => {
     const navigate = useNavigate()
@@ -35,6 +38,9 @@ const Login = () => {
     )
 }
 export default Login
+
+
+
 
 
 const LoginContainer = ({setIsForgotPassword}) => {
@@ -114,27 +120,15 @@ const LoginContainer = ({setIsForgotPassword}) => {
             })
     }
     return (
-        <>
-            <div className={`${loginStyle.titleContainer}`}>
-                <Typography color={"secondary"} variant={"h5"} component={"div"}>
+        <Box justifyContent='center' display='flex' alignItems='center' className={loginStyle.div}>
+            {/*<Paper className={loginStyle.paper}>*/}
+                <div  className={loginStyle.paper}>
+            <div className={loginStyle.titleContainer}>
+                <Typography variant={"h5"} component={"div"} className={loginStyle.titleText}>
                     <b>Sign In</b>
                 </Typography>
-                <div>
-                    <div className={loginStyle.googleBtn}
-                         onClick={handleSignInWithGoogle}
-                    >
-                        <div className={loginStyle.googleIconWrapper}>
-                            <img className={loginStyle.googleIcon}
-                                 src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                                 alt={"google"}/>
-                        </div>
-                        <p className={loginStyle.btnText}
-
-                        ><b>Sign in with google</b></p>
-                    </div>
-                </div>
             </div>
-            <div>
+            {/*<div>*/}
                 <Formik
                     initialValues={{email: "", password: ""}}
                     onSubmit={(values, {setSubmitting, setFieldError}) => {
@@ -161,42 +155,56 @@ const LoginContainer = ({setIsForgotPassword}) => {
                             isSubmitting
                         } = props;
                         return (
-                            <form onSubmit={handleSubmit} className={`${loginStyle.form}`}>
-                                <Grid container alignItems="flex-start" spacing={2}>
-                                    <Grid item xs={12}>
-                                        <label htmlFor={"email"} className={`${loginStyle.label}`}>
-                                            Email
-                                        </label>
-                                        <input type="email"
-                                               id={"email"}
-                                               name={"email"}
-                                               value={values.email}
-                                               onChange={handleChange}
-                                               onBlur={handleBlur}
-
-                                               className={`${loginStyle.input} ${(errors.email && touched.email) ? loginStyle.errorBorder : ""}`}
-
+                            <form onSubmit={handleSubmit}>
+                                <Grid container alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={12} lg={12}>
+                                        <InputLabel htmlFor="email">Email</InputLabel>
+                                        <TextField
+                                            multiline
+                                            type = "email"
+                                            id="email"
+                                            name="email"
+                                            // label="Email"
+                                            value={values.email}
+                                            onChange={handleChange}
+                                            variant={"outlined"}
+                                            fullWidth
+                                            onBlur={handleBlur}
+                                            className={loginStyle.inputbox}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Email/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                         <p className={`${loginStyle.error}`}>
                                             {
                                                 (errors.email && touched.email) && errors.email
                                             }
-
                                         </p>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <label htmlFor={"password"} className={`${loginStyle.label}`}>
-                                            Password
-                                        </label>
-                                        <input type="password"
-                                               id={"password"}
-                                               name={"password"}
-                                               value={values.password}
-                                               onChange={handleChange}
-                                               onBlur={handleBlur}
-
-                                               className={`${loginStyle.input} ${(errors.password && touched.password) ? loginStyle.errorBorder : ""}`}
-
+                                        <InputLabel htmlFor="password">Password</InputLabel>
+                                        <TextField
+                                            id="password"
+                                            name="password"
+                                            // label="Password"
+                                            type="password"
+                                            value={values.password}
+                                            onChange={handleChange}
+                                            variant={"outlined"}
+                                            fullWidth
+                                            onBlur={handleBlur}
+                                            className={loginStyle.inputbox}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Lock/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                         <p className={`${loginStyle.error}`}>
                                             {
@@ -213,33 +221,7 @@ const LoginContainer = ({setIsForgotPassword}) => {
                                         >
                                             sign in
                                         </Button>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <div className={loginStyle.divider}>
-                                            <div className={loginStyle.dividerBorder}/>
-                                            <span className={loginStyle.dividerContent}>Or</span>
-                                            <div className={loginStyle.dividerBorder}/>
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Button variant={"outlined"} color={"secondary"} fullWidth
-                                                className={`${loginStyle.button}`}
-                                                onClick={() => navigate("/auth/signup")}
-                                        >
-                                            create your account
-                                        </Button>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Button variant={"text"}
-                                                fullWidth
-                                                onClick={() => {
-                                                    setIsForgotPassword(true)
-                                                }}>
-                                            <Typography variant={"caption"} align={"center"} component={"div"}>
-                                                forgot your password?
 
-                                            </Typography>
-                                        </Button>
                                     </Grid>
                                 </Grid>
 
@@ -249,10 +231,33 @@ const LoginContainer = ({setIsForgotPassword}) => {
                     }}
 
                 </Formik>
-            </div>
-        </>
+
+                        <Typography className={`${loginStyle.smalltext} ${loginStyle.minilink}`}
+                                    onClick={() => {
+                                                       setIsForgotPassword(true)
+                                                }}>
+                        Forgot your password?</Typography>
+                                    <Typography className={loginStyle.smalltext}>
+                                        or continue with
+                                    </Typography>
+                                        <div>
+                                            <IconButton
+                                                className={loginStyle.avatar}
+                                                aria-label="google signin"
+                                                color="primary"
+                                                onClick={handleSignInWithGoogle}
+                                            >
+                                                <Google />
+                                            </IconButton>
+                                        </div>
+                                    <Typography className={loginStyle.smalltext}>
+                                        No Account? <a className={loginStyle.minilink} href={'/auth/signup'}>Signup</a>
+                                    </Typography>
+                </div>
+        </Box>
     )
 }
+
 const ForgotContainer = ({setIsForgotPassword}) => {
     const auth = getAuth();
 
@@ -270,7 +275,7 @@ const ForgotContainer = ({setIsForgotPassword}) => {
     return (
         <>
             <div className={`${loginStyle.titleContainer}`}>
-                <Typography color={"secondary"} variant={"h5"} component={"div"}>
+                <Typography className={loginStyle.titleText} variant={"h5"} component={"div"}>
                     <b>Forgot password?</b>
                 </Typography>
             </div>
@@ -302,63 +307,54 @@ const ForgotContainer = ({setIsForgotPassword}) => {
                             isSubmitting
                         } = props;
                         return (
-                            <form onSubmit={handleSubmit} className={`${loginStyle.form}`}>
-                                <Grid container alignItems="flex-start" spacing={2}>
-                                    <Grid item xs={12}>
-                                        <label htmlFor={"email"} className={`${loginStyle.label}`}>
-                                            Enter email
-                                        </label>
-                                        <input type="email"
-                                               id={"email"}
-                                               name={"email"}
-                                               value={values.email}
-                                               onChange={handleChange}
-                                               onBlur={handleBlur}
-
-                                               className={`${loginStyle.input} ${(errors.email && touched.email) ? loginStyle.errorBorder : ""}`}
-
+                            // <>
+                            <form onSubmit={handleSubmit}>
+                                <Grid container alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={12} lg={12}>
+                                        <InputLabel htmlFor="email">Email</InputLabel>
+                                        <TextField
+                                            multiline
+                                            type = "email"
+                                            id="email"
+                                            name="email"
+                                            // label="Email"
+                                            value={values.email}
+                                            onChange={handleChange}
+                                            variant={"outlined"}
+                                            fullWidth
+                                            onBlur={handleBlur}
+                                            className={loginStyle.inputbox}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Email/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                         <p className={`${loginStyle.error}`}>
                                             {
                                                 (errors.email && touched.email) && errors.email
                                             }
-
                                         </p>
                                     </Grid>
-
                                     <Grid item xs={12}>
                                         <Button variant={"contained"} color={"secondary"} fullWidth
                                                 className={`${loginStyle.button}`}
                                                 disabled={isSubmitting || !(isValid && dirty)}
                                                 type={"submit"}
-
                                         >
-                                            Send reset link
-
+                                            sign in
                                         </Button>
+
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <div className={loginStyle.divider}>
-                                            <div className={loginStyle.dividerBorder}/>
-                                            <span className={loginStyle.dividerContent}>Or</span>
-                                            <div className={loginStyle.dividerBorder}/>
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Button variant={"outlined"} color={"secondary"} fullWidth
-                                                className={`${loginStyle.button}`}
+
+                                    <Typography className={`${loginStyle.smalltext} ${loginStyle.minilink}`}
                                                 onClick={() => {
                                                     setIsForgotPassword(false)
-                                                }}
-
-                                        >
-                                            sign in instead
-                                        </Button>
-                                    </Grid>
-
+                                                }}>
+                                        Go back to Login</Typography>
                                 </Grid>
-
-
                             </form>
                         )
                     }}
