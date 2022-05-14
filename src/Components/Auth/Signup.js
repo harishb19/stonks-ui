@@ -184,7 +184,7 @@ const Signup = () => {
                             } = props;
                             return (
                                 <form onSubmit={handleSubmit}>
-                                    <Grid container alignItems="center" spacing={2}>
+                                    <Grid container alignItems="center" >
                                         <Grid container item xs={12} md={12} lg={12} spacing={2}>
                                             <Grid item xs={12} md={6} lg={6}>
                                                 <InputLabel htmlFor="firstName">First Name</InputLabel>
@@ -246,6 +246,7 @@ const Signup = () => {
                                             <InputLabel htmlFor="email">Email</InputLabel>
                                             <TextField
                                                 multiline
+                                                disabled={isGoogleAuth}
                                                 type = "email"
                                                 id="email"
                                                 name="email"
@@ -298,7 +299,8 @@ const Signup = () => {
                                             </p>
                                         </Grid>
                                         {!isGoogleAuth && <>
-                                        <Grid item xs={12} md={12} lg={12}>
+                                        <Grid container item xs={12} md={12} lg={12} spacing={2}>
+                                        <Grid item xs={12} md={6} lg={6}>
                                             <InputLabel htmlFor="password">Password</InputLabel>
                                             <TextField
                                                 id="password"
@@ -327,7 +329,7 @@ const Signup = () => {
 
                                             </p>
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} md={6} lg={6}>
                                             <InputLabel htmlFor="passwordConfirmation">Confirm Password</InputLabel>
                                             <TextField
                                                 type="password"
@@ -355,6 +357,7 @@ const Signup = () => {
                                                 }
 
                                             </p>
+                                        </Grid>
                                         </Grid>
                                         </>}
                                         <Grid item xs={12}>
