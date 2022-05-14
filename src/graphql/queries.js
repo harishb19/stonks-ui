@@ -105,3 +105,12 @@ export const USER_COIN_BY_COIN_ID = gql`
         }
     }
 `
+
+export let GET_USER = gql`query Query($userId: String!) {
+    user(id: $userId) {
+        email
+        firstName
+        lastName
+        phoneNumber
+    }
+}`

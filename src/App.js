@@ -38,7 +38,6 @@ const theme = createTheme({
 });
 
 function App() {
-
     const graphQlUri = "stonk-backend.herokuapp.com"
 
     const httpLink = new HttpLink({

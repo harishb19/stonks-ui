@@ -51,3 +51,22 @@ export let UPDATE_USER_COIN = gql`mutation UpdateUserCoin($updateUserCoinId: Str
         coinId
     }
 }`
+
+export let UPDATE_USER = gql`mutation UpdateUser($updateUserId: String!, $firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!) {
+    updateUser(id: $updateUserId, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber) {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        createdAt
+        updatedAt
+        coins {
+            id
+            quantity
+            totalPrice
+            userId
+            coinId
+        }
+    }
+}`
