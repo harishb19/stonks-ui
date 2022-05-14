@@ -289,6 +289,15 @@ const ForgotContainer = ({setIsForgotPassword}) => {
                     onSubmit={(values, {setSubmitting}) => {
                         setSubmitting(true)
                         handleForgotPassword(values.email)
+                        toast.success(`Email has been sent!`, {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        })
                     }}
                     enableReinitialize={true}
                     validationSchema={Yup.object().shape({
@@ -346,7 +355,7 @@ const ForgotContainer = ({setIsForgotPassword}) => {
                                                 disabled={isSubmitting || !(isValid && dirty)}
                                                 type={"submit"}
                                         >
-                                            sign in
+                                            Send email
                                         </Button>
 
                                     </Grid>

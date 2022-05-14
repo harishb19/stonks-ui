@@ -20,11 +20,12 @@ export default function Profile() {
     const setUserDetails = useStoreActions(actions => actions.user.setUserDetails)
     const [initialValues, setInitialValues] = useState({})
     const [updateUserFunc] = useMutation(UPDATE_USER);
+    const regex = /^[0-9]{10}$/
     const validationSchema = Yup.object({
         firstName: Yup.string().typeError("First Name must be valid").required('First Name Required'),
         lastName: Yup.string().typeError("Last Name must be valid").required('Last Name Required'),
         email: Yup.string().email().typeError("Email should be like abc@xyz.com").required('Email Required'),
-        phoneNumber: Yup.string().phone("", true, "Phone number must be valid").required("Phone number is required").nullable(false)
+        phoneNumber: Yup.string().required("Phone number is required").matches(regex, "Phone number is not valid").nullable(false)
 
     })
 
