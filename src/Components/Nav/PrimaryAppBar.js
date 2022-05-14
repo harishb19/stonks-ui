@@ -19,6 +19,8 @@ import Color from "color";
 import {useQuery} from "@apollo/client";
 import {GET_ALL_COINS} from "../../graphql/queries";
 import SearchBar from "./SearchBar";
+import {getAuth, signOut} from "firebase/auth";
+import {toast} from "react-toastify";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -122,6 +124,39 @@ const PrimaryAppBar = ({onClick, open}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
     const {data, loading, error} = useQuery(GET_ALL_COINS)
 
+    const handleAuth = () => {
+        if (userDetails && userDetails.id) {
+            const auth = getAuth()
+            signOut(auth).then(() => {
+                navigate("/")
+                toast.success(`See you soon!`, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+
+            }).catch((error) => {
+                console.log(error)
+                toast.error(`Error logging out`, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            });
+
+        } else {
+            navigate("/auth/login")
+        }
+    }
+
     useEffect(() => {
         if (data && data.coins) {
             setCoins(data.coins)
@@ -160,7 +195,7 @@ const PrimaryAppBar = ({onClick, open}) => {
         onClose={handleMenuClose}
     >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={handleAuth}>Logout</MenuItem>
     </Menu>);
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
