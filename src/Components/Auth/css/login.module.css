@@ -20,7 +20,8 @@
     margin-bottom: 1em
 }
 
-.titleText{
+
+.titleText {
     font-variant: small-caps;
     letter-spacing: 3px;
 }
@@ -85,7 +86,6 @@
 
 .labelBlue {
     color: #3D4E98;
-    /*text-transform: uppercase;*/
 }
 
 .textArea {
@@ -95,7 +95,6 @@
     display: flex;
     min-height: 100px;
     border: none;
-    /*background: rgba(242, 242, 242, 0.2);*/
     margin: 2% auto;
     padding: 1em !important;
     color: #3D4E98;
@@ -123,7 +122,6 @@
     display: flex;
     min-height: 50px;
     border: none;
-    /*background: rgba(242, 242, 242, 0.2);*/
     margin: 2% auto;
     padding: 1% 5% !important;
     color: #3D4E98;
@@ -201,21 +199,11 @@
     color: #3D4E98 !important;
 }
 
-/*.error {*/
-/*    font-weight: 700;*/
-/*    font-size: .9em;*/
-/*    !*text-transform: uppercase;*!*/
-/*    color: red;*/
-/*    margin-top: -1%;*/
-/*}*/
 
 .errorBorder {
     box-shadow: 0 0 0 1px red inset;
 }
 
-/*.button {*/
-/*    border-radius: 20px !important;*/
-/*}*/
 
 .divider {
     display: flex;
@@ -280,19 +268,6 @@
     color: black !important;
 }
 
-/*.button {*/
-/*    color: #0D0D0D;*/
-/*    background: rgba(255, 255, 255, .45);*/
-/*    position: relative;*/
-/*    font-weight: 400;*/
-/*    font-family: Raleway, sans-serif;*/
-/*    overflow: hidden;*/
-/*    margin-top: 10px;*/
-/*    padding: 5px;*/
-/*    border: 2px solid #6f5ed4;*/
-/*    border-radius: 8px;*/
-/*    letter-spacing: 3px;*/
-/*}*/
 
 .sso {
     width: 3rem;
@@ -426,13 +401,9 @@
     cursor: pointer;
 }
 
-/*.error {*/
-/*    font-weight: bold;*/
-/*    color: red !important;*/
-/*}*/
 
 .minilink {
-    /*color: #0070f3;*/
+    cursor: pointer;
     color: #2a77f6;
 }
 

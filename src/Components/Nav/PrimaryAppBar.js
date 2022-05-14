@@ -196,6 +196,7 @@ const PrimaryAppBar = ({onClick, open}) => {
     >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleAuth}>Logout</MenuItem>
+
     </Menu>);
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
