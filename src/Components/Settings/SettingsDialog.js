@@ -8,7 +8,8 @@ import {
     DialogContentText,
     DialogTitle,
     Radio,
-    Stack
+    Stack,
+    Typography
 } from "@mui/material";
 import OdometerAnimation from "../Common/OdometerAnimation";
 import {blackColor, downColor, upColor} from "../../Common/Colors";
@@ -53,86 +54,97 @@ export default function SettingsDialog({open, setOpen}) {
             <DialogContentText>
                 Select Animation Style
             </DialogContentText>
-            <Stack direction={"row"} spacing={3} justifyContent={"space-evenly"} sx={{margin: "20px 0px"}}>
-                <Stack direction={"column"} spacing={1} alignItems={"center"}>
-                    <Box style={{
-                        backgroundColor: blackColor,
-                        border: `1px solid rgba(53, 53, 53)`,
-                        borderRadius: '10px',
-                        padding: '20px',
-                        height: "120px",
+            <Stack direction={"column"}>
+                <Stack direction={"row"} spacing={3} justifyContent={"space-evenly"} sx={{margin: "20px 0px"}}>
+                    <Stack direction={"column"} spacing={1} alignItems={"center"}>
+                        <Box style={{
+                            backgroundColor: blackColor,
+                            border: `1px solid rgba(53, 53, 53)`,
+                            borderRadius: '10px',
+                            padding: '20px',
+                            height: "120px",
 
-                    }}>
-                        <AnimatedNumber
-                            displayType={'text'}
-                            value={counter}
-                            thousandSeparator={true} decimalScale={5} fixedDecimal={true}
-                            prefix="$" decimalSeparator="." className={coinStyle.price}
-                            style={{
-                                color: counter > 0 ? upColor : downColor,
-                            }}/>
-                    </Box>
-                    <Radio
-                        checked={selectedValue === "0"}
-                        onChange={handleChange}
-                        value={"0"}
-                        name="radio-buttons"
-                        inputProps={{'aria-label': '0'}}
-                    />
+                        }}>
+                            <AnimatedNumber
+                                displayType={'text'}
+                                value={counter}
+                                thousandSeparator={true} decimalScale={5} fixedDecimal={true}
+                                prefix="$" decimalSeparator="." className={coinStyle.price}
+                                style={{
+                                    color: counter > 0 ? upColor : downColor,
+                                }}/>
+                        </Box>
+                        <Radio
+                            checked={selectedValue === "0"}
+                            onChange={handleChange}
+                            value={"0"}
+                            name="radio-buttons"
+                            inputProps={{'aria-label': '0'}}
+                        />
+                    </Stack>
+                    <Stack direction={"column"} spacing={1} alignItems={"center"}>
+                        <Box style={{
+                            backgroundColor: blackColor,
+                            border: `1px solid rgba(53, 53, 53)`,
+                            borderRadius: '10px',
+                            padding: '20px',
+                            height: "120px"
+                        }}>
+                            <OdometerAnimation
+                                value={counter}
+                                prefix="$"
+                                decimalScale={2}
+                                style={{
+                                    color: counter > 0 ? upColor : downColor,
+                                }}
+                                className={coinStyle.price}
+                                animate={false}/>
+                        </Box>
+                        <Radio
+                            checked={selectedValue === '1'}
+                            onChange={handleChange}
+                            value={'1'}
+                            name="radio-buttons"
+                            inputProps={{'aria-label': '1'}}
+                        />
+                    </Stack>
+                    <Stack direction={"column"} spacing={1} alignItems={"center"}>
+                        <Box style={{
+                            backgroundColor: blackColor,
+                            border: `1px solid rgba(53, 53, 53)`,
+                            borderRadius: '10px',
+                            padding: '20px',
+                            height: "120px"
+                        }}>
+                            <OdometerAnimation
+                                value={counter}
+                                prefix="$"
+                                decimalScale={2}
+                                style={{
+                                    color: counter > 0 ? upColor : downColor,
+                                }}
+                                className={coinStyle.price}
+                                animate={true}/>
+                        </Box>
+                        <Radio
+                            checked={selectedValue === '2'}
+                            onChange={handleChange}
+                            value={'2'}
+                            name="radio-buttons"
+                            inputProps={{'aria-label': '2'}}
+                        />
+                    </Stack>
                 </Stack>
-                <Stack direction={"column"} spacing={1} alignItems={"center"}>
-                    <Box style={{
-                        backgroundColor: blackColor,
-                        border: `1px solid rgba(53, 53, 53)`,
-                        borderRadius: '10px',
-                        padding: '20px',
-                        height: "120px"
-                    }}>
-                        <OdometerAnimation
-                            value={counter}
-                            prefix="$"
-                            decimalScale={2}
-                            style={{
-                                color: counter > 0 ? upColor : downColor,
-                            }}
-                            className={coinStyle.price}
-                            animate={false}/>
-                    </Box>
-                    <Radio
-                        checked={selectedValue === '1'}
-                        onChange={handleChange}
-                        value={'1'}
-                        name="radio-buttons"
-                        inputProps={{'aria-label': '1'}}
-                    />
-                </Stack>
-                <Stack direction={"column"} spacing={1} alignItems={"center"}>
-                    <Box style={{
-                        backgroundColor: blackColor,
-                        border: `1px solid rgba(53, 53, 53)`,
-                        borderRadius: '10px',
-                        padding: '20px',
-                        height: "120px"
-                    }}>
-                        <OdometerAnimation
-                            value={counter}
-                            prefix="$"
-                            decimalScale={2}
-                            style={{
-                                color: counter > 0 ? upColor : downColor,
-                            }}
-                            className={coinStyle.price}
-                            animate={true}/>
-                    </Box>
-                    <Radio
-                        checked={selectedValue === '2'}
-                        onChange={handleChange}
-                        value={'2'}
-                        name="radio-buttons"
-                        inputProps={{'aria-label': '2'}}
-                    />
-                </Stack>
+                {
+                    selectedValue === '1' || selectedValue === '2' ?
+                        <Typography variant={'body1'} component={'p'} color={"error"}>
+                            * This animation does not apply to grid
+                        </Typography>
+                        :
+                        null
+                }
             </Stack>
+
         </DialogContent>
         <DialogActions>
             <Button onClick={handleClose}>Close</Button>

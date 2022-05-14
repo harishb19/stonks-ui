@@ -215,7 +215,7 @@ const NormalNav = ({children}) => {
                 </ListItemButton>
             </List>
         </Drawer>
-        <Box component="main" sx={{flexGrow: 1}}>
+        <Box component="main" sx={{flexGrow: 1, minHeight: "100vh"}}>
             <DrawerHeader/>
             {children}
         </Box>
@@ -243,7 +243,7 @@ const AuthNav = ({children}) => {
 
             </Box>
         </AppBar>
-        <Box component="main" sx={{flexGrow: 1}}>
+        <Box component="main" sx={{flexGrow: 1, minHeight: "100vh"}}>
             <DrawerHeader/>
             {children}
         </Box>

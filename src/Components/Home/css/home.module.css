@@ -1,6 +1,7 @@
 
 .radialBG {
     background: radial-gradient(circle at 50% 50%, rgba(144, 0, 255, 0.2), black 70%);
+    min-height: 100% !important;
 }
 
 .frostedBox {
