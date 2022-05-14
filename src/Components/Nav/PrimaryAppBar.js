@@ -14,8 +14,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {Avatar, Button, useMediaQuery} from "@mui/material";
-import {useStoreState} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 import {useNavigate} from "react-router-dom";
+import Color from "color";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -70,17 +71,41 @@ function stringToColor(string) {
         color += `00${value.toString(16)}`.slice(-2);
     }
     /* eslint-enable no-bitwise */
-
     return color;
 }
 
 function stringAvatar(name) {
     return {
         sx: {
-            bgcolor: stringToColor(name),
+            backgroundColor: stringToColor(name),
+            color: Color(stringToColor(name)).isLight() ? "black" : "white"
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
+}
+
+const NotificationBadge = () => {
+    const setOpenNotifications = useStoreActions(actions => actions.notifications.setOpenNotifications)
+    const notifications = useStoreState(state => state.notifications.notifications)
+
+
+    return (
+        <IconButton
+            size="large"
+            aria-label="show notifications"
+            color="inherit"
+            onClick={() => setOpenNotifications(true)}
+        >
+            {
+                notifications.length > 0 ?
+                    <Badge badgeContent={notifications.length} color="primary">
+                        <NotificationsIcon/>
+                    </Badge> :
+                    <NotificationsIcon/>
+            }
+
+        </IconButton>
+    )
 }
 
 const PrimaryAppBar = ({onClick, open}) => {
@@ -152,16 +177,7 @@ const PrimaryAppBar = ({onClick, open}) => {
             <p>Messages</p>
         </MenuItem>
         <MenuItem>
-            <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-            >
-                <Badge badgeContent={17} color="error">
-                    <NotificationsIcon/>
-                </Badge>
-            </IconButton>
-            <p>Notifications</p>
+            <NotificationBadge/>
         </MenuItem>
         <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
@@ -221,15 +237,7 @@ const PrimaryAppBar = ({onClick, open}) => {
             <Box sx={{flexGrow: 1}}/>
             {userDetails && userDetails.id && <>
                 <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                    <IconButton
-                        size="large"
-                        aria-label="show 17 new notifications"
-                        color="inherit"
-                    >
-                        <Badge badgeContent={17} color="error">
-                            <NotificationsIcon/>
-                        </Badge>
-                    </IconButton>
+                    <NotificationBadge/>
                     <IconButton
                         size="large"
                         edge="end"

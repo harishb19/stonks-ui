@@ -51,3 +51,60 @@ export let UPDATE_USER_COIN = gql`mutation UpdateUserCoin($updateUserCoinId: Str
         coinId
     }
 }`
+
+
+export const INSERT_NOTIFICATIONS = gql`
+    mutation Mutation($input: NotificationInput!) {
+        createNotification(input: $input) {
+            id
+            userId
+            coinId
+            topic
+            condition {
+                gt
+                lt
+                eq
+            }
+            isActive
+            coin {
+                id
+                name
+            }
+        }
+    }
+`
+export const UPDATE_NOTIFICATIONS = gql`
+    mutation Mutation($id: String!, $userId: String!) {
+        updateNotification(id: $id, userId: $userId) {
+            id
+            userId
+            coinId
+            topic
+            condition {
+                gt
+                lt
+                eq
+            }
+            isActive
+            coin {
+                id
+                name
+            }
+        }
+    }
+`
+
+export const GET_TOPICS = gql`
+    mutation SubscribeToTopic($userId: String!, $token: String!, $topics: [String]!) {
+        subscribeToTopic(userId: $userId, token: $token, topics: $topics)
+    }
+`
+
+export const DELETE_NOTIFICATIONS = gql`
+    mutation Mutation($id: String!, $userId: String!) {
+        deleteNotification(id: $id, userId: $userId) {
+            id
+            isActive
+        }
+    }
+`

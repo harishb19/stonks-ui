@@ -1,8 +1,8 @@
 import {gql} from "@apollo/client";
 
 export const COIN_SUBSCRIPTION = gql`
-    subscription MarketData($coinId: String) {
-        marketData(coinId: $coinId) {
+    subscription Subscription($coinId: String, $coinIds: [String]) {
+        marketData(coinId: $coinId, coinIds: $coinIds) {
             id
             currentPrice
             priceChange24h
@@ -21,5 +21,6 @@ export const COIN_SUBSCRIPTION = gql`
             sparkline
         }
     }
+
 `
 

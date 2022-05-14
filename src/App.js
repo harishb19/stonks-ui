@@ -15,7 +15,6 @@ import ErrorBoundary from "./Components/Error/ErrorBoundary";
 import AuthProvider from "./Components/Auth/AuthProvider";
 import NavWrapper from "./Components/Nav/NavWrapper";
 import Home from "./Components/Home/Home";
-import Wallet from "./Components/Wallet/Wallet";
 import Profile from "./Components/Profile/Profile";
 import Coin from "./Components/Coins/Coin";
 import Login from "./Components/Auth/Login";
@@ -24,6 +23,10 @@ import PageNotFound from "./Components/Error/PageNotFound";
 import {downColor, upColor} from "./Common/Colors";
 import ProtectedRoutes from "./Components/Auth/ProtectedRoutes";
 import LoginCheck from "./Components/LoginCheck";
+import WalletFetchUser from "./Components/Wallet/WalletFetchUser";
+import NotificationToast from "./Components/Notification/NotificationToast";
+import {ToastProvider} from "react-toast-notifications";
+import NotificationCenter from "./Components/Notification/NotificationCenter";
 
 const theme = createTheme({
     palette: {
@@ -88,35 +91,42 @@ function App() {
                 <ApolloProvider client={client}>
                     <Fragment>
                         <ThemeProvider theme={theme}>
-                            <CssBaseline/>
-                            <AuthProvider>
-                                <NavWrapper>
-                                    <Routes>
-                                        <Route path="/" element={<Home/>}/>
-                                        <Route path="/wallet" element={<ProtectedRoutes>
-                                            <Wallet/>
-                                        </ProtectedRoutes>}/>
-                                        <Route path="/profile" element={<ProtectedRoutes>
-                                            <Profile/>
-                                        </ProtectedRoutes>}/>
-                                        <Route path="/coins/:id" element={<Coin/>}/>
-                                        <Route path="/auth/login" element={<LoginCheck><Login/></LoginCheck>}/>
-                                        <Route path="/auth/signup" element={<LoginCheck><Signup/></LoginCheck>}/>
-                                        <Route path="*" element={<PageNotFound/>}/>
-                                    </Routes>
-                                </NavWrapper>
-                            </AuthProvider>
-                            <ToastContainer
-                                position="bottom-right"
-                                autoClose={5000}
-                                hideProgressBar
-                                newestOnTop
-                                closeOnClick
-                                rtl={false}
-                                pauseOnFocusLoss
-                                draggable
-                                pauseOnHover
-                            />
+                            <ToastProvider
+                                autoDismiss
+                                autoDismissTimeout={10000}
+                                placement={"top-center"}
+                                components={{Toast: NotificationToast}}>
+                                <CssBaseline/>
+                                <AuthProvider>
+                                    <NavWrapper>
+                                        <Routes>
+                                            <Route path="/" element={<Home/>}/>
+                                            <Route path="/wallet" element={<ProtectedRoutes>
+                                                <WalletFetchUser/>
+                                            </ProtectedRoutes>}/>
+                                            <Route path="/profile" element={<ProtectedRoutes>
+                                                <Profile/>
+                                            </ProtectedRoutes>}/>
+                                            <Route path="/coins/:id" element={<Coin/>}/>
+                                            <Route path="/auth/login" element={<LoginCheck><Login/></LoginCheck>}/>
+                                            <Route path="/auth/signup" element={<LoginCheck><Signup/></LoginCheck>}/>
+                                            <Route path="*" element={<PageNotFound/>}/>
+                                        </Routes>
+                                    </NavWrapper>
+                                    <NotificationCenter/>
+                                </AuthProvider>
+                                <ToastContainer
+                                    position="bottom-right"
+                                    autoClose={5000}
+                                    hideProgressBar
+                                    newestOnTop
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                />
+                            </ToastProvider>
                         </ThemeProvider>
                     </Fragment>
                 </ApolloProvider>
