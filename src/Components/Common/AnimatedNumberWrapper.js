@@ -14,30 +14,28 @@ const AnimatedNumberWrapper = ({
                                    fixedDecimalScale
                                }) => {
 
-    const type = 1
-    return (type === 0 ? <AnimatedNumber key={value}
-                                         className={className}
-                                         displayType={'text'}
-                                         value={value}
-                                         thousandSeparator={thousandSeparator}
-                                         prefix={prefix}
-                                         suffix={suffix}
-                                         decimalSeparator={decimalSeparator}
-                                         style={style}
-                                         decimalScale={decimalScale}
-                                         fixedDecimalScale={fixedDecimalScale}/> :
+    const numberStyle = parseInt(localStorage.getItem("numberStyle"));
+
+    return (numberStyle === 0 ? <AnimatedNumber key={value}
+                                                className={className}
+                                                displayType={'text'}
+                                                value={value}
+                                                thousandSeparator={thousandSeparator}
+                                                prefix={prefix}
+                                                suffix={suffix}
+                                                decimalSeparator={decimalSeparator}
+                                                style={style}
+                                                decimalScale={2}
+                                                fixedDecimalScale={fixedDecimalScale}/> :
         <OdometerAnimation
             className={className}
             displayType={'text'}
             value={value}
-            thousandSeparator={thousandSeparator}
             prefix={prefix}
             suffix={suffix}
-            decimalSeparator={decimalSeparator}
             style={style}
-            decimalScale={decimalScale}
-            fixedDecimalScale={fixedDecimalScale}
-            animate={type === 2}/>)
+            decimalScale={2}
+            animate={numberStyle === 2}/>)
 
 }
 

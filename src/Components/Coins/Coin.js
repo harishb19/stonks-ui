@@ -47,7 +47,6 @@ const Coin = () => {
     }
 
     const changeChartDuration = (day, inter) => {
-        console.log(day)
         setChartDuration({days: day, interval: inter})
     }
 
@@ -151,10 +150,10 @@ const Coin = () => {
                                         <Stack direction={"row"} spacing={1} alignItems={"baseline"}
                                                sx={{marginTop: "5px"}}>
                                             <AnimatedNumberWrapper
+                                                displayType={'text'}
                                                 value={coinDetails.coins_market_data.currentPrice}
-                                                prefix="$"
-                                                decimalScale={2}
-                                                className={coinStyle.price}/>
+                                                thousandSeparator={true} decimalScale={2} fixedDecimal={true}
+                                                prefix="$" decimalSeparator="." className={coinStyle.price}/>
                                             <PriceUpDown value={coinDetails.coins_market_data.priceChangePercentage24h}
                                                          fontSize={"1.5em"}
                                                          fontWeight={"500"}/>
@@ -201,7 +200,7 @@ const Coin = () => {
                             <PriceUpDown fontWeight={500} fontSize={"1.2em"}
                                          value={coinDetails.coins_market_data.priceChange24h} prefix={"$"}
                                          suffix={""}
-                                         decimals={5} arrow={false}/>
+                                         decimals={2} arrow={false}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
@@ -210,7 +209,7 @@ const Coin = () => {
                             <AnimatedNumberWrapper displayType={'text'}
                                                    value={getDollarNumber(coinDetails.coins_market_data.marketCap)}
                                                    thousandSeparator={true}
-                                                   decimalScale={5}
+                                                   decimalScale={2}
                                                    prefix="$" decimalSeparator="."
                                                    suffix={getDollarText(coinDetails.coins_market_data.marketCap)}
                                                    className={coinStyle.marketCap}/>
@@ -222,7 +221,7 @@ const Coin = () => {
                             <AnimatedNumberWrapper displayType={'text'}
                                                    value={getDollarNumber(coinDetails.coins_market_data.totalVolume)}
                                                    thousandSeparator={true}
-                                                   decimalScale={5}
+                                                   decimalScale={2}
                                                    prefix="$" decimalSeparator="."
                                                    suffix={getDollarText(coinDetails.coins_market_data.totalVolume)}
                                                    className={coinStyle.marketCap}/>
@@ -235,7 +234,7 @@ const Coin = () => {
                                                    value={getDollarNumber(coinDetails.coins_market_data.totalCoins)}
                                                    suffix={getDollarText(coinDetails.coins_market_data.totalCoins)}
                                                    thousandSeparator={true}
-                                                   decimalScale={5}
+                                                   decimalScale={2}
                                                    decimalSeparator="." className={coinStyle.marketCap}/>
                         </Stack>
                         <Stack direction={"column"}>
@@ -246,7 +245,7 @@ const Coin = () => {
                                                    value={getDollarNumber(coinDetails.coins_market_data.totalActiveCoins)}
                                                    suffix={getDollarText(coinDetails.coins_market_data.totalActiveCoins)}
                                                    thousandSeparator={true}
-                                                   decimalScale={5}
+                                                   decimalScale={2}
                                                    decimalSeparator="." className={coinStyle.marketCap}/>
                         </Stack>
                         <div>
