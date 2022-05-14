@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import cardStyle from './css/coin_card.module.css'
 import coinStyle from '../Coins/css/coin.module.css'
 
-import AnimatedNumberFormat from "./AnimatedNumberFormat";
+import AnimatedNumberWrapper from "./AnimatedNumberWrapper";
 import {Link} from "react-router-dom";
 import UserCoinDetails from "../Coins/UserCoinDetails";
 
@@ -49,11 +49,11 @@ const CoinCard = ({
                             }}>
                                 <PriceUpDown fontSize={'0.9em'} arrowSize={"small"} value={priceChangePercentage24h}/>
                             </Box>
-                            <AnimatedNumberFormat displayType={'text'} value={currentPrice} thousandSeparator={true}
-                                                  suffix=" USD" decimalSeparator="." decimalScale={2}
-                                                  fixedDecimalScale={true}
-                                                  fixedDecimal={false}
-                                                  style={{fontSize: "1.1em", fontWeight: 500, margin: "7"}}/>
+                            <AnimatedNumberWrapper displayType={'text'} value={currentPrice} thousandSeparator={true}
+                                                   suffix=" USD" decimalSeparator="." decimalScale={2}
+                                                   fixedDecimalScale={true}
+                                                   fixedDecimal={false}
+                                                   style={{fontSize: "1.1em", fontWeight: 500, margin: "7"}}/>
                         </Stack>
                     </Stack>
                     <div style={{borderTop: "1.5px solid #383A43 "}}/>

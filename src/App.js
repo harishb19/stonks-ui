@@ -20,7 +20,7 @@ import Coin from "./Components/Coins/Coin";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import PageNotFound from "./Components/Error/PageNotFound";
-import {downColor, upColor} from "./Common/Colors";
+import {blackColor, downColor, upColor} from "./Common/Colors";
 import ProtectedRoutes from "./Components/Auth/ProtectedRoutes";
 import LoginCheck from "./Components/LoginCheck";
 import WalletFetchUser from "./Components/Wallet/WalletFetchUser";
@@ -33,6 +33,8 @@ const theme = createTheme({
             main: upColor
         }, error: {
             main: downColor
+        }, background: {
+            paper: blackColor,
         }
     },
 });

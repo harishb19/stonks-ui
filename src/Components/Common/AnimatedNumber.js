@@ -3,18 +3,17 @@ import React from "react";
 import {CSSTransition} from "react-transition-group";
 import animateClass from "./css/animated.module.css"
 
-const AnimatedNumberFormat = ({
-                                  value,
-                                  className,
-                                  thousandSeparator,
-                                  prefix,
-                                  suffix,
-                                  decimalSeparator,
-                                  style,
-                                  decimalScale,
-                                  fixedDecimalScale
-                              }) => {
-
+const AnimatedNumber = ({
+                            value,
+                            className,
+                            thousandSeparator,
+                            prefix,
+                            suffix,
+                            decimalSeparator,
+                            style,
+                            decimalScale,
+                            fixedDecimalScale
+                        }) => {
     return <CSSTransition key={value} timeout={1000}>
         <NumberFormat key={value}
                       className={`${className} ${animateClass.animate}`}
@@ -30,4 +29,4 @@ const AnimatedNumberFormat = ({
     </CSSTransition>
 }
 
-export default AnimatedNumberFormat
+export default AnimatedNumber
