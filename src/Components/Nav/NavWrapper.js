@@ -251,7 +251,7 @@ const AuthNav = ({children}) => {
 
             </Box>
         </AppBar>
-        <Box component="main" sx={{flexGrow: 1, p: 3}}>
+        <Box component="main" sx={{flexGrow: 1}}>
             <DrawerHeader/>
             {children}
         </Box>

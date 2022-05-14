@@ -19,7 +19,6 @@ export default function SettingsDialog({open, setOpen}) {
     const numberStyle = localStorage.getItem("numberStyle") ?? '0';
     console.log(numberStyle)
     const [counter, setCounter] = useState(1234)
-    const [up, setUp] = useState(0)
     const [selectedValue, setSelectedValue] = React.useState(numberStyle);
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
@@ -31,17 +30,11 @@ export default function SettingsDialog({open, setOpen}) {
         }
     }, [numberStyle]);
 
+
     useEffect(() => {
         if (open) {
             const interval = setInterval(() => {
-                if (up <= 5) {
-                    setCounter((x) => x + 10)
-                    setUp((x) => x + 1)
-                } else {
-                    setCounter((x) => x - 10)
-                    setUp((x) => x - 1)
-                }
-
+                setCounter(x => x + 5)
             }, 1000);
             return () => clearInterval(interval);
         }
@@ -55,7 +48,7 @@ export default function SettingsDialog({open, setOpen}) {
 
     return (<Dialog open={open} onClose={handleClose} fullWidth={true}
                     maxWidth={"md"}>
-        <DialogTitle>Settings</DialogTitle>
+        <DialogTitle component={"p"}>Settings</DialogTitle>
         <DialogContent dividers>
             <DialogContentText>
                 Select Animation Style

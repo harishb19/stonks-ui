@@ -11,7 +11,7 @@ const CurrencyConverter = ({image, symbol, value}) => {
     const [usdText, setUsdText] = useState(value)
     const [coinText, setCoinText] = useState(1)
 
-    const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+    const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
     const coinToUsd = (e) => {
         if (isNaN(e.target.value)) return;
         setCoinText(e.target.value);

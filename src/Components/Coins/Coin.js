@@ -50,7 +50,7 @@ const Coin = () => {
         setChartDuration({days: day, interval: inter})
     }
 
-    const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+    const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
 
     const stopScroll = () => {
         blockScroll()

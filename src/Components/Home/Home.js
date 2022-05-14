@@ -13,7 +13,7 @@ import Error from "../Error/CustomError";
 import AnimatedNumberWrapper from "../Common/AnimatedNumberWrapper";
 
 
-const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
 const coinBox = (id, title, name, value, image) => <Link to={`/coins/${id}`}>
     <Box className={homeStyle.frostedBox} sx={{margin: "10px"}}>
         <Typography variant={"subtitle1"} component={"p"}>

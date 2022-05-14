@@ -13,7 +13,7 @@ import {useStoreState} from "easy-peasy";
 import React, {useEffect, useState} from "react"
 import AnimatedNumberWrapper from "./AnimatedNumberWrapper";
 
-const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
 
 
 const StyledDataGrid = styled(DataGrid)(({theme}) => ({

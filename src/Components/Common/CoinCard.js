@@ -24,7 +24,7 @@ const CoinCard = ({
                       price = 0,
                       profit = 0,
                   }) => {
-    const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+    const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
     return (
         <Box className={cardStyle.actionArea}>
             <Link to={`/coins/${id}`}>
