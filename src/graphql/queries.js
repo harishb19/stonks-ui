@@ -142,6 +142,15 @@ export const ALL_USER_COINS = gql`
     }
 `
 
+export let GET_USER = gql`query Query($userId: String!) {
+    user(id: $userId) {
+        email
+        firstName
+        lastName
+        phoneNumber
+    }
+}`
+
 export const USER_COIN_NOTIFICATION = gql`
     query userCoinNotification($coinId: String, $userId: String!) {
         notifications(coinId: $coinId, userId: $userId) {
