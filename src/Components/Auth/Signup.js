@@ -1,4 +1,4 @@
-import {useStoreActions, useStoreState} from "easy-peasy";
+import {useStoreState} from "easy-peasy";
 import {Box, Button, Paper, Grid, InputAdornment, TextField, Typography, InputLabel} from "@mui/material";
 import loginStyle from "./css/login.module.css"
 import {Formik} from "formik";
@@ -37,8 +37,6 @@ const Signup = () => {
         phoneNumber: Yup.string().required("Phone number is required").matches(regex, "Phone number is not valid").nullable(false)
     }
 
-
-    const setUserDetails = useStoreActions(actions => actions.user.setUserDetails)
 
     const [initialValue, setInitialValue] = useState({
         firstName: "", lastName: "", email: "", password: "", confirmPassword: "", phoneNumber: ""
@@ -131,8 +129,6 @@ const Signup = () => {
             }
         }).then((response) => {
             if (response && response.data && response.data.signUp && response.data.signUp.id) {
-                let user = {...response.data.signUp}
-                // setUserDetails({...user})
 
                 navigate("/auth/login")
                 toast.success(`Sign up successful. Login to continue!`, {
