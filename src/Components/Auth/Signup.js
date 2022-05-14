@@ -1,5 +1,5 @@
 import {useStoreActions, useStoreState} from "easy-peasy";
-import {Box, Button, Container, Grid, Typography} from "@mui/material";
+import {Box, Button, Paper, Grid, InputAdornment, TextField, Typography, InputLabel} from "@mui/material";
 import loginStyle from "./css/login.module.css"
 import {Formik} from "formik";
 import * as Yup from "yup";
@@ -10,6 +10,8 @@ import {SIGNUP_USER} from "../../graphql/mutation";
 import "yup-phone";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {Email, Google, LocalPhone, Lock, Badge} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
 
 const Signup = () => {
     const navigate = useNavigate()
@@ -18,6 +20,7 @@ const Signup = () => {
         navigate("/")
     }
     const auth = getAuth();
+    const regex = /^[0-9]{10}$/
     const passwordValidation = {
         firstName: Yup.string().required("First name is required"),
         lastName: Yup.string().required("Last name is required"),
@@ -25,13 +28,13 @@ const Signup = () => {
         password: Yup.string().min(6, "Password should be min 6 character long").required('Password is required'),
         passwordConfirmation: Yup.string()
             .oneOf([Yup.ref('password'), null], 'Passwords must match').required('Password is required'),
-        phoneNumber: Yup.string().phone("", true, "Phone number must be valid").required("Phone number is required").nullable(false)
+        phoneNumber: Yup.string().required("Phone number is required").matches(regex, "Phone number is not valid").nullable(false)
     }
     const googleValidation = {
         firstName: Yup.string().required("First name is required"),
         lastName: Yup.string().required("Last name is required"),
         email: Yup.string().email().required("Email is required"),
-        phoneNumber: Yup.string().phone("", true, "Phone number must be valid").required("Phone number is required").nullable(false)
+        phoneNumber: Yup.string().required("Phone number is required").matches(regex, "Phone number is not valid").nullable(false)
     }
 
 
@@ -129,10 +132,10 @@ const Signup = () => {
         }).then((response) => {
             if (response && response.data && response.data.signUp && response.data.signUp.id) {
                 let user = {...response.data.signUp}
-                setUserDetails({...user})
+                // setUserDetails({...user})
 
-                navigate("/")
-                toast.success(`Welcome to stonks!`, {
+                navigate("/auth/login")
+                toast.success(`Sign up successful. Login to continue!`, {
                     position: "bottom-right",
                     autoClose: 5000,
                     hideProgressBar: true,
@@ -160,177 +163,237 @@ const Signup = () => {
         console.log("initialValue", initialValue)
     }, [initialValue])
 
-
-    return (<Container maxWidth={"md"}>
-        <div className={`${loginStyle.titleContainer}`}>
-            <Typography color={"secondary"} variant={"h5"} component={"div"}>
-                <b>Sign up</b>
-            </Typography>
-            <div>
-                <Box className={loginStyle.googleBtn} sx={{width: "195px !important"}}>
-                    <div className={loginStyle.googleIconWrapper}>
-                        <img className={loginStyle.googleIcon}
-                             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                             alt={"google"}/>
+    return (
+        <Paper elevation={2} className={`${loginStyle.rootSignup}`}>
+            <Box justifyContent='center' display='flex' alignItems='center' className={loginStyle.div}>
+                <div  className={loginStyle.paper}>
+                    <div className={loginStyle.titleContainer}>
+                        <Typography variant={"h5"} component={"div"} className={loginStyle.titleText}>
+                            <b>Sign Up</b>
+                        </Typography>
                     </div>
-                    <p className={loginStyle.btnText}
-                       onClick={handleSignupWithGoogle}
-                    ><b>Sign up with google</b></p>
-                </Box>
-            </div>
-        </div>
-        <div>
-            <Formik
-                initialValues={{...initialValue}}
-                onSubmit={handleSignup}
-                enableReinitialize={true}
-                validationSchema={Yup.object().shape(isGoogleAuth ? {...googleValidation} : {...passwordValidation})}
-            >
-                {(props) => {
-                    const {
-                        values, touched, errors, dirty, handleChange, handleBlur, handleSubmit, isValid, isSubmitting
-                    } = props;
-                    return (<form onSubmit={handleSubmit} className={`${loginStyle.form}`}>
-                        <Grid container alignItems="flex-start" spacing={4}>
-                            <Grid item xs={12} md={6}>
-                                <label htmlFor={"firstName"} className={`${loginStyle.label}`}>
-                                    First name
-                                </label>
-                                <input type="text"
-                                       name={"firstName"}
-                                       id={"firstName"}
-                                       value={values.firstName}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
+                    <Formik
+                        initialValues={{...initialValue}}
+                        onSubmit={handleSignup}
+                        enableReinitialize={true}
+                        validationSchema={Yup.object().shape(isGoogleAuth ? {...googleValidation} : {...passwordValidation})}
+                    >
+                        {(props) => {
+                            const {
+                                values, touched, errors, dirty, handleChange, handleBlur, handleSubmit, isValid, isSubmitting
+                            } = props;
+                            return (
+                                <form onSubmit={handleSubmit}>
+                                    <Grid container alignItems="center" spacing={2}>
+                                        <Grid container item xs={12} md={12} lg={12} spacing={2}>
+                                            <Grid item xs={12} md={6} lg={6}>
+                                                <InputLabel htmlFor="firstName">First Name</InputLabel>
+                                                <TextField
+                                                    multiline
+                                                    type="text"
+                                                    name={"firstName"}
+                                                    id={"firstName"}
+                                                    value={values.firstName}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    variant={"outlined"}
+                                                    fullWidth
+                                                    className={loginStyle.inputboxmini}
+                                                    InputProps={{
+                                                        startAdornment: (
+                                                            <InputAdornment position="start">
+                                                                <Badge/>
+                                                            </InputAdornment>
+                                                        ),
+                                                    }}
+                                                />
+                                                <p className={`${loginStyle.error}`}>
+                                                    {
+                                                        (errors.firstName && touched.firstName) && errors.firstName
+                                                    }
+                                                </p>
+                                            </Grid>
+                                            <Grid item xs={12} md={6} lg={6}>
+                                                <InputLabel htmlFor="lastName">Last Name</InputLabel>
+                                                <TextField
+                                                    multiline
+                                                    // label={"Last Name"}
+                                                    type="text"
+                                                    name={"lastName"}
+                                                    id={"lastName"}
+                                                    value={values.lastName}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    variant={"outlined"}
+                                                    fullWidth
+                                                    className={loginStyle.inputboxmini}
+                                                    InputProps={{
+                                                        startAdornment: (
+                                                            <InputAdornment position="start">
+                                                                <Badge/>
+                                                            </InputAdornment>
+                                                        ),
+                                                    }}
+                                                />
+                                                <p className={`${loginStyle.error}`}>
+                                                    {
+                                                        (errors.lastName && touched.lastName) && errors.lastName
+                                                    }
+                                                </p>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <InputLabel htmlFor="email">Email</InputLabel>
+                                            <TextField
+                                                multiline
+                                                type = "email"
+                                                id="email"
+                                                name="email"
+                                                // label="Email"
+                                                value={values.email}
+                                                onChange={handleChange}
+                                                variant={"outlined"}
+                                                fullWidth
+                                                onBlur={handleBlur}
+                                                className={loginStyle.inputbox}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <Email/>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                            <p className={`${loginStyle.error}`}>
+                                                {
+                                                    (errors.email && touched.email) && errors.email
+                                                }
+                                            </p>
+                                        </Grid>
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <InputLabel htmlFor="phoneNumber">Phone Number</InputLabel>
+                                            <TextField
+                                                type="text"
+                                                id={"phoneNumber"}
+                                                name={"phoneNumber"}
+                                                value={values.phoneNumber}
+                                                // label="Phone Number"
+                                                onChange={handleChange}
+                                                variant={"outlined"}
+                                                fullWidth
+                                                onBlur={handleBlur}
+                                                className={loginStyle.inputbox}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <LocalPhone/>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                            <p className={`${loginStyle.error}`}>
+                                                {
+                                                    (errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber
+                                                }
+                                            </p>
+                                        </Grid>
+                                        {!isGoogleAuth && <>
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <InputLabel htmlFor="password">Password</InputLabel>
+                                            <TextField
+                                                id="password"
+                                                name="password"
+                                                // label="Password"
+                                                type="password"
+                                                autoComplete="new-password"
+                                                value={values.password}
+                                                onChange={handleChange}
+                                                variant={"outlined"}
+                                                fullWidth
+                                                onBlur={handleBlur}
+                                                className={loginStyle.inputbox}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <Lock/>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                            <p className={`${loginStyle.error}`}>
+                                                {
+                                                    (errors.password && touched.password) && errors.password
+                                                }
 
-                                       className={`${loginStyle.input} ${(errors.firstName && touched.firstName) ? loginStyle.errorBorder : ""}`}
+                                            </p>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <InputLabel htmlFor="passwordConfirmation">Confirm Password</InputLabel>
+                                            <TextField
+                                                type="password"
+                                                autoComplete="new-password"
+                                                id={"passwordConfirmation"}
+                                                name={"passwordConfirmation"}
+                                                value={values.passwordConfirmation}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                // label="Confirm Password"
+                                                variant={"outlined"}
+                                                fullWidth
+                                                className={loginStyle.inputbox}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <Lock/>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                            <p className={`${loginStyle.error}`}>
+                                                {
+                                                    (errors.passwordConfirmation && touched.passwordConfirmation) && errors.passwordConfirmation
+                                                }
 
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.firstName && touched.firstName) && errors.firstName}
+                                            </p>
+                                        </Grid>
+                                        </>}
+                                        <Grid item xs={12}>
+                                            <Button variant={"contained"} color={"secondary"} fullWidth
+                                                    className={`${loginStyle.button}`}
+                                                    disabled={isSubmitting || !(isValid && dirty)}
+                                                    type={"submit"}
+                                            >
+                                                Create Account
+                                            </Button>
 
-                                </p>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <label htmlFor={"lastName"} className={`${loginStyle.label}`}>
-                                    Last name
-                                </label>
-                                <input type="text"
-                                       name={"lastName"}
-                                       id={"lastName"}
-                                       value={values.lastName}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-
-                                       className={`${loginStyle.input} ${(errors.lastName && touched.lastName) ? loginStyle.errorBorder : ""}`}
-
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.lastName && touched.lastName) && errors.lastName}
-
-                                </p>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <label htmlFor={"email"} className={`${loginStyle.label}`}>
-                                    Email
-                                </label>
-                                <input type="email"
-                                       disabled={isGoogleAuth}
-                                       id={"email"}
-                                       name={"email"}
-                                       value={values.email}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       className={`${loginStyle.input} ${(errors.email && touched.email) ? loginStyle.errorBorder : ""}`}
-
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.email && touched.email) && errors.email}
-
-                                </p>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <label htmlFor={"phoneNumber"} className={`${loginStyle.label}`}>
-                                    Phone Number
-                                </label>
-                                <input type="text"
-                                       id={"phoneNumber"}
-                                       name={"phoneNumber"}
-                                       value={values.phoneNumber}
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       className={`${loginStyle.input} ${(errors.phoneNumber && touched.phoneNumber) ? loginStyle.errorBorder : ""}`}
-
-                                />
-                                <p className={`${loginStyle.error}`}>
-                                    {(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber}
-
-                                </p>
-                            </Grid>
-                            {!isGoogleAuth && <>
-                                <Grid item xs={12} md={6}>
-                                    <label htmlFor={"password"} className={`${loginStyle.label}`}>
-                                        Password
-                                    </label>
-                                    <input type="password"
-                                           autoComplete="new-password"
-                                           id={"password"}
-                                           name={"password"}
-                                           value={values.password}
-                                           onChange={handleChange}
-                                           onBlur={handleBlur}
-
-                                           className={`${loginStyle.input} ${(errors.password && touched.password) ? loginStyle.errorBorder : ""}`}
-
-                                    />
-                                    <p className={`${loginStyle.error}`}>
-                                        {(errors.password && touched.password) && errors.password}
-
-                                    </p>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <label htmlFor={"passwordConfirmation"} className={`${loginStyle.label}`}>
-                                        Confirm password
-                                    </label>
-                                    <input type="password"
-                                           autoComplete="new-password"
-                                           id={"passwordConfirmation"}
-                                           name={"passwordConfirmation"}
-                                           value={values.passwordConfirmation}
-                                           onChange={handleChange}
-                                           onBlur={handleBlur}
-
-                                           className={`${loginStyle.input} ${(errors.passwordConfirmation && touched.passwordConfirmation) ? loginStyle.errorBorder : ""}`}
-
-                                    />
-                                    <p className={`${loginStyle.error}`}>
-                                        {(errors.passwordConfirmation && touched.passwordConfirmation) && errors.passwordConfirmation}
-
-                                    </p>
-                                </Grid>
-                            </>}
+                                        </Grid>
+                                    </Grid>
 
 
-                            <Grid item xs={12}>
-                                <div className={`${loginStyle.alignCenter}`}>
-                                    <Button variant={"contained"} color={"secondary"}
-                                            className={`${loginStyle.button} `}
-                                            disabled={isSubmitting || !(isValid && dirty)}
-                                            type={"submit"}
-                                    >
-                                        complete sign up
-                                    </Button>
-                                </div>
+                                </form>
+                            )
+                        }}
 
-                            </Grid>
-                        </Grid>
-
-
-                    </form>)
-                }}
-
-            </Formik>
-        </div>
-    </Container>)
+                    </Formik>
+                    <Typography className={loginStyle.smalltext}>
+                        or continue with
+                    </Typography>
+                    <div>
+                        <IconButton
+                            className={loginStyle.avatar}
+                            aria-label="google signin"
+                            color="primary"
+                            onClick={handleSignupWithGoogle}
+                        >
+                            <Google />
+                        </IconButton>
+                    </div>
+                    <Typography className={loginStyle.smalltext}>
+                        Already have an account? <a className={loginStyle.minilink} href={'/auth/login'}> Login</a>
+                    </Typography>
+                </div>
+            </Box>
+        </Paper>
+    )
 }
 export default Signup

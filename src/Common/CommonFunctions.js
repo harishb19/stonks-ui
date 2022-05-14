@@ -1,4 +1,5 @@
 const getDollarNumber = function (num) {
+    if (num === undefined || num === null) return 0
     const s = num.toString().split('.');
     if ((num > 0 && s[0].length <= 6) || (num < 0 && s[0].length <= 7)) return num;
     let unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
@@ -9,6 +10,7 @@ const getDollarNumber = function (num) {
     return x.toFixed(2)
 }
 const getDollarText = function (num) {
+    if (num === undefined || num === null) return ''
     const s = num.toString().split('.');
     if ((num > 0 && s[0].length <= 6) || (num < 0 && s[0].length <= 7)) return "";
     let units = ["M", "B", "T", "Q"]

@@ -20,6 +20,7 @@
     margin-bottom: 1em
 }
 
+
 .titleText {
     font-variant: small-caps;
     letter-spacing: 3px;
@@ -198,9 +199,11 @@
     color: #3D4E98 !important;
 }
 
+
 .errorBorder {
     box-shadow: 0 0 0 1px red inset;
 }
+
 
 .divider {
     display: flex;
@@ -264,6 +267,7 @@
     opacity: 0.45;
     color: black !important;
 }
+
 
 .sso {
     width: 3rem;
@@ -397,8 +401,8 @@
     cursor: pointer;
 }
 
+
 .minilink {
-    /*color: #0070f3;*/
     cursor: pointer;
     color: #2a77f6;
 }

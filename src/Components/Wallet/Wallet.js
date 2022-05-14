@@ -6,7 +6,7 @@ import walletStyles from "./css/wallet.module.css"
 import {COIN_SUBSCRIPTION} from "../../graphql/subscription";
 import CoinCard from "../Common/CoinCard";
 import coinStyle from '../Coins/css/coin.module.css'
-import AnimatedNumberFormat from "../Common/AnimatedNumberFormat";
+import AnimatedNumberWrapper from "../Common/AnimatedNumberWrapper";
 import {getDollarNumber, getDollarText} from "../../Common/CommonFunctions";
 import PriceUpDown from "../Common/PriceUpDown";
 import {downColor, upColor} from "../../Common/Colors";
@@ -20,6 +20,7 @@ const Wallet = ({userCoins}) => {
     const [totalProfit, setTotalProfit] = useState(0)
     const [totalProfitPer, setTotalProfitPer] = useState(0)
     const [selected, setSelected] = useState("")
+
     const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION, {
         variables: {coinIds: userCoins.map(x => x.coinId)},
     });
@@ -111,34 +112,34 @@ const Wallet = ({userCoins}) => {
                         <Stack direction={"column"} alignItems={"start"}>
                             <Typography variant={"h5"} fontWeight={"500"}
                                         textAlign={"center"}>
-                                Total Portfolio
+                                Portfolio
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(totalPortfolio)}
-                                                  thousandSeparator={true}
-                                                  fixedDecimalScale={true}
-                                                  decimalScale={2}
-                                                  prefix="$" decimalSeparator="."
-                                                  suffix={getDollarText(totalPortfolio)}
-                                                  style={{fontWeight: "500", fontSize: "2.5em"}}/> </Stack>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(totalPortfolio)}
+                                                   thousandSeparator={true}
+                                                   fixedDecimalScale={true}
+                                                   decimalScale={2}
+                                                   prefix="$" decimalSeparator="."
+                                                   suffix={getDollarText(totalPortfolio)}
+                                                   style={{fontWeight: "500", fontSize: "2.5em"}}/> </Stack>
                         <Stack direction={"column"} alignItems={"start"}>
                             <Typography variant={"h5"} fontWeight={"500"}
                                         textAlign={"center"}>
                                 {totalProfit > 0 ? "Profit" : "Loss"}
                             </Typography>
                             <Stack direction={"row"} spacing={1} alignItems={"baseline"}>
-                                <AnimatedNumberFormat displayType={'text'}
-                                                      value={getDollarNumber(totalProfit)}
-                                                      thousandSeparator={true}
-                                                      decimalScale={2}
-                                                      fixedDecimalScale={true}
-                                                      prefix="$" decimalSeparator="."
-                                                      suffix={getDollarText(totalProfit)}
-                                                      style={{
-                                                          fontWeight: "500",
-                                                          fontSize: "2.5em",
-                                                          color: totalProfit > 0 ? upColor : downColor
-                                                      }}/>
+                                <AnimatedNumberWrapper displayType={'text'}
+                                                       value={getDollarNumber(totalProfit)}
+                                                       thousandSeparator={true}
+                                                       decimalScale={2}
+                                                       fixedDecimalScale={true}
+                                                       prefix="$" decimalSeparator="."
+                                                       suffix={getDollarText(totalProfit)}
+                                                       style={{
+                                                           fontWeight: "500",
+                                                           fontSize: "2.5em",
+                                                           color: totalProfit > 0 ? upColor : downColor
+                                                       }}/>
                                 <PriceUpDown value={totalProfitPer}
                                              prefix={""} arrow={false} fontWeight={500} fontSize={"1.5em"}/>
                             </Stack>
@@ -179,11 +180,10 @@ const Wallet = ({userCoins}) => {
         }
         {
             coins && coins.length > 0 ? <Grid container spacing={8} padding={"2% 5% 5% 5%"}>
-                {coinCards}
+                {coinCards()}
             </Grid> : <BlankWallet/>
         }
     </div>
-
 }
 
 export default Wallet;

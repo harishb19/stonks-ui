@@ -15,11 +15,12 @@ import ChartSelector from "../Chart/ChartSelector";
 import Sparkline from "../Common/Sparkline";
 import PriceUpDown from "../Common/PriceUpDown";
 import ChartClass from "../Chart/ChartFunctional";
-import AnimatedNumberFormat from "../Common/AnimatedNumberFormat";
+import AnimatedNumberWrapper from "../Common/AnimatedNumberWrapper";
 import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
 import useScrollBlock from "../../Common/useScrollBlock";
 import CoinsAction from "./CoinsAction";
+import BlankCoin from "./BlankCoin";
 
 
 const Coin = () => {
@@ -46,11 +47,10 @@ const Coin = () => {
     }
 
     const changeChartDuration = (day, inter) => {
-        console.log(day)
         setChartDuration({days: day, interval: inter})
     }
 
-    const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+    const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
 
     const stopScroll = () => {
         blockScroll()
@@ -103,7 +103,7 @@ const Coin = () => {
 
     if (coinLoading) return <Loading/>
     if (coinError) return <Error message={coinError.message} onClick={refetch}/>
-    if (coinDetails && coinDetails.id) {
+    if (coinDetails && coinDetails.id && coinDetails.coins_market_data) {
         return <div
             className={coinDetails.coins_market_data.priceChangePercentage24h > 0 ? coinStyle.radialBGUp : coinStyle.radialBGDown}>
             <Box className={coinStyle.frostedHeader}
@@ -149,12 +149,11 @@ const Coin = () => {
                                         </Stack>
                                         <Stack direction={"row"} spacing={1} alignItems={"baseline"}
                                                sx={{marginTop: "5px"}}>
-                                            <AnimatedNumberFormat displayType={'text'}
-                                                                  value={coinDetails.coins_market_data.currentPrice}
-                                                                  thousandSeparator={true} decimalScale={5}
-                                                                  fixedDecimal={true}
-                                                                  prefix="$" decimalSeparator="."
-                                                                  className={coinStyle.price}/>
+                                            <AnimatedNumberWrapper
+                                                displayType={'text'}
+                                                value={coinDetails.coins_market_data.currentPrice}
+                                                thousandSeparator={true} decimalScale={2} fixedDecimal={true}
+                                                prefix="$" decimalSeparator="." className={coinStyle.price}/>
                                             <PriceUpDown value={coinDetails.coins_market_data.priceChangePercentage24h}
                                                          fontSize={"1.5em"}
                                                          fontWeight={"500"}/>
@@ -201,53 +200,53 @@ const Coin = () => {
                             <PriceUpDown fontWeight={500} fontSize={"1.2em"}
                                          value={coinDetails.coins_market_data.priceChange24h} prefix={"$"}
                                          suffix={""}
-                                         decimals={5} arrow={false}/>
+                                         decimals={2} arrow={false}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
                                 MARKET CAP
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.marketCap)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  prefix="$" decimalSeparator="."
-                                                  suffix={getDollarText(coinDetails.coins_market_data.marketCap)}
-                                                  className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.marketCap)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={2}
+                                                   prefix="$" decimalSeparator="."
+                                                   suffix={getDollarText(coinDetails.coins_market_data.marketCap)}
+                                                   className={coinStyle.marketCap}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
                                 VOLUME
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.totalVolume)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  prefix="$" decimalSeparator="."
-                                                  suffix={getDollarText(coinDetails.coins_market_data.totalVolume)}
-                                                  className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.totalVolume)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={2}
+                                                   prefix="$" decimalSeparator="."
+                                                   suffix={getDollarText(coinDetails.coins_market_data.totalVolume)}
+                                                   className={coinStyle.marketCap}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
                                 TOTAL COINS
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.totalCoins)}
-                                                  suffix={getDollarText(coinDetails.coins_market_data.totalCoins)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  decimalSeparator="." className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.totalCoins)}
+                                                   suffix={getDollarText(coinDetails.coins_market_data.totalCoins)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={2}
+                                                   decimalSeparator="." className={coinStyle.marketCap}/>
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
                                 ACTIVE COINS
                             </Typography>
-                            <AnimatedNumberFormat displayType={'text'}
-                                                  value={getDollarNumber(coinDetails.coins_market_data.totalActiveCoins)}
-                                                  suffix={getDollarText(coinDetails.coins_market_data.totalActiveCoins)}
-                                                  thousandSeparator={true}
-                                                  decimalScale={5}
-                                                  decimalSeparator="." className={coinStyle.marketCap}/>
+                            <AnimatedNumberWrapper displayType={'text'}
+                                                   value={getDollarNumber(coinDetails.coins_market_data.totalActiveCoins)}
+                                                   suffix={getDollarText(coinDetails.coins_market_data.totalActiveCoins)}
+                                                   thousandSeparator={true}
+                                                   decimalScale={2}
+                                                   decimalSeparator="." className={coinStyle.marketCap}/>
                         </Stack>
                         <div>
                             <Stack direction={"row"}>
@@ -352,9 +351,7 @@ const Coin = () => {
         </div>
     }
     return (
-        <div>
-            Loading Coin Page
-        </div>
+        <BlankCoin coinId={id}/>
     )
 }
 

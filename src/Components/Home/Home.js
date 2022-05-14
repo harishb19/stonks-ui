@@ -10,10 +10,10 @@ import {Link} from "react-router-dom";
 import {COIN_SUBSCRIPTION} from "../../graphql/subscription";
 import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
-import AnimatedNumberFormat from "../Common/AnimatedNumberFormat";
+import AnimatedNumberWrapper from "../Common/AnimatedNumberWrapper";
 
 
-const onMediaFallback = (event) => (event.target.src = "crypto_logo.png");
+const onMediaFallback = (event) => (event.target.src = "/crypto_logo.png");
 const coinBox = (id, title, name, value, image) => <Link to={`/coins/${id}`}>
     <Box className={homeStyle.frostedBox} sx={{margin: "10px"}}>
         <Typography variant={"subtitle1"} component={"p"}>
@@ -41,12 +41,12 @@ const coinTotalBox = (id, title, name, value, image) => <Link to={`/coins/${id}`
             <Typography variant={"body1"} component={"p"}>
                 {name}
             </Typography>
-            <AnimatedNumberFormat displayType={'text'}
-                                  value={getDollarNumber(value)}
-                                  thousandSeparator={true}
-                                  decimalScale={2}
-                                  prefix="$" decimalSeparator="."
-                                  suffix={getDollarText(value)}/>
+            <AnimatedNumberWrapper displayType={'text'}
+                                   value={getDollarNumber(value)}
+                                   thousandSeparator={true}
+                                   decimalScale={2}
+                                   prefix="$" decimalSeparator="."
+                                   suffix={getDollarText(value)}/>
         </Stack>
     </Box>
 </Link>
@@ -55,12 +55,12 @@ const totalBox = (title, value) => <Box className={homeStyle.frostedBoxNoClick} 
     <Typography variant={"subtitle1"} component={"p"} sx={{marginBottom: '5px'}}>
         {title}
     </Typography>
-    <AnimatedNumberFormat displayType={'text'}
-                          value={getDollarNumber(value)}
-                          thousandSeparator={true}
-                          decimalScale={2}
-                          prefix="$" decimalSeparator="."
-                          suffix={getDollarText(value)}
+    <AnimatedNumberWrapper displayType={'text'}
+                           value={getDollarNumber(value)}
+                           thousandSeparator={true}
+                           decimalScale={2}
+                           prefix="$" decimalSeparator="."
+                           suffix={getDollarText(value)}
     />
 </Box>
 
@@ -131,10 +131,8 @@ const Home = () => {
             setTotalVolume(totalVol)
         }
     }, [coins])
-
     if (coinLoading) return <Loading/>
     if (coinError) return <Error message={coinError.message} onClick={refetch}/>
-
     if (coins && coins.length > 0 && topGainer && topLoser && topMarketCap && topVolume && totalMarketCap && totalVolume) {
         return <div className={homeStyle.radialBG}>
             <Stack direction={"column"} spacing={3} sx={{padding: "30px"}}>
@@ -152,7 +150,7 @@ const Home = () => {
             </Stack>
         </div>
     }
-    return <div>Home</div>
+    return <Loading/>
 }
 
 export default Home;
