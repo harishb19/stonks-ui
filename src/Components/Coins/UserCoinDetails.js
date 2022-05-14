@@ -63,7 +63,9 @@ const UserCoinDetails = ({value, profit, price, quantity}) => {
             <NumberFormat displayType={'text'}
                           value={getDollarNumber(quantity)}
                           thousandSeparator={true}
-                          decimalScale={0} style={{fontSize: "1.6em", fontWeight: "600"}}/>
+                          decimalScale={2}
+                          suffix={getDollarText(quantity)}
+                          style={{fontSize: "1.6em", fontWeight: "600"}}/>
         </Stack>
     </Stack>
 }
