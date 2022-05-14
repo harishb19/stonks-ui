@@ -101,7 +101,43 @@ export const USER_COIN_BY_COIN_ID = gql`
             quantity
             totalPrice
             userId
+            coinId,
+        }
+    }
+`
+
+export const ALL_USER_COINS = gql`
+    query UserCoins($userId: String!) {
+        userCoins(userId: $userId) {
+            id
+            quantity
+            totalPrice
+            userId
             coinId
+            coins_static {
+                id
+                name
+                symbol
+                image
+                coins_market_data {
+                    id
+                    currentPrice
+                    priceChange24h
+                    priceChangePercentage24h
+                    priceChangePercentage1h
+                    priceChangePercentage7d
+                    priceChangePercentage30d
+                    priceChangePercentage1y
+                    high24
+                    low24
+                    marketCap
+                    rank
+                    totalActiveCoins
+                    totalCoins
+                    totalVolume
+                    sparkline
+                }
+            }
         }
     }
 `
@@ -114,3 +150,42 @@ export let GET_USER = gql`query Query($userId: String!) {
         phoneNumber
     }
 }`
+
+export const USER_COIN_NOTIFICATION = gql`
+    query userCoinNotification($coinId: String, $userId: String!) {
+        notifications(coinId: $coinId, userId: $userId) {
+            id
+            userId
+            coinId
+            topic
+            condition {
+                gt
+                lt
+                eq
+            }
+            isActive
+            coin {
+                id
+                name
+            }
+        }
+    }
+
+`
+export const GET_NOTIFICATION_LOGS = gql`
+    query NotificationLogs($userId: String!) {
+        notificationLogs(userId: $userId) {
+            id
+            notificationId
+            topic
+            data {
+                coinId
+                coinIcon
+            }
+            notification {
+                title
+                body
+            }
+            createdAt
+        }
+    }`
