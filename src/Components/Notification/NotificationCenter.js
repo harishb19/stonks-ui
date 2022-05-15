@@ -15,6 +15,7 @@ import {useLazyQuery} from "@apollo/client";
 import {GET_NOTIFICATION_LOGS} from "../../graphql/queries";
 import Loading from "../Loading/Loading";
 import Error from "../Error/CustomError";
+import {blackColor} from "../../Common/Colors";
 
 const NotificationCenter = () => {
     const notifications = useStoreState(state => state.notifications.notifications)
@@ -46,8 +47,8 @@ const NotificationCenter = () => {
     }}/>
     return (<>
         <Dialog open={openNotifications} onClose={() => setOpenNotifications(false)}>
-            <DialogTitle>Notification center</DialogTitle>
-            <DialogContent>
+            <DialogTitle sx={{backgroundColor: blackColor}}>Notification center</DialogTitle>
+            <DialogContent sx={{backgroundColor: blackColor}}>
 
                 {notifications.length <= 0 ? <Typography variant={"h5"}>No notifications</Typography> :
 

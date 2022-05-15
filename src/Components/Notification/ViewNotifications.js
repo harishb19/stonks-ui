@@ -15,6 +15,7 @@ import {useMutation} from "@apollo/client";
 import {DELETE_NOTIFICATIONS, UPDATE_NOTIFICATIONS} from "../../graphql/mutation";
 import {useStoreState} from "easy-peasy";
 import {toast} from "react-toastify";
+import {blackColor, pinkColor} from "../../Common/Colors";
 
 const conditionToString = (condition) => {
     if (condition) {
@@ -107,7 +108,7 @@ const ViewNotifications = ({id, topic, condition, allNotification, index}) => {
             // }
         >
             <ListItemAvatar>
-                <Avatar>
+                <Avatar sx={{color: "white", bgcolor: pinkColor}}>
                     #{index + 1}
                 </Avatar>
             </ListItemAvatar>
@@ -117,13 +118,13 @@ const ViewNotifications = ({id, topic, condition, allNotification, index}) => {
             />
         </ListItem>
             <Dialog open={open} disableEscapeKeyDown>
-                <DialogTitle>Delete</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{backgroundColor: blackColor}}>Delete</DialogTitle>
+                <DialogContent sx={{backgroundColor: blackColor}}>
                     <DialogContentText>
                         Do you want to delete the notification?
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{backgroundColor: blackColor}}>
                     <Button onClick={() => handleDelete()}>Yes</Button>
                     <Button onClick={() => setOpen(false)}>No</Button>
                 </DialogActions>

@@ -300,6 +300,7 @@ const CoinGrid = ({coins}) => {
             disableSelectionOnClick={true}
             rowHeight={75}
             pageSize={50}
+            rowsPerPageOptions={[50]}
             disableColumnMenu={true}
             disableColumnSorting={true}
             getRowClassName={() => 'transparentRow'}

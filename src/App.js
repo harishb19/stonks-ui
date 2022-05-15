@@ -20,7 +20,7 @@ import Coin from "./Components/Coins/Coin";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import PageNotFound from "./Components/Error/PageNotFound";
-import {blackColor, downColor, upColor} from "./Common/Colors";
+import {blackColor, disabledPinkColor, downColor, pinkColor, upColor} from "./Common/Colors";
 import ProtectedRoutes from "./Components/Auth/ProtectedRoutes";
 import LoginCheck from "./Components/LoginCheck";
 import WalletFetchUser from "./Components/Wallet/WalletFetchUser";
@@ -29,15 +29,24 @@ import {ToastProvider} from "react-toast-notifications";
 import NotificationCenter from "./Components/Notification/NotificationCenter";
 
 const theme = createTheme({
+
     palette: {
-        mode: 'dark', primary: {
-            main: '#1976d2',
-        }, success: {
+        mode: 'dark',
+        primary: {
+            main: pinkColor,
+        }, secondary: {
+            main: pinkColor,
+        },
+        success: {
             main: upColor
         }, error: {
             main: downColor
         }, background: {
             paper: blackColor,
+        },
+        action: {
+            disabledBackground: disabledPinkColor,
+            disabled: "#a8a8a8"
         }
     },
 });

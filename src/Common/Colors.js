@@ -5,8 +5,8 @@ const greyColor = "#878787"
 const blackColor = "#0F0F0F"
 const candleGrey = "#64666A"
 const borderColor = "#222324"
-const pinkColor = "#9000FF"
-
+const pinkColor = "#ae4bfa"
+const disabledPinkColor = "#35035c"
 
 export {
     upColor,
@@ -15,5 +15,7 @@ export {
     greyColor,
     blackColor,
     candleGrey,
-    borderColor, pinkColor
+    borderColor,
+    pinkColor,
+    disabledPinkColor
 }
