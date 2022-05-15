@@ -115,18 +115,19 @@ const NormalNav = ({children}) => {
         </AppBar>
         <Drawer variant="permanent" open={open}>
             <DrawerHeader>
-                <IconButton onClick={handleDrawer}>
+                <IconButton onClick={handleDrawer} aria-label={'close'}>
                     {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
                 </IconButton>
             </DrawerHeader>
             <Divider/>
-            <List>
+            <List> <Tooltip title={"Home"}>
                 <ListItemButton
                     sx={{
                         minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                     }}
                     onClick={() => navigate("/")}
                 >
+
                     <ListItemIcon
                         sx={{
                             minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
@@ -134,32 +135,37 @@ const NormalNav = ({children}) => {
                     >
                         <Home/>
                     </ListItemIcon>
+
                     <ListItemText primary={"Home"} sx={{opacity: open ? 1 : 0}}/>
                 </ListItemButton>
+            </Tooltip>
                 {userDetails && userDetails.id && <>
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
-                        }}
-                        onClick={() => navigate("/wallet")}
-                    > <Tooltip title={"Wallet"}>
-                        <ListItemIcon
+                    <Tooltip title={"Wallet"}>
+                        <ListItemButton
                             sx={{
-                                minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                                minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                             }}
+                            onClick={() => navigate("/wallet")}
                         >
-                            <AccountBalanceWallet/>
-                        </ListItemIcon>
-                    </Tooltip>
-                        <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
-                    </ListItemButton>
 
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                                }}
+                            >
+                                <AccountBalanceWallet/>
+                            </ListItemIcon>
+
+                            <ListItemText primary={"Wallet"} sx={{opacity: open ? 1 : 0}}/>
+                        </ListItemButton>
+                    </Tooltip> <Tooltip title={"Profile"}>
                     <ListItemButton
                         sx={{
                             minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                         }}
                         onClick={() => navigate("/profile")}
                     >
+
                         <ListItemIcon
                             sx={{
                                 minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
@@ -168,38 +174,41 @@ const NormalNav = ({children}) => {
                             {isMobile ? <UserProfile/> : <AccountCircle/>}
 
                         </ListItemIcon>
+
                         <ListItemText primary={"Profile"} sx={{opacity: open ? 1 : 0}}/>
                     </ListItemButton>
-
+                </Tooltip>
                     <NotificationBadge sideMenu={true} open={open}/>
                 </>}
-                <ListItemButton
-                    sx={{
-                        minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
-                    }}
-                    onClick={() => setOpenSettings(true)}
-                > <Tooltip title={"Settings"}>
-                    <ListItemIcon
+                <Tooltip title={"Settings"}>
+                    <ListItemButton
                         sx={{
-                            minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                            minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
                         }}
+                        onClick={() => setOpenSettings(true)}
                     >
-                        <Settings/>
-                    </ListItemIcon>
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                            }}
+                        >
+                            <Settings/>
+                        </ListItemIcon>
+
+                        <ListItemText primary={"Settings"} sx={{opacity: open ? 1 : 0}}/>
+                    </ListItemButton>
                 </Tooltip>
-                    <ListItemText primary={"Settings"} sx={{opacity: open ? 1 : 0}}/>
-                </ListItemButton>
                 <SettingsDialog open={openSettings} setOpen={setOpenSettings}/>
             </List>
             <Divider/>
             <List sx={{marginTop: "auto",}}>
-                <ListItemButton
-                    sx={{
-                        minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
-                    }}
-                    onClick={handleAuth}
-                >
-                    <Tooltip title={userDetails && userDetails.id ? "Logout" : "Login / signup"}>
+                <Tooltip title={userDetails && userDetails.id ? "Logout" : "Login / signup"}>
+                    <ListItemButton
+                        sx={{
+                            minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                        }}
+                        onClick={handleAuth}
+                    >
                         <ListItemIcon
                             sx={{
                                 minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
@@ -208,11 +217,11 @@ const NormalNav = ({children}) => {
                             {userDetails && userDetails.id ? <Logout color={"error"}/> : <Login/>}
 
                         </ListItemIcon>
-                    </Tooltip>
 
-                    <ListItemText primary={userDetails && userDetails.id ? "Logout" : "Login / signup"}
-                                  sx={{opacity: open ? 1 : 0}}/>
-                </ListItemButton>
+                        <ListItemText primary={userDetails && userDetails.id ? "Logout" : "Login / signup"}
+                                      sx={{opacity: open ? 1 : 0}}/>
+                    </ListItemButton>
+                </Tooltip>
             </List>
         </Drawer>
         <Box component="main" sx={{flexGrow: 1, minHeight: "100vh"}}>

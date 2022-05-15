@@ -1,6 +1,6 @@
 import {useSubscription} from "@apollo/client";
 import {useEffect, useState} from "react";
-import {Box, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography} from "@mui/material";
+import {Box, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, Stack, Typography} from "@mui/material";
 import homeStyle from "./css/wallet.module.css"
 import walletStyles from "./css/wallet.module.css"
 import {COIN_SUBSCRIPTION} from "../../graphql/subscription";
@@ -12,6 +12,7 @@ import PriceUpDown from "../Common/PriceUpDown";
 import {downColor, upColor} from "../../Common/Colors";
 import UserDonutChart from "./UserDonutChart";
 import BlankWallet from "./BlankWallet";
+import {KeyboardArrowDown, KeyboardArrowUp} from "@mui/icons-material";
 
 
 const Wallet = ({userCoins}) => {
@@ -20,7 +21,7 @@ const Wallet = ({userCoins}) => {
     const [totalProfit, setTotalProfit] = useState(0)
     const [totalProfitPer, setTotalProfitPer] = useState(0)
     const [selected, setSelected] = useState("name")
-
+    const [sortDesc, setSortDesc] = useState(false)
     const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION, {
         variables: {coinIds: userCoins.map(x => x.coinId)},
     });
@@ -83,21 +84,47 @@ const Wallet = ({userCoins}) => {
 
     const handleSelectedChange = (event) => {
         setSelected(event.target.value)
-        switch (event.target.value) {
+        sortData(event.target.value, sortDesc)
+    }
+
+    const handleSortChange = () => {
+        setSortDesc(x => {
+            sortData(selected, !x)
+            return !x
+        })
+    }
+
+    const sortData = (on, isDesc) => {
+        switch (on) {
             case "name":
-                setCoins([...coins].sort((a, b) => a.coins_static.name.localeCompare(b.coins_static.name)))
+                if (isDesc)
+                    setCoins([...coins].sort((b, a) => a.coins_static.name.localeCompare(b.coins_static.name)))
+                else
+                    setCoins([...coins].sort((a, b) => a.coins_static.name.localeCompare(b.coins_static.name)))
                 break
             case "value":
-                setCoins([...coins].sort((b, a) => a.quantity * a.coins_static.coins_market_data.currentPrice > b.quantity * b.coins_static.coins_market_data.currentPrice ? 1 : -1))
+                if (isDesc)
+                    setCoins([...coins].sort((b, a) => a.quantity * a.coins_static.coins_market_data.currentPrice > b.quantity * b.coins_static.coins_market_data.currentPrice ? 1 : -1))
+                else
+                    setCoins([...coins].sort((a, b) => a.quantity * a.coins_static.coins_market_data.currentPrice > b.quantity * b.coins_static.coins_market_data.currentPrice ? 1 : -1))
                 break
             case "profit":
-                setCoins([...coins].sort((b, a) => (a.coins_static.coins_market_data.currentPrice - a.totalPrice) * a.quantity > (b.coins_static.coins_market_data.currentPrice - b.totalPrice) * b.quantity ? 1 : -1))
+                if (isDesc)
+                    setCoins([...coins].sort((b, a) => (a.coins_static.coins_market_data.currentPrice * a.quantity - a.totalPrice) > (b.coins_static.coins_market_data.currentPrice * b.quantity - b.totalPrice) ? 1 : -1))
+                else
+                    setCoins([...coins].sort((a, b) => (a.coins_static.coins_market_data.currentPrice * a.quantity - a.totalPrice) > (b.coins_static.coins_market_data.currentPrice * b.quantity - b.totalPrice) ? 1 : -1))
                 break
             case "quantity":
-                setCoins([...coins].sort((b, a) => a.quantity > b.quantity ? 1 : -1))
+                if (isDesc)
+                    setCoins([...coins].sort((b, a) => a.quantity > b.quantity ? 1 : -1))
+                else
+                    setCoins([...coins].sort((a, b) => a.quantity > b.quantity ? 1 : -1))
                 break
             default:
-                setCoins([...coins].sort((a, b) => a.a.coins_static.name > b.coins_static.name ? 1 : -1))
+                if (isDesc)
+                    setCoins([...coins].sort((b, a) => a.a.coins_static.name > b.coins_static.name ? 1 : -1))
+                else
+                    setCoins([...coins].sort((a, b) => a.a.coins_static.name > b.coins_static.name ? 1 : -1))
         }
     }
     return <div className={homeStyle.radialBG} style={{minHeight: "100vh"}}>
@@ -160,23 +187,36 @@ const Wallet = ({userCoins}) => {
             </Grid>
         </Grid>
         {
-            coins && coins.length > 0 ? <Box padding={"5% 5% 0% 5%"}>
-                <FormControl variant={"filled"}>
-                    <InputLabel id="demo-simple-select-label">Sort</InputLabel>
-                    <Select className={walletStyles.sort}
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={selected}
-                            label="Sort"
-                            onChange={handleSelectedChange}
-                    >
-                        <MenuItem value={"name"}>Name</MenuItem>
-                        <MenuItem value={"profit"}>Profit</MenuItem>
-                        <MenuItem value={"value"}>Value</MenuItem>
-                        <MenuItem value={"quantity"}>Quantity</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box> : null
+            coins && coins.length > 0 ?
+                <Stack direction={"row"} alignItems={"center"} spacing={3} padding={"5% 5% 0% 5%"}>
+                    <FormControl variant={"filled"}>
+                        <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+                        <Select className={walletStyles.sort}
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={selected}
+                                label="Sort"
+                                onChange={handleSelectedChange}
+                        >
+                            <MenuItem value={"name"}>Name</MenuItem>
+                            <MenuItem value={"profit"}>Profit</MenuItem>
+                            <MenuItem value={"value"}>Value</MenuItem>
+                            <MenuItem value={"quantity"}>Quantity</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <div>
+                        <IconButton aria-label="sort"
+                                    component="span"
+                                    color={sortDesc ? "primary" : "inherit"}
+                                    onClick={handleSortChange}
+                                    sx={{
+                                        border: "1px solid #222324",
+                                        padding: '4px',
+                                    }}>
+                            {sortDesc ? <KeyboardArrowDown/> : <KeyboardArrowUp/>}
+                        </IconButton>
+                    </div>
+                </Stack> : null
         }
         {
             coins && coins.length > 0 ? <Grid container spacing={8} padding={"2% 5% 5% 5%"}>

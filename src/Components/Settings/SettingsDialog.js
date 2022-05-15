@@ -144,7 +144,7 @@ export default function SettingsDialog({open, setOpen}) {
                 {
                     selectedValue === '1' || selectedValue === '2' ?
                         <Typography variant={'body1'} component={'p'} color={"error"}>
-                            * This animation does not apply to grid
+                            * This animation does not apply to table
                         </Typography>
                         :
                         null
