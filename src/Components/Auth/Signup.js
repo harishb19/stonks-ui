@@ -47,7 +47,7 @@ const Signup = () => {
     const [insertUser] = useMutation(SIGNUP_USER)
 
     const handleSignupWithGoogle = () => {
-        setIsGoogleAuth(true)
+
         const provider = new GoogleAuthProvider();
 
         signInWithPopup(auth, provider)
@@ -69,7 +69,7 @@ const Signup = () => {
                         phoneNumber: user.phoneNumber,
                     })
                 }
-
+                setIsGoogleAuth(true)
 
                 // ...
             }).catch((error) => {
@@ -200,7 +200,7 @@ const Signup = () => {
                                                     value={values.firstName}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
-                                                    variant={"filled"}
+                                                    variant={"outlined"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
@@ -228,7 +228,7 @@ const Signup = () => {
                                                     value={values.lastName}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
-                                                    variant={"filled"}
+                                                    variant={"outlined"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
@@ -257,7 +257,7 @@ const Signup = () => {
                                                 // label="Email"
                                                 value={values.email}
                                                 onChange={handleChange}
-                                                variant={"filled"}
+                                                variant={"outlined"}
                                                 fullWidth
                                                 onBlur={handleBlur}
                                                 className={loginStyle.inputbox}
@@ -284,7 +284,7 @@ const Signup = () => {
                                                 value={values.phoneNumber}
                                                 // label="Phone Number"
                                                 onChange={handleChange}
-                                                variant={"filled"}
+                                                variant={"outlined"}
                                                 fullWidth
                                                 onBlur={handleBlur}
                                                 className={loginStyle.inputbox}
@@ -314,7 +314,7 @@ const Signup = () => {
                                                         autoComplete="new-password"
                                                         value={values.password}
                                                         onChange={handleChange}
-                                                        variant={"filled"}
+                                                        variant={"outlined"}
                                                         fullWidth
                                                         onBlur={handleBlur}
                                                         className={loginStyle.inputbox}
@@ -345,7 +345,7 @@ const Signup = () => {
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         // label="Confirm Password"
-                                                        variant={"filled"}
+                                                        variant={"outlined"}
                                                         fullWidth
                                                         className={loginStyle.inputbox}
                                                         InputProps={{

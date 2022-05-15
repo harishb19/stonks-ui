@@ -159,7 +159,7 @@ const LoginContainer = ({setIsForgotPassword}) => {
                                     <Grid item xs={12} md={12} lg={12}>
                                         <InputLabel htmlFor="email">Email</InputLabel>
                                         <TextField
-                                            variant={"filled"}
+                                            variant={"outlined"}
                                             multiline
                                             type="email"
                                             id="email"
@@ -195,7 +195,7 @@ const LoginContainer = ({setIsForgotPassword}) => {
                                             type="password"
                                             value={values.password}
                                             onChange={handleChange}
-                                            variant={"filled"}
+                                            variant={"outlined"}
                                             fullWidth
                                             onBlur={handleBlur}
                                             className={loginStyle.inputbox}
@@ -331,7 +331,7 @@ const ForgotContainer = ({setIsForgotPassword}) => {
                                             error={(errors.email && touched.email)}
                                             value={values.email}
                                             onChange={handleChange}
-                                            variant={"filled"}
+                                            variant={"outlined"}
                                             fullWidth
                                             onBlur={handleBlur}
                                             className={loginStyle.inputbox}
