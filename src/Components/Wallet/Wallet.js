@@ -19,7 +19,7 @@ const Wallet = ({userCoins}) => {
     const [totalPortfolio, setTotalPortfolio] = useState(0)
     const [totalProfit, setTotalProfit] = useState(0)
     const [totalProfitPer, setTotalProfitPer] = useState(0)
-    const [selected, setSelected] = useState("")
+    const [selected, setSelected] = useState("name")
 
     const {data: updateCoinData} = useSubscription(COIN_SUBSCRIPTION, {
         variables: {coinIds: userCoins.map(x => x.coinId)},
@@ -36,8 +36,8 @@ const Wallet = ({userCoins}) => {
                               sparkLine={x.coins_static.coins_market_data.sparkline}
                               value={x.quantity * x.coins_static.coins_market_data.currentPrice}
                               quantity={x.quantity}
-                              price={x.totalPrice}
-                              profit={(x.coins_static.coins_market_data.currentPrice - x.totalPrice) * x.quantity}/>
+                              price={x.totalPrice / x.quantity}
+                              profit={(x.coins_static.coins_market_data.currentPrice * x.quantity - x.totalPrice)}/>
                 </Grid>)
         }
         return null
@@ -72,7 +72,7 @@ const Wallet = ({userCoins}) => {
             for (let coin of coins) {
                 if (coin.coins_static && coin.coins_static.coins_market_data) {
                     portfolio += coin.coins_static.coins_market_data.currentPrice * coin.quantity
-                    profit += (coin.coins_static.coins_market_data.currentPrice - coin.totalPrice) * coin.quantity
+                    profit += (coin.coins_static.coins_market_data.currentPrice * coin.quantity - coin.totalPrice)
                 }
             }
             setTotalPortfolio(portfolio)
@@ -110,7 +110,7 @@ const Wallet = ({userCoins}) => {
                        justifyContent={"space-between"}>
                     <Stack direction={"row"} alignItems={"center"} spacing={5}>
                         <Stack direction={"column"} alignItems={"start"}>
-                            <Typography variant={"h5"} fontWeight={"500"}
+                            <Typography variant={"h5"} component={"p"} fontWeight={"500"}
                                         textAlign={"center"}>
                                 Portfolio
                             </Typography>
@@ -123,7 +123,7 @@ const Wallet = ({userCoins}) => {
                                                    suffix={getDollarText(totalPortfolio)}
                                                    style={{fontWeight: "500", fontSize: "2.5em"}}/> </Stack>
                         <Stack direction={"column"} alignItems={"start"}>
-                            <Typography variant={"h5"} fontWeight={"500"}
+                            <Typography variant={"h5"} component={"p"} fontWeight={"500"}
                                         textAlign={"center"}>
                                 {totalProfit > 0 ? "Profit" : "Loss"}
                             </Typography>
@@ -147,7 +147,7 @@ const Wallet = ({userCoins}) => {
                     </Stack>
                     {
                         coins && coins.length > 0 ? <Stack direction={"column"} alignItems={"center"} spacing={1}>
-                            <Typography variant={"h5"} fontWeight={"500"}
+                            <Typography variant={"h5"} component={"p"} fontWeight={"500"}
                                         textAlign={"center"}>
                                 Distribution
                             </Typography>

@@ -3,6 +3,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogT
 import {DELETE_USER_COIN} from "../../graphql/mutation";
 import {useMutation} from "@apollo/client";
 import {toast} from "react-toastify";
+import {blackColor} from "../../Common/Colors";
 
 
 export default function DeleteCoin({open, setOpen, coinId, userId, setUserCoinData}) {
@@ -48,15 +49,15 @@ export default function DeleteCoin({open, setOpen, coinId, userId, setUserCoinDa
     }
 
     return (<Dialog open={open} onClose={handleNo}>
-            <DialogTitle>Delete Coin</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    Are you sure?
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleYes}>Yes</Button>
-                <Button onClick={handleNo}>No</Button>
-            </DialogActions>
-        </Dialog>)
+        <DialogTitle component={"p"} sx={{backgroundColor: blackColor}}>Delete Coin</DialogTitle>
+        <DialogContent sx={{backgroundColor: blackColor}}>
+            <DialogContentText>
+                Are you sure?
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{backgroundColor: blackColor}}>
+            <Button onClick={handleYes}>Yes</Button>
+            <Button onClick={handleNo}>No</Button>
+        </DialogActions>
+    </Dialog>)
 }

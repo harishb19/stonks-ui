@@ -44,7 +44,7 @@ const UserCoinDetails = ({value, profit, price, quantity}) => {
         </Stack>
         <Stack direction={"column"} alignItems={"start"}>
             <Typography color={greyColor} variant={"body2"} fontWeight={600} component={"p"}>
-                Bought at
+                Average Price
             </Typography>
             <NumberFormat displayType={'text'}
                           value={getDollarNumber(price)}

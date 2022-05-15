@@ -30,7 +30,7 @@ const WalletFetchUser = () => {
 
     useEffect(() => {
         if (!loading && data && data.userCoins) {
-            setUserCoinData(data.userCoins)
+            setUserCoinData([...data.userCoins].sort((a, b) => a.coins_static.name.localeCompare(b.coins_static.name)))
         }
     }, [data, loading, userDetails])
 

@@ -50,8 +50,8 @@ export default function SettingsDialog({open, setOpen}) {
 
     return (<Dialog open={open} onClose={handleClose} fullWidth={true}
                     maxWidth={"md"}>
-        <DialogTitle component={"p"}>Settings</DialogTitle>
-        <DialogContent dividers>
+        <DialogTitle sx={{backgroundColor: blackColor}} component={"p"}>Settings</DialogTitle>
+        <DialogContent sx={{backgroundColor: blackColor}} dividers>
             <DialogContentText>
                 Select Animation Style
             </DialogContentText>
@@ -152,7 +152,7 @@ export default function SettingsDialog({open, setOpen}) {
             </Stack>
 
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{backgroundColor: blackColor}}>
             <Button onClick={handleClose}>Close</Button>
         </DialogActions>
     </Dialog>)

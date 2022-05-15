@@ -20,6 +20,7 @@ import {ADD_USER_COIN, UPDATE_USER_COIN} from "../../graphql/mutation";
 import {useMutation} from "@apollo/client";
 import {toast} from "react-toastify";
 import {useStoreState} from "easy-peasy";
+import {blackColor} from "../../Common/Colors";
 
 export default function UserCoinAction({open, setOpen, userCoinData, coinId, setUserCoinData}) {
     const userDetails = useStoreState(state => state.user.userDetails)
@@ -135,8 +136,9 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
     }, [userCoinData, coinId])
 
     return (<Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{initialValues.id ? "Edit" : "Add"} holdings</DialogTitle>
-        <DialogContent>
+        <DialogTitle component={"p"}
+                     sx={{backgroundColor: blackColor}}>{initialValues.id ? "Edit" : "Add"} holdings</DialogTitle>
+        <DialogContent sx={{backgroundColor: blackColor}}>
             <DialogContentText>
                 {initialValues.id ? "Edit" : "Add"} holdings for the coin
             </DialogContentText>
@@ -195,7 +197,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                             <Grid item xs={12} md={6} lg={6}>
                                 <FormControl fullWidth error={errors.price && touched.price}
                                 >
-                                    <InputLabel htmlFor="totalPrice">Price</InputLabel>
+                                    <InputLabel htmlFor="totalPrice">Price per coin</InputLabel>
                                     <OutlinedInput
                                         id="totalPrice"
                                         value={values.totalPrice}
@@ -203,7 +205,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                                         onBlur={handleBlur}
                                         error={errors.totalPrice && touched.totalPrice}
                                         startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                                        label="price"
+                                        label="Price per coin"
                                     />
                                     {errors.totalPrice && touched.totalPrice &&
                                         <FormHelperText id="my-helper-text">{errors.totalPrice}</FormHelperText>
@@ -215,13 +217,12 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                                 <Stack justifyContent={"flex-end"} sx={{marginTop: "1em"}}>
                                     <Button type="submit"
                                             variant={"contained"}
-                                            color={"primary"}
+                                            color={"secondary"}
                                             disabled={isSubmitting || !(isValid && dirty)}
                                     >
                                         Add
                                     </Button>
                                 </Stack>
-
                             </Grid>
                         </Grid>
                     </Form>)

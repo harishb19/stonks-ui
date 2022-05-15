@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import {toast} from "react-toastify";
 import {
     Button,
+    CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
@@ -21,6 +22,7 @@ import {
     TextField
 } from "@mui/material";
 import {Form, Formik} from "formik";
+import {blackColor} from "../../Common/Colors";
 
 const numberConverter = (number, type) => {
     switch (type) {
@@ -141,8 +143,9 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
     return (
         <>
             <Dialog open={open} onClose={() => setOpen(false)}>
-                <DialogTitle>{initialValues.id ? "Edit" : "Add"} notification</DialogTitle>
-                <DialogContent>
+                <DialogTitle
+                    sx={{backgroundColor: blackColor}}>{initialValues.id ? "Edit" : "Add"} notification</DialogTitle>
+                <DialogContent sx={{backgroundColor: blackColor}}>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
@@ -261,7 +264,10 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                                                     color={"primary"}
                                                     disabled={isSubmitting || !(isValid && dirty)}
                                             >
-                                                Add
+                                                {
+                                                    isSubmitting ? <CircularProgress/> : "Add"
+                                                }
+
                                             </Button>
                                         </Stack>
 
@@ -274,14 +280,14 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                 </DialogContent>
             </Dialog>
             <Dialog open={stagingValues && stagingValues.values} disableEscapeKeyDown>
-                <DialogTitle>Warning</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{backgroundColor: blackColor}}>Warning</DialogTitle>
+                <DialogContent sx={{backgroundColor: blackColor}}>
                     <DialogContentText>
                         A notification already exist for the coin on the same topic. <br/>
                         do you wish to continue creating this notification?
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{backgroundColor: blackColor}}>
                     <Button onClick={() => {
                         handleInsert(stagingValues.values, stagingValues.setSubmitting)
                         setStagingValues({})

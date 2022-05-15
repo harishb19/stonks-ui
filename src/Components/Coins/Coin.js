@@ -111,7 +111,7 @@ const Coin = () => {
                      padding: '15px 0px 15px 30px',
                  }}>
                 <Grid flexGrow={1} container justifyContent={"space-between"}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Stack direction={"column"}>
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link underline="hover" color="inherit" href="/" sx={{fontSize: "0.8em"}}>

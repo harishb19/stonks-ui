@@ -4,8 +4,7 @@ import UserCoinAction from "../UserCoins/AddCoin";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteCoin from "../UserCoins/DeleteCoin";
 import EditIcon from "@mui/icons-material/Edit";
-import Color from "color";
-import {greyColor, pinkColor} from "../../Common/Colors";
+import {greyColor} from "../../Common/Colors";
 import {useStoreState} from "easy-peasy";
 import {USER_COIN_BY_COIN_ID} from "../../graphql/queries";
 import Error from "../Error/CustomError";
@@ -80,8 +79,7 @@ const CoinsAction = ({coinDetails}) => {
                         <Tooltip title={"Edit holdings"}>
                             <IconButton
                                 variant="outlined"
-                                color={"secondary"}
-                                sx={{color: `${Color(pinkColor).lighten(0.35)}`}}
+                                color={"warning"}
                                 onClick={() => {
                                     setOpenCoinAction(true);
                                 }}
@@ -103,8 +101,7 @@ const CoinsAction = ({coinDetails}) => {
                     </>) : (<Tooltip title={"Add holdings"}>
                         <IconButton
                             variant="outlined"
-                            color={"secondary"}
-                            sx={{color: `${Color(pinkColor).lighten(0.35)}`}}
+                            color={"success"}
                             onClick={() => {
                                 setOpenCoinAction(true);
                             }}
@@ -123,8 +120,8 @@ const CoinsAction = ({coinDetails}) => {
                 <UserCoinDetails
                     value={userCoinData.quantity * coinDetails.coins_market_data.currentPrice}
                     quantity={userCoinData.quantity}
-                    price={userCoinData.totalPrice}
-                    profit={(coinDetails.coins_market_data.currentPrice - userCoinData.totalPrice) * userCoinData.quantity}
+                    price={userCoinData.totalPrice / userCoinData.quantity}
+                    profit={(coinDetails.coins_market_data.currentPrice * userCoinData.quantity - userCoinData.totalPrice)}
                 />
             </Stack>) : (<Typography component={"p"} color={greyColor}>
                 No holdings

@@ -45,7 +45,7 @@ const CoinCard = ({
                             <Box sx={{
                                 borderRadius: "5px",
                                 padding: '2px 4px',
-                                backgroundColor: priceChangePercentage24h > 0 ? "rgba(78, 191, 103,0.15)" : "rgba(254, 122, 104,0.15)",
+                                backgroundColor: priceChangePercentage24h > 0 ? "rgba(78, 191, 103,0.1)" : "rgba(255, 77, 88,0.05)",
                             }}>
                                 <PriceUpDown fontSize={'0.9em'} arrowSize={"small"} value={priceChangePercentage24h}/>
                             </Box>
