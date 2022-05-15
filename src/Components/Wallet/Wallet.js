@@ -161,7 +161,7 @@ const Wallet = ({userCoins}) => {
         </Grid>
         {
             coins && coins.length > 0 ? <Box padding={"5% 5% 0% 5%"}>
-                <FormControl>
+                <FormControl variant={"filled"}>
                     <InputLabel id="demo-simple-select-label">Sort</InputLabel>
                     <Select className={walletStyles.sort}
                             labelId="demo-simple-select-label"

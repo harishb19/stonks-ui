@@ -170,7 +170,7 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                             return (<Form onSubmit={handleSubmit} style={{marginTop: "1em"}}>
                                 <Grid container alignItems="flex-start" spacing={2}>
                                     <Grid item xs={12} md={6}>
-                                        <FormControl fullWidth
+                                        <FormControl fullWidth variant={"filled"}
                                                      error={errors.topic && touched.topic}
                                         >
                                             <InputLabel id="topic-label">Topic</InputLabel>
@@ -193,7 +193,7 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                                             }                                </FormControl>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <FormControl fullWidth
+                                        <FormControl fullWidth variant={"filled"}
                                                      error={errors.conditionType && touched.conditionType}
                                         >
                                             <InputLabel id="conditionType-label">Condition</InputLabel>
@@ -231,7 +231,7 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                                     </Grid>
                                     {
                                         values.topic && values.topic !== "price" && <Grid item xs={12} md={6}>
-                                            <FormControl fullWidth
+                                            <FormControl fullWidth variant={"filled"}
                                                          error={errors.amountType && touched.amountType}
                                             >
                                                 <InputLabel id="conditionType-label">Magnitude</InputLabel>
