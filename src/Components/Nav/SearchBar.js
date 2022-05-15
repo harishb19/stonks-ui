@@ -37,6 +37,7 @@ const SearchBar = ({coins}) => {
                 InputProps={{
                     ...params.InputProps,
                     type: 'search',
+                    disableUnderline: true
                 }}
             />)}
             renderOption={(props, option) => (
