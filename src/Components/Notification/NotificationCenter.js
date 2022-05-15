@@ -47,7 +47,8 @@ const NotificationCenter = () => {
     }}/>
     return (<>
         <Dialog open={openNotifications} onClose={() => setOpenNotifications(false)}>
-            <DialogTitle sx={{backgroundColor: blackColor}}>Notification center</DialogTitle>
+            <DialogTitle sx={{backgroundColor: blackColor}} sx={{textAlign: "center", color: "white", minWidth: "400px", alignItems: "center",
+                letterSpacing: "3px", fontWeight:"bold"}} component={"p"}>Notification center</DialogTitle>
             <DialogContent sx={{backgroundColor: blackColor}}>
 
                 {notifications.length <= 0 ? <Typography variant={"h5"}>No notifications</Typography> :
