@@ -143,8 +143,8 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
     return (
         <>
             <Dialog open={open} onClose={() => setOpen(false)}>
-                <DialogTitle
-                    sx={{backgroundColor: blackColor}}>{initialValues.id ? "Edit" : "Add"} notification</DialogTitle>
+                <DialogTitle component={"p"}
+                             sx={{backgroundColor: blackColor}}>{initialValues.id ? "Edit" : "Add"} notification</DialogTitle>
                 <DialogContent sx={{backgroundColor: blackColor}}>
                     <Formik
                         initialValues={initialValues}
