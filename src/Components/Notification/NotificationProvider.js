@@ -38,7 +38,7 @@ const NotificationProvider = ({messaging}) => {
                             }, {
                                 autoDismiss: true,
                             })
-                            setNotifications({...payload})
+                            setNotifications(payload)
                             // toast(`${payload.notification.body}`, {
                             //     position: "bottom-left",
                             //     autoClose: false,

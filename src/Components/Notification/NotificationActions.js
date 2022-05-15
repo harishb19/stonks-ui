@@ -32,9 +32,7 @@ const NotificationActions = ({coinId}) => {
         if (!loading && data) {
             console.log(data)
             if (data && data.notifications && data.notifications.length > 0) {
-                setUserNotification([
-                    ...data.notifications
-                ])
+                setUserNotification([...data.notifications])
             }
 
         }

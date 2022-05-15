@@ -22,7 +22,7 @@ const conditionToString = (condition) => {
             return `> ${condition["gt"]}`
         }
         if (condition["lt"]) {
-            return `&lt; ${condition["lt"]}`
+            return `< ${condition["lt"]}`
         }
         if (condition["eq"]) {
             return `= ${condition["eq"]}`

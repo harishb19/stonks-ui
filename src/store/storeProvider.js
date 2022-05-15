@@ -22,20 +22,21 @@ const store = createStore({
             state.notifications = [...old, ...payload];
         }),
         setNotifications: action((state, payload) => {
-            if (state.notifications) {
-                let obj = state.notifications;
-                let newObj = [];
-                obj.forEach((ent) => {
-                    if (payload && payload.id && ent.id === payload.id) {
-                        newObj.push({...payload});
-                    } else {
-                        newObj.push({...ent});
-                    }
-                });
-                state.notifications = newObj;
-            } else {
-                state.notifications.push(payload);
-            }
+            console.log(payload)
+            // if (state.notifications) {
+            //     let obj = state.notifications;
+            //     let newObj = [];
+            //     obj.forEach((ent) => {
+            //         if (payload && payload.id && ent.id === payload.id) {
+            //             newObj.push({...payload});
+            //         } else {
+            //             newObj.push({...ent});
+            //         }
+            //     });
+            //     state.notifications = newObj;
+            // } else {
+            state.notifications.push(payload);
+            // }
         }),
         openNotifications: false,
         setOpenNotifications: action((state, payload) => {
