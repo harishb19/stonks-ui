@@ -48,10 +48,10 @@ const NotificationCenter = () => {
     return (<>
         <Dialog open={openNotifications} onClose={() => setOpenNotifications(false)}>
             <DialogTitle sx={{backgroundColor: blackColor}} sx={{textAlign: "center", color: "white", minWidth: "400px", alignItems: "center",
-                letterSpacing: "3px", fontWeight:"bold"}} component={"p"}>Notification center</DialogTitle>
+                letterSpacing: "3px", fontWeight:"bold"}} component={"p"}>Notification Center</DialogTitle>
             <DialogContent sx={{backgroundColor: blackColor}}>
 
-                {notifications.length <= 0 ? <Typography variant={"h5"}>No notifications</Typography> :
+                {notifications.length <= 0 ? <Typography variant={"h5"}>No Notifications</Typography> :
 
                     <List sx={{width: '100%', maxWidth: 400, bgcolor: 'background.paper'}}>
                         {notifications.map(({data, notification}) => <ListItem>
