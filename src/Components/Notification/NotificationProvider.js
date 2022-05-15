@@ -59,7 +59,7 @@ const NotificationProvider = ({messaging}) => {
                     console.log('No Instance ID token available. Request permission to generate one.');
                 }
             }).catch((err) => {
-                toast.error(`Notification permission required `, {
+                toast.error(`Notification will not work as permissions are not given.`, {
                     position: "bottom-right",
                     autoClose: false,
                     hideProgressBar: true,

@@ -158,12 +158,14 @@ export const USER_COIN_NOTIFICATION = gql`
             userId
             coinId
             topic
+            updatedAt
             condition {
                 gt
                 lt
                 eq
             }
             isActive
+            updatedAt
             coin {
                 id
                 name

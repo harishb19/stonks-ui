@@ -124,7 +124,7 @@ export default function Profile() {
                                                     onChange={handleChange}
                                                     error={(errors.firstName && touched.firstName)}
                                                     onBlur={handleBlur}
-                                                    variant={"filled"}
+                                                    variant={"outlined"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
@@ -150,7 +150,7 @@ export default function Profile() {
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     error={(errors.lastName && touched.lastName)}
-                                                    variant={"filled"}
+                                                    variant={"outlined"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
@@ -176,7 +176,7 @@ export default function Profile() {
                                                     error={(errors.email && touched.email)}
                                                     value={values.email}
                                                     onChange={handleChange}
-                                                    variant={"filled"}
+                                                    variant={"outlined"}
                                                     fullWidth
                                                     onBlur={handleBlur}
                                                     className={loginStyle.inputbox}
@@ -203,7 +203,7 @@ export default function Profile() {
                                                     // label="Phone Number"
                                                     error={(errors.phoneNumber && touched.phoneNumber)}
                                                     onChange={handleChange}
-                                                    variant={"filled"}
+                                                    variant={"outlined"}
                                                     fullWidth
                                                     onBlur={handleBlur}
                                                     className={loginStyle.inputbox}

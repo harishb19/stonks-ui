@@ -16,6 +16,7 @@ import {KeyboardArrowDown, KeyboardArrowUp} from "@mui/icons-material";
 
 
 const Wallet = ({userCoins}) => {
+
     const [coins, setCoins] = useState(userCoins)
     const [totalPortfolio, setTotalPortfolio] = useState(0)
     const [totalProfit, setTotalProfit] = useState(0)
@@ -45,7 +46,7 @@ const Wallet = ({userCoins}) => {
     }
 
     useEffect(() => {
-        if (updateCoinData && updateCoinData.marketData && updateCoinData.marketData.length > 0 && coins !== null && coins.length > 0) {
+        if (updateCoinData && updateCoinData.marketData && updateCoinData.marketData.length > 0) {
             setCoins((cns) =>
                 cns.map(item => {
                     const updateCoin = updateCoinData.marketData.find(x => x.id === item.coinId)

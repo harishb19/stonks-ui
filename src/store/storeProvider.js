@@ -10,25 +10,26 @@ const store = createStore({
             state.userImage = payload;
         }),
     }, notifications: {
-        notifications: [], setNotificationsArray: action((state, payload) => {
+        notifications: [], deleteNotificationsArray: action((state, payload) => {
+            if (state.notifications && state.notifications.length > 0) {
+                let localNotif = [...state.notifications]
+                let index = localNotif.findIndex(not => not.id === payload)
+                if (index !== -1) {
+                    localNotif.splice(index, 1)
+                }
+                if (localNotif.length > 0) {
+                    state.notifications = [...localNotif];
+                } else {
+                    state.notifications = []
+                }
+            }
+        }), setNotificationsArray: action((state, payload) => {
             let old = state.notifications;
             state.notifications = [...old, ...payload];
         }), setNotifications: action((state, payload) => {
-            console.log(payload)
-            // if (state.notifications) {
-            //     let obj = state.notifications;
-            //     let newObj = [];
-            //     obj.forEach((ent) => {
-            //         if (payload && payload.id && ent.id === payload.id) {
-            //             newObj.push({...payload});
-            //         } else {
-            //             newObj.push({...ent});
-            //         }
-            //     });
-            //     state.notifications = newObj;
-            // } else {
             state.notifications.push(payload);
-            // }
+        }), setNewNotifications: action((state, payload) => {
+            state.notifications = payload
         }), openNotifications: false, setOpenNotifications: action((state, payload) => {
             state.openNotifications = payload;
         }),
