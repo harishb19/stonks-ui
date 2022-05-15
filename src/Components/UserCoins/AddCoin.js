@@ -5,12 +5,12 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    FilledInput,
     FormControl,
     FormHelperText,
     Grid,
     InputAdornment,
     InputLabel,
-    OutlinedInput,
     Stack,
     TextField
 } from "@mui/material";
@@ -172,7 +172,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                                     name="coinId"
                                     label="Coin Name"
                                     value={values.coinId}
-                                    variant={"outlined"}
+                                    variant={"standard"}
                                     fullWidth
                                     error={errors.coinId && touched.coinId}
                                     onChange={handleChange}
@@ -190,7 +190,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                                     helperText={errors.quantity}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    variant={"outlined"}
+                                    variant={"filled"}
                                     fullWidth={true}
                                 />
                             </Grid>
@@ -198,7 +198,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                                 <FormControl variant={"filled"} fullWidth error={errors.price && touched.price}
                                 >
                                     <InputLabel htmlFor="totalPrice">Price per coin</InputLabel>
-                                    <OutlinedInput
+                                    <FilledInput
                                         id="totalPrice"
                                         value={values.totalPrice}
                                         onChange={handleChange}

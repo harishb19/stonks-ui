@@ -1,5 +1,5 @@
 import {useStoreState} from "easy-peasy";
-import {Box, Button, Paper, Grid, InputAdornment, TextField, Typography, InputLabel} from "@mui/material";
+import {Box, Button, Grid, InputAdornment, InputLabel, Paper, TextField, Typography} from "@mui/material";
 import loginStyle from "./css/login.module.css"
 import {Formik} from "formik";
 import * as Yup from "yup";
@@ -10,7 +10,7 @@ import {SIGNUP_USER} from "../../graphql/mutation";
 import "yup-phone";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {Email, Google, LocalPhone, Lock, Badge} from "@mui/icons-material";
+import {Badge, Email, Google, LocalPhone, Lock} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 
 const Signup = () => {
@@ -162,7 +162,7 @@ const Signup = () => {
     return (
         <Paper elevation={2} className={`${loginStyle.rootSignup}`}>
             <Box justifyContent='center' display='flex' alignItems='center' className={loginStyle.div}>
-                <div  className={loginStyle.paper}>
+                <div className={loginStyle.paper}>
                     <div className={loginStyle.titleContainer}>
                         <Typography variant={"h5"} component={"div"} className={loginStyle.titleText}>
                             <b>Sign Up</b>
@@ -176,11 +176,19 @@ const Signup = () => {
                     >
                         {(props) => {
                             const {
-                                values, touched, errors, dirty, handleChange, handleBlur, handleSubmit, isValid, isSubmitting
+                                values,
+                                touched,
+                                errors,
+                                dirty,
+                                handleChange,
+                                handleBlur,
+                                handleSubmit,
+                                isValid,
+                                isSubmitting
                             } = props;
                             return (
                                 <form onSubmit={handleSubmit}>
-                                    <Grid container alignItems="center" >
+                                    <Grid container alignItems="center">
                                         <Grid container item xs={12} md={12} lg={12} spacing={2}>
                                             <Grid item xs={12} md={6} lg={6}>
                                                 <InputLabel htmlFor="firstName">First Name</InputLabel>
@@ -192,7 +200,7 @@ const Signup = () => {
                                                     value={values.firstName}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
-                                                    variant={"outlined"}
+                                                    variant={"filled"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
@@ -220,7 +228,7 @@ const Signup = () => {
                                                     value={values.lastName}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
-                                                    variant={"outlined"}
+                                                    variant={"filled"}
                                                     fullWidth
                                                     className={loginStyle.inputboxmini}
                                                     InputProps={{
@@ -243,13 +251,13 @@ const Signup = () => {
                                             <TextField
                                                 multiline
                                                 disabled={isGoogleAuth}
-                                                type = "email"
+                                                type="email"
                                                 id="email"
                                                 name="email"
                                                 // label="Email"
                                                 value={values.email}
                                                 onChange={handleChange}
-                                                variant={"outlined"}
+                                                variant={"filled"}
                                                 fullWidth
                                                 onBlur={handleBlur}
                                                 className={loginStyle.inputbox}
@@ -276,7 +284,7 @@ const Signup = () => {
                                                 value={values.phoneNumber}
                                                 // label="Phone Number"
                                                 onChange={handleChange}
-                                                variant={"outlined"}
+                                                variant={"filled"}
                                                 fullWidth
                                                 onBlur={handleBlur}
                                                 className={loginStyle.inputbox}
@@ -295,66 +303,67 @@ const Signup = () => {
                                             </p>
                                         </Grid>
                                         {!isGoogleAuth && <>
-                                        <Grid container item xs={12} md={12} lg={12} spacing={2}>
-                                        <Grid item xs={12} md={6} lg={6}>
-                                            <InputLabel htmlFor="password">Password</InputLabel>
-                                            <TextField
-                                                id="password"
-                                                name="password"
-                                                // label="Password"
-                                                type="password"
-                                                autoComplete="new-password"
-                                                value={values.password}
-                                                onChange={handleChange}
-                                                variant={"outlined"}
-                                                fullWidth
-                                                onBlur={handleBlur}
-                                                className={loginStyle.inputbox}
-                                                InputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment position="start">
-                                                            <Lock/>
-                                                        </InputAdornment>
-                                                    ),
-                                                }}
-                                            />
-                                            <p className={`${loginStyle.error}`}>
-                                                {
-                                                    (errors.password && touched.password) && errors.password
-                                                }
+                                            <Grid container item xs={12} md={12} lg={12} spacing={2}>
+                                                <Grid item xs={12} md={6} lg={6}>
+                                                    <InputLabel htmlFor="password">Password</InputLabel>
+                                                    <TextField
+                                                        id="password"
+                                                        name="password"
+                                                        // label="Password"
+                                                        type="password"
+                                                        autoComplete="new-password"
+                                                        value={values.password}
+                                                        onChange={handleChange}
+                                                        variant={"filled"}
+                                                        fullWidth
+                                                        onBlur={handleBlur}
+                                                        className={loginStyle.inputbox}
+                                                        InputProps={{
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    <Lock/>
+                                                                </InputAdornment>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <p className={`${loginStyle.error}`}>
+                                                        {
+                                                            (errors.password && touched.password) && errors.password
+                                                        }
 
-                                            </p>
-                                        </Grid>
-                                        <Grid item xs={12} md={6} lg={6}>
-                                            <InputLabel htmlFor="passwordConfirmation">Confirm Password</InputLabel>
-                                            <TextField
-                                                type="password"
-                                                autoComplete="new-password"
-                                                id={"passwordConfirmation"}
-                                                name={"passwordConfirmation"}
-                                                value={values.passwordConfirmation}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                // label="Confirm Password"
-                                                variant={"outlined"}
-                                                fullWidth
-                                                className={loginStyle.inputbox}
-                                                InputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment position="start">
-                                                            <Lock/>
-                                                        </InputAdornment>
-                                                    ),
-                                                }}
-                                            />
-                                            <p className={`${loginStyle.error}`}>
-                                                {
-                                                    (errors.passwordConfirmation && touched.passwordConfirmation) && errors.passwordConfirmation
-                                                }
+                                                    </p>
+                                                </Grid>
+                                                <Grid item xs={12} md={6} lg={6}>
+                                                    <InputLabel htmlFor="passwordConfirmation">Confirm
+                                                        Password</InputLabel>
+                                                    <TextField
+                                                        type="password"
+                                                        autoComplete="new-password"
+                                                        id={"passwordConfirmation"}
+                                                        name={"passwordConfirmation"}
+                                                        value={values.passwordConfirmation}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        // label="Confirm Password"
+                                                        variant={"filled"}
+                                                        fullWidth
+                                                        className={loginStyle.inputbox}
+                                                        InputProps={{
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    <Lock/>
+                                                                </InputAdornment>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <p className={`${loginStyle.error}`}>
+                                                        {
+                                                            (errors.passwordConfirmation && touched.passwordConfirmation) && errors.passwordConfirmation
+                                                        }
 
-                                            </p>
-                                        </Grid>
-                                        </Grid>
+                                                    </p>
+                                                </Grid>
+                                            </Grid>
                                         </>}
                                         <Grid item xs={12}>
                                             <Button variant={"contained"} color={"secondary"} fullWidth
@@ -384,7 +393,7 @@ const Signup = () => {
                             color="primary"
                             onClick={handleSignupWithGoogle}
                         >
-                            <Google />
+                            <Google/>
                         </IconButton>
                     </div>
                     <Typography className={loginStyle.smalltext}>

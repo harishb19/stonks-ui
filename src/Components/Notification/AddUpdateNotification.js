@@ -225,7 +225,7 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                                             helperText={errors.condition}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            variant={"outlined"}
+                                            variant={"filled"}
                                             fullWidth={true}
                                         />
                                     </Grid>

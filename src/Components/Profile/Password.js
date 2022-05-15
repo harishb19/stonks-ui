@@ -106,7 +106,7 @@ export default function Password({setUpdatePassword}) {
                                 onBlur={handleBlur}
                                 error={(errors.currentPassword && touched.currentPassword)}
                                 // label="Confirm Password"
-                                variant={"outlined"}
+                                variant={"filled"}
                                 fullWidth
                                 className={loginStyle.inputbox}
                                 InputProps={{
@@ -132,7 +132,7 @@ export default function Password({setUpdatePassword}) {
                                 onBlur={handleBlur}
                                 error={(errors.password && touched.password)}
                                 // label="Confirm Password"
-                                variant={"outlined"}
+                                variant={"filled"}
                                 fullWidth
                                 className={loginStyle.inputbox}
                                 InputProps={{
@@ -158,7 +158,7 @@ export default function Password({setUpdatePassword}) {
                                 onBlur={handleBlur}
                                 error={(errors.passwordConfirmation && touched.passwordConfirmation)}
                                 // label="Confirm Password"
-                                variant={"outlined"}
+                                variant={"filled"}
                                 fullWidth
                                 className={loginStyle.inputbox}
                                 InputProps={{

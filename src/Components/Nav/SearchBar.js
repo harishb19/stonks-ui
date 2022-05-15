@@ -11,7 +11,7 @@ const SearchBar = ({coins}) => {
 
     return (<Stack spacing={2} sx={{width: 300}}>
         <Autocomplete
-            
+
             freeSolo
             color={"secondary"}
             id="free-solo-2-demo"
@@ -33,7 +33,7 @@ const SearchBar = ({coins}) => {
                 {...params}
                 color={"secondary"}
                 label="Search Coins"
-                variant={"outlined"}
+                variant={"filled"}
                 InputProps={{
                     ...params.InputProps,
                     type: 'search',
