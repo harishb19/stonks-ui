@@ -133,11 +133,12 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
     useEffect(() => {
         setInitialValues({...userCoinData, coinId})
     }, [userCoinData, coinId])
+
     return (<Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Coin</DialogTitle>
+        <DialogTitle>{initialValues.id ? "Edit" : "Add"} holdings</DialogTitle>
         <DialogContent>
             <DialogContentText>
-                Add this coin to your dashboard.
+                {initialValues.id ? "Edit" : "Add"} holdings for the coin
             </DialogContentText>
             <br/>
             <Formik
