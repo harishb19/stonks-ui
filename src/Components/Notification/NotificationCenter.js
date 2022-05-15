@@ -125,7 +125,7 @@ const NotificationCenter = () => {
         }
     }, [data, loading,setNotifications])
     useEffect(() => {
-        if (userDetails && userDetails.id) {
+        if (userDetails && userDetails.id &&(openNotifications||!openNotifications)) {
             fetchNotif({
                 variables: {
                     userId: userDetails.id

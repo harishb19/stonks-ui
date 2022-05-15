@@ -86,7 +86,17 @@ const topicSelector = (topic) => {
     }
 
 }
-const ViewNotifications = ({id, topic, condition, allNotification, index, isActive, updatedAt, refetch}) => {
+const ViewNotifications = ({
+                               id,
+                               topic,
+                               condition,
+                               userNotification,
+                               allNotification,
+                               index,
+                               isActive,
+                               updatedAt,
+                               refetch
+                           }) => {
     const userDetails = useStoreState(state => state.user.userDetails)
 
     const [open, setOpen] = useState(false)
@@ -101,6 +111,9 @@ const ViewNotifications = ({id, topic, condition, allNotification, index, isActi
             }
         }).then(({data}) => {
             refetch()
+            if (userNotification.length === 1) {
+                allNotification([])
+            }
             setOpen(false)
             toast.success(`Notification deleted.`, {
                 position: "bottom-right",

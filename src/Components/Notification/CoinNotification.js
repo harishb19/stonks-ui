@@ -8,8 +8,7 @@ import {useStoreState} from "easy-peasy";
 
 const CoinNotification = ({open, setOpen, coinId, userNotification, setUserNotification}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
-
-    const {data, loading, error, refetch} = useQuery(USER_COIN_NOTIFICATION, {
+    const {data, loading, refetch} = useQuery(USER_COIN_NOTIFICATION, {
         variables: {
             coinId, userId: userDetails.id
 
@@ -17,16 +16,19 @@ const CoinNotification = ({open, setOpen, coinId, userNotification, setUserNotif
     })
     useEffect(() => {
         if (!loading && data) {
-            if (data && data.notifications && data.notifications.length > 0) {
+            console.log(data)
+            if (data && data.notifications) {
                 setUserNotification([...data.notifications])
+            }else {
+                setUserNotification([])
             }
         }
-    }, [data, loading])
+    }, [data, loading,setUserNotification])
     useEffect(() => {
         if (!userNotification || userNotification.length <= 0) {
             setOpen(false)
         }
-    }, [userNotification])
+    }, [userNotification,setOpen])
     return (<Dialog open={open} onClose={() => setOpen(false)} maxWidth={"sm"} fullWidth>
             <DialogTitle component={"p"}
                          sx={{backgroundColor: blackColor}}>{coinId.charAt(0).toUpperCase() + coinId.slice(1)}'s
@@ -62,6 +64,7 @@ const CoinNotification = ({open, setOpen, coinId, userNotification, setUserNotif
                                            topic={topic}
                                            id={id}
                                            condition={condition}
+                                           userNotification={userNotification}
                                            allNotification={setUserNotification} refetch={refetch}/>)}
                 </List>
             </DialogContent>

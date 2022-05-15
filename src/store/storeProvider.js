@@ -19,6 +19,8 @@ const store = createStore({
                 }
                 if (localNotif.length > 0) {
                     state.notifications = [...localNotif];
+                }else {
+                    state.notifications=[]
                 }
             }
         }), setNotificationsArray: action((state, payload) => {
