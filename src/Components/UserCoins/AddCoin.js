@@ -132,7 +132,13 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
     }
 
     useEffect(() => {
-        setInitialValues({...userCoinData, coinId})
+        if(userCoinData && userCoinData.id){
+            setInitialValues({...userCoinData,totalPrice: userCoinData.totalPrice/userCoinData.quantity, coinId})
+        }
+        else{
+            setInitialValues({...userCoinData, coinId})
+        }
+
     }, [userCoinData, coinId])
 
     return (<Dialog open={open} onClose={handleClose}>
@@ -220,7 +226,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                                             color={"secondary"}
                                             disabled={isSubmitting || !(isValid && dirty)}
                                     >
-                                        Add
+                                        {initialValues.id ? "Edit" : "Add"}
                                     </Button>
                                 </Stack>
                             </Grid>
