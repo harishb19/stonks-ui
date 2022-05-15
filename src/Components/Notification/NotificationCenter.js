@@ -64,12 +64,12 @@ const ListView = ({id, coinId, coinIcon, title, body, createdAt}) => {
             })
         })
     }
-    let formattedTime=createdAt?format(new Date(createdAt), "dd-MM-yyyy HH:mm"):"now"
+    let formattedTime = createdAt ? format(new Date(createdAt), "dd-MM-yyyy HH:mm") : "now"
     return (
         <>
             <ListItem
                 secondaryAction={
-                    <Tooltip
+                    id && <Tooltip
                         title={"Delete notification"}>
                         <IconButton edge="end" aria-label="delete" onClick={() => setOpen(true)}>
                             <Delete/>
@@ -83,7 +83,7 @@ const ListView = ({id, coinId, coinIcon, title, body, createdAt}) => {
 
                 </ListItemAvatar>
                 <ListItemText primary={title} secondary={`${body} `}/>
-                <ListItemText secondary={formattedTime?formattedTime:"now"}/>
+                <ListItemText secondary={formattedTime ? formattedTime : "now"}/>
 
             </ListItem>
 
@@ -123,16 +123,16 @@ const NotificationCenter = () => {
             console.log(data)
             setNotifications([...data.notificationLogs])
         }
-    }, [data, loading,setNotifications])
+    }, [data, loading, setNotifications])
     useEffect(() => {
-        if (userDetails && userDetails.id &&(openNotifications||!openNotifications)) {
+        if (userDetails && userDetails.id && (openNotifications || !openNotifications)) {
             fetchNotif({
                 variables: {
                     userId: userDetails.id
                 }
             })
         }
-    }, [userDetails, openNotifications,fetchNotif])
+    }, [userDetails, openNotifications, fetchNotif])
     if (loading) return <Loading/>
     if (error) return <Error message={error.message} onClick={() => {
     }}/>
