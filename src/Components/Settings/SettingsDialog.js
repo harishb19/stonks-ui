@@ -18,7 +18,7 @@ import coinStyle from "../Coins/css/coin.module.css";
 import AnimatedNumber from "../Common/AnimatedNumber";
 
 export default function SettingsDialog({open, setOpen}) {
-    const numberStyle = localStorage.getItem("numberStyle") ?? '0';
+    const numberStyle = localStorage.getItem("numberStyle") ?? '1';
     console.log(numberStyle)
     const [counter, setCounter] = useState(1234)
     const [selectedValue, setSelectedValue] = React.useState(numberStyle);

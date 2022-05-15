@@ -14,7 +14,7 @@ const AnimatedNumberWrapper = ({
                                    fixedDecimalScale
                                }) => {
 
-    const numberStyle = parseInt(localStorage.getItem("numberStyle"));
+    const numberStyle = parseInt(localStorage.getItem("numberStyle") ?? 1);
 
     return (numberStyle === 0 ? <AnimatedNumber key={value}
                                                 className={className}
