@@ -92,6 +92,7 @@ let CandleStickChartWithDarkTheme = (props) => {
             <MouseCoordinateY
                 at="right"
                 orient="right"
+                rectWidth={80}
                 displayFormat={format(".2f")}/>
             {
                 chartType === 0 ? <CandlestickSeries
@@ -103,8 +104,8 @@ let CandleStickChartWithDarkTheme = (props) => {
             <CurrentCoordinate yAccessor={d => d.price} fill="white"/>
 
             <EdgeIndicator itemType="last" orient="right" edgeAt="right"
+                           rectWidth={80}
                            yAccessor={d => d.close}
-                           opacity={0.7}
                            fill={d => d.close > d.open ? upColor : downColor}/>
 
             <OHLCTooltip origin={[-50, -10]} labelFill={"white"} fontSize={15}
@@ -126,9 +127,11 @@ let CandleStickChartWithDarkTheme = (props) => {
             <MouseCoordinateX
                 at="bottom"
                 orient="bottom"
+                rectWidth={155}
                 displayFormat={timeFormat("%B %d, %Y %I:%M %p")}/>
             <MouseCoordinateY
                 at="left"
+
                 orient="left"
                 displayFormat={format(".4s")}/>
         </Chart>

@@ -75,6 +75,7 @@ const ListView = ({id, coinId, coinIcon, title, body,createdAt}) => {
                         </IconButton>
                     </Tooltip>
                 }
+                
             >
                 <ListItemAvatar>
                     <Avatar alt={coinId} src={coinIcon}/>
@@ -140,9 +141,10 @@ const NotificationCenter = () => {
                 textAlign: "center", color: "white", minWidth: "400px", alignItems: "center",
                 letterSpacing: "3px", fontWeight: "bold"
             }} component={"p"}>Notification center</DialogTitle>
+
             <DialogContent sx={{backgroundColor: blackColor}}>
 
-                {notifications.length <= 0 ? <Typography variant={"h5"}>No notifications</Typography> :
+                {notifications.length <= 0 ? <Typography variant={"h5"}>No Notifications</Typography> :
 
                     <List sx={{width: '100%', bgcolor: 'background.paper'}}>
                         {notifications.map(({id, data, notification, createdAt}, index) => <ListView
