@@ -5,7 +5,9 @@ import {blackColor} from "../../Common/Colors";
 
 const CoinNotification = ({open, setOpen, coinId, userNotification, setUserNotification}) => {
     return (<Dialog open={open} onClose={() => setOpen(false)}>
-            <DialogTitle sx={{backgroundColor: blackColor}}>{coinId}'s Notification</DialogTitle>
+            <DialogTitle component={"p"}
+                         sx={{backgroundColor: blackColor}}>{coinId.charAt(0).toUpperCase() + coinId.slice(1)}'s
+                Notification</DialogTitle>
             <DialogContent sx={{backgroundColor: blackColor}}>
 
                 <List>

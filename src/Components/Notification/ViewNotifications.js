@@ -118,7 +118,7 @@ const ViewNotifications = ({id, topic, condition, allNotification, index}) => {
             />
         </ListItem>
             <Dialog open={open} disableEscapeKeyDown>
-                <DialogTitle sx={{backgroundColor: blackColor}}>Delete</DialogTitle>
+                <DialogTitle component={"p"} sx={{backgroundColor: blackColor}}>Delete</DialogTitle>
                 <DialogContent sx={{backgroundColor: blackColor}}>
                     <DialogContentText>
                         Do you want to delete the notification?
