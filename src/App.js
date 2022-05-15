@@ -29,7 +29,6 @@ import {ToastProvider} from "react-toast-notifications";
 import NotificationCenter from "./Components/Notification/NotificationCenter";
 
 const theme = createTheme({
-
     palette: {
         mode: 'dark',
         primary: {

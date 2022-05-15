@@ -11,3 +11,13 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiTextField-root * {
+    color: #fff;
+    opacity: 1 !important;
+    background-color: #0F0F0F !important;
+}
+
+.Mui-focused {
+    color: white !important;
+}

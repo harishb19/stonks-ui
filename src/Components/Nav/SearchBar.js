@@ -5,15 +5,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 import {Box, Typography} from "@mui/material";
 import {greyColor} from "../../Common/Colors";
 import {useNavigate} from "react-router-dom";
-import searchStyles from "./css/search.module.css"
 
 const SearchBar = ({coins}) => {
     const navigate = useNavigate()
 
     return (<Stack spacing={2} sx={{width: 300}}>
         <Autocomplete
+            
             freeSolo
-            className={`${searchStyles.root}`}
             color={"secondary"}
             id="free-solo-2-demo"
             disableClearable
@@ -32,13 +31,11 @@ const SearchBar = ({coins}) => {
             }}
             renderInput={(params) => (<TextField
                 {...params}
-
                 color={"secondary"}
                 label="Search Coins"
                 variant={"outlined"}
                 InputProps={{
                     ...params.InputProps,
-
                     type: 'search',
                 }}
             />)}

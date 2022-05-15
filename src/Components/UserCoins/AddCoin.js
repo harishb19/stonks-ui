@@ -195,7 +195,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
                                 />
                             </Grid>
                             <Grid item xs={12} md={6} lg={6}>
-                                <FormControl fullWidth error={errors.price && touched.price}
+                                <FormControl variant={"filled"} fullWidth error={errors.price && touched.price}
                                 >
                                     <InputLabel htmlFor="totalPrice">Price per coin</InputLabel>
                                     <OutlinedInput
