@@ -132,10 +132,9 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
     }
 
     useEffect(() => {
-        if(userCoinData && userCoinData.id){
-            setInitialValues({...userCoinData,totalPrice: userCoinData.totalPrice/userCoinData.quantity, coinId})
-        }
-        else{
+        if (userCoinData && userCoinData.id) {
+            setInitialValues({...userCoinData, totalPrice: userCoinData.totalPrice / userCoinData.quantity, coinId})
+        } else {
             setInitialValues({...userCoinData, coinId})
         }
 

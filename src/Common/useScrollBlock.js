@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import {useRef} from 'react';
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
 
@@ -9,7 +9,7 @@ const safeDocument = typeof document !== 'undefined' ? document : {};
 export default () => {
     const scrollBlocked = useRef();
     const html = safeDocument.documentElement;
-    const { body } = safeDocument;
+    const {body} = safeDocument;
 
     const blockScroll = () => {
         if (!body || !body.style || scrollBlocked.current) return;

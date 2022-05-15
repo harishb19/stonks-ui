@@ -305,7 +305,16 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
 
     )
 }
-export const UpdateNotification = ({id, setOpen, topic, condition, amountType, conditionType, setUserNotification,refetch}) => {
+export const UpdateNotification = ({
+                                       id,
+                                       setOpen,
+                                       topic,
+                                       condition,
+                                       amountType,
+                                       conditionType,
+                                       setUserNotification,
+                                       refetch
+                                   }) => {
     const userDetails = useStoreState(state => state.user.userDetails)
 
     const [initialValues, setInitialValues] = useState({})
@@ -522,7 +531,7 @@ export const UpdateNotification = ({id, setOpen, topic, condition, amountType, c
                                                 sx={{marginRight: "1em"}}
                                         >
                                             {
-                                                isSubmitting ? <CircularProgress/> : "Add"
+                                                isSubmitting ? <CircularProgress/> : "Update"
                                             }
 
                                         </Button>

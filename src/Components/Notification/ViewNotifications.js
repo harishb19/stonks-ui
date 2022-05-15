@@ -86,7 +86,7 @@ const topicSelector = (topic) => {
     }
 
 }
-const ViewNotifications = ({id, topic, condition, allNotification, index, isActive, updatedAt,refetch}) => {
+const ViewNotifications = ({id, topic, condition, allNotification, index, isActive, updatedAt, refetch}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
 
     const [open, setOpen] = useState(false)
@@ -100,7 +100,7 @@ const ViewNotifications = ({id, topic, condition, allNotification, index, isActi
                 userId: userDetails.id
             }
         }).then(({data}) => {
-           refetch()
+            refetch()
             setOpen(false)
             toast.success(`Notification deleted.`, {
                 position: "bottom-right",
@@ -131,8 +131,8 @@ const ViewNotifications = ({id, topic, condition, allNotification, index, isActi
             secondaryAction={
                 <Stack direction={"row"} justifyContent={"space-between"}>
                     <Tooltip
-                        title={isActive ? `Notification not triggered` : `Notification triggered at ${updatedAt&&
-                            format(new Date(updatedAt), "dd-MM-yyyy HH:mm")}`}>
+                        title={isActive ? `Notification not triggered` : `Notification triggered at ${updatedAt &&
+                        format(new Date(updatedAt), "dd-MM-yyyy HH:mm")}`}>
                         <Box sx={{marginRight: "1em"}}>
                             <IconButton edge="end" aria-label="triggered" disabled>
                                 {isActive ? <RadioButtonUnchecked/> : <CheckCircle/>}
@@ -187,9 +187,12 @@ const ViewNotifications = ({id, topic, condition, allNotification, index, isActi
                     <DialogContentText>
                         You can only edit the value.
                     </DialogContentText>
-                    <UpdateNotification id={id} setUserNotification={allNotification} setOpen={setOpenEdit} topic={topic}
-                                        condition={topic==="price"?conditionToNumber(condition):getDollarNumber(conditionToNumber(condition))} conditionType={conditionToType(condition)}
-                                        amountType={topic==="price"?"na":getDollarText(conditionToNumber(condition))} refetch={refetch}/>
+                    <UpdateNotification id={id} setUserNotification={allNotification} setOpen={setOpenEdit}
+                                        topic={topic}
+                                        condition={topic === "price" ? conditionToNumber(condition) : getDollarNumber(conditionToNumber(condition))}
+                                        conditionType={conditionToType(condition)}
+                                        amountType={topic === "price" ? "na" : getDollarText(conditionToNumber(condition))}
+                                        refetch={refetch}/>
                 </DialogContent>
 
             </Dialog>

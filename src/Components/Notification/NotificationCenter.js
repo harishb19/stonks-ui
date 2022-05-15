@@ -26,7 +26,7 @@ import {DELETE_NOTIFICATION_LOGS} from "../../graphql/mutation";
 import {toast} from "react-toastify";
 import {format} from "date-fns";
 
-const ListView = ({id, coinId, coinIcon, title, body,createdAt}) => {
+const ListView = ({id, coinId, coinIcon, title, body, createdAt}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
     const deleteNotificationsArray = useStoreActions(actions => actions.notifications.deleteNotificationsArray)
 
@@ -35,7 +35,7 @@ const ListView = ({id, coinId, coinIcon, title, body,createdAt}) => {
     const handleDelete = (delId) => {
         deleteLog({
             variables: {
-                id:delId,
+                id: delId,
                 userId: userDetails.id
             }
         }).then(() => {
@@ -64,6 +64,7 @@ const ListView = ({id, coinId, coinIcon, title, body,createdAt}) => {
             })
         })
     }
+    let formattedTime=createdAt?format(new Date(createdAt), "dd-MM-yyyy HH:mm"):"now"
     return (
         <>
             <ListItem
@@ -75,14 +76,14 @@ const ListView = ({id, coinId, coinIcon, title, body,createdAt}) => {
                         </IconButton>
                     </Tooltip>
                 }
-                
+
             >
                 <ListItemAvatar>
                     <Avatar alt={coinId} src={coinIcon}/>
 
                 </ListItemAvatar>
                 <ListItemText primary={title} secondary={`${body} `}/>
-                <ListItemText secondary={` ${createdAt && format(new Date(createdAt),"dd-MM-yyyy HH:mm")}`}/>
+                <ListItemText secondary={formattedTime?formattedTime:"now"}/>
 
             </ListItem>
 
@@ -122,7 +123,7 @@ const NotificationCenter = () => {
             console.log(data)
             setNotifications([...data.notificationLogs])
         }
-    }, [data, loading])
+    }, [data, loading,setNotifications])
     useEffect(() => {
         if (userDetails && userDetails.id) {
             fetchNotif({
@@ -131,13 +132,13 @@ const NotificationCenter = () => {
                 }
             })
         }
-    }, [userDetails, openNotifications])
+    }, [userDetails, openNotifications,fetchNotif])
     if (loading) return <Loading/>
     if (error) return <Error message={error.message} onClick={() => {
     }}/>
     return (<>
         <Dialog open={openNotifications} onClose={() => setOpenNotifications(false)} maxWidth={"md"} fullWidth>
-            <DialogTitle sx={{backgroundColor: blackColor}} sx={{
+            <DialogTitle sx={{
                 textAlign: "center", color: "white", minWidth: "400px", alignItems: "center",
                 letterSpacing: "3px", fontWeight: "bold"
             }} component={"p"}>Notification center</DialogTitle>
