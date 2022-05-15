@@ -22,7 +22,7 @@ export const SIGNUP_USER = gql`
 
 `
 
-export let ADD_USER_COIN = gql`mutation Mutation($userId: String!, $coinId: String!, $quantity: Int!, $price: Float!) {
+export let ADD_USER_COIN = gql`mutation Mutation($userId: String!, $coinId: String!, $quantity: Float!, $price: Float!) {
     addUserCoin(userId: $userId, coinId: $coinId, quantity: $quantity, price: $price) {
         id
         quantity
@@ -42,7 +42,7 @@ export let DELETE_USER_COIN = gql`mutation DeleteUserCoin($deleteUserCoinId: Str
     }
 }`
 
-export let UPDATE_USER_COIN = gql`mutation UpdateUserCoin($updateUserCoinId: String!, $userId: String!, $quantity: Int!, $price: Float!) {
+export let UPDATE_USER_COIN = gql`mutation UpdateUserCoin($updateUserCoinId: String!, $userId: String!, $quantity: Float!, $price: Float!) {
     updateUserCoin(id: $updateUserCoinId, userId: $userId, quantity: $quantity, price: $price) {
         id
         quantity

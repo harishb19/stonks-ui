@@ -32,7 +32,7 @@ export default function UserCoinAction({open, setOpen, userCoinData, coinId, set
 
     const validationSchema = Yup.object({
         coinId: Yup.string().typeError("Coin name must be valid").required("Coin name required"),
-        quantity: Yup.number().typeError("Quantity must be a number").min(1).required('Quantity required'),
+        quantity: Yup.number().typeError("Quantity must be a number").min(0.01).required('Quantity required'),
         totalPrice: Yup.number().typeError("Price must be a number").min(0).required('Price required')
     })
 

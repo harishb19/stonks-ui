@@ -17,6 +17,8 @@ const AuthUserProvider = ({children}) => {
     const setUserDetails = useStoreActions(actions => actions.user.setUserDetails)
     const setIsPasswordProvider = useStoreActions(actions => actions.user.setIsPasswordProvider)
     const setUserImage = useStoreActions(actions => actions.user.setUserImage)
+    const setSparklineSetting = useStoreActions(actions => actions.settings.setSparklineSetting)
+    const setNumberSetting = useStoreActions(actions => actions.settings.setNumberSetting)
 
     useEffect(() => {
         const firebaseInit = initializeApp(firebaseConfig)
@@ -81,7 +83,13 @@ const AuthUserProvider = ({children}) => {
         }
 
     }, [fetchUser, setUserDetails]);
+    useEffect(() => {
+        const chartStyle = localStorage.getItem("chartStyle") ?? '0';
+        const numStyle = localStorage.getItem("numberStyle") ?? '1';
 
+        setSparklineSetting(chartStyle)
+        setNumberSetting(numStyle)
+    })
 
     if (processing) return <div style={{height: "100vh"}}><Loading/></div>;
     return (<>

@@ -2,26 +2,18 @@ import {action, createStore} from "easy-peasy";
 
 const store = createStore({
     user: {
-        userDetails: {},
-        setUserDetails: action((state, payload) => {
+        userDetails: {}, setUserDetails: action((state, payload) => {
             state.userDetails = payload;
-        }),
-        isPasswordProvider: false,
-        setIsPasswordProvider: action((state, payload) => {
+        }), isPasswordProvider: false, setIsPasswordProvider: action((state, payload) => {
             state.isPasswordProvider = payload;
-        }),
-        userImage: "",
-        setUserImage: action((state, payload) => {
+        }), userImage: "", setUserImage: action((state, payload) => {
             state.userImage = payload;
         }),
-    },
-    notifications: {
-        notifications: [],
-        setNotificationsArray: action((state, payload) => {
+    }, notifications: {
+        notifications: [], setNotificationsArray: action((state, payload) => {
             let old = state.notifications;
             state.notifications = [...old, ...payload];
-        }),
-        setNotifications: action((state, payload) => {
+        }), setNotifications: action((state, payload) => {
             console.log(payload)
             // if (state.notifications) {
             //     let obj = state.notifications;
@@ -37,11 +29,15 @@ const store = createStore({
             // } else {
             state.notifications.push(payload);
             // }
-        }),
-        openNotifications: false,
-        setOpenNotifications: action((state, payload) => {
+        }), openNotifications: false, setOpenNotifications: action((state, payload) => {
             state.openNotifications = payload;
         }),
-    },
+    }, settings: {
+        sparklineSetting: "0", setSparklineSetting: action((state, payload) => {
+            state.sparklineSetting = `${payload}`;
+        }), numberSetting: "1", setNumberSetting: action((state, payload) => {
+            state.numberSetting = `${payload}`;
+        }),
+    }
 });
 export default store;

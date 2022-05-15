@@ -64,6 +64,7 @@ const UserCoinDetails = ({value, profit, price, quantity}) => {
                           value={getDollarNumber(quantity)}
                           thousandSeparator={true}
                           decimalScale={2}
+                          fixedDecimalScale={true}
                           suffix={getDollarText(quantity)}
                           style={{fontSize: "1.6em", fontWeight: "600"}}/>
         </Stack>
