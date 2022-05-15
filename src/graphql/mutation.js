@@ -84,16 +84,13 @@ export const INSERT_NOTIFICATIONS = gql`
                 eq
             }
             isActive
-            coin {
-                id
-                name
-            }
+            updatedAt
         }
     }
 `
 export const UPDATE_NOTIFICATIONS = gql`
-    mutation Mutation($id: String!, $userId: String!) {
-        updateNotification(id: $id, userId: $userId) {
+    mutation UpdateNotification($id: String!, $userId: String!, $condition: NotificationConditionInput!) {
+        updateNotification(id: $id, userId: $userId, condition: $condition) {
             id
             userId
             coinId
@@ -104,10 +101,7 @@ export const UPDATE_NOTIFICATIONS = gql`
                 eq
             }
             isActive
-            coin {
-                id
-                name
-            }
+            updatedAt
         }
     }
 `
@@ -126,3 +120,12 @@ export const DELETE_NOTIFICATIONS = gql`
         }
     }
 `
+export const DELETE_NOTIFICATION_LOGS = gql`
+    mutation Mutation($id: String!, $userId: String!) {
+        deleteNotificationLogs(id: $id, userId: $userId) {
+            id
+        }
+    }
+`
+
+
