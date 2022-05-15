@@ -12,12 +12,11 @@ code {
     monospace;
 }
 
-.MuiTextField-root * {
-    color: #fff;
-    opacity: 1 !important;
-    background-color: #0F0F0F !important;
-}
 
 .Mui-focused {
     color: white !important;
+}
+
+.MuiButton-text {
+    color: #af47ff !important;
 }
