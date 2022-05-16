@@ -82,7 +82,7 @@ const AuthUserProvider = ({children}) => {
             })
         }
 
-    }, [fetchUser, setUserDetails]);
+    }, [fetchUser, setUserDetails,setIsPasswordProvider,setUserImage]);
     useEffect(() => {
         const chartStyle = localStorage.getItem("chartStyle") ?? '0';
         const numStyle = localStorage.getItem("numberStyle") ?? '1';

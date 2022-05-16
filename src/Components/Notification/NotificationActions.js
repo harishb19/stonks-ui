@@ -15,28 +15,24 @@ const NotificationActions = ({coinId}) => {
     const [openAddUpdate, setOpenAddUpdate] = useState(false)
     const [openNotificationList, setOpenNotificationList] = useState(false)
 
-    const [fetchUserNotification, {data, loading, error}] = useLazyQuery(USER_COIN_NOTIFICATION, {
+    const [fetchUserNotification, {error}] = useLazyQuery(USER_COIN_NOTIFICATION, {
         fetchPolicy: "network-only"
     })
 
     useEffect(() => {
-        if (userDetails && userDetails.id && coinId) {
+        if (userDetails && userDetails.id && coinId && (openNotificationList || !openNotificationList)) {
             fetchUserNotification({
                 variables: {
                     userId: userDetails.id, coinId
                 }
+            }).then(({data}) => {
+                if (data && data.notifications && data.notifications.length > 0) {
+                    setUserNotification([...data.notifications])
+                }
             })
         }
-    }, [coinId, userDetails, fetchUserNotification])
-    useEffect(() => {
-        if (!loading && data) {
-            console.log(data)
-            if (data && data.notifications && data.notifications.length > 0) {
-                setUserNotification([...data.notifications])
-            }
+    }, [coinId, userDetails, fetchUserNotification, openNotificationList])
 
-        }
-    }, [data, loading])
     if (error) return <Error message={error.message} onClick={() => {
     }}/>
     return (<>

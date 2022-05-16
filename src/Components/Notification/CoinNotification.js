@@ -16,7 +16,7 @@ const CoinNotification = ({open, setOpen, coinId, userNotification, setUserNotif
     })
     useEffect(() => {
         if (!loading && data) {
-            console.log(data)
+            console.log("triggered",data)
             if (data && data.notifications) {
                 setUserNotification([...data.notifications])
             }else {
@@ -24,6 +24,13 @@ const CoinNotification = ({open, setOpen, coinId, userNotification, setUserNotif
             }
         }
     }, [data, loading,setUserNotification])
+    useEffect(()=>{
+        if (open){
+            refetch({
+                coinId,userId: userDetails.id
+            })
+        }
+    },[open,refetch,coinId,userDetails])
     useEffect(() => {
         if (!userNotification || userNotification.length <= 0) {
             setOpen(false)

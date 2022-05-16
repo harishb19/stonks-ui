@@ -115,24 +115,26 @@ const NotificationCenter = () => {
     const setOpenNotifications = useStoreActions(actions => actions.notifications.setOpenNotifications)
     const userDetails = useStoreState(state => state.user.userDetails)
 
-    const [fetchNotif, {data, loading, error}] = useLazyQuery(GET_NOTIFICATION_LOGS, {
-        nextFetchPolicy: "network-only"
+    const [fetchNotif, {loading, error}] = useLazyQuery(GET_NOTIFICATION_LOGS, {
+        fetchPolicy: "network-only"
     })
+
     useEffect(() => {
-        if (!loading && data) {
-            console.log(data)
-            setNotifications([...data.notificationLogs])
-        }
-    }, [data, loading, setNotifications])
-    useEffect(() => {
-        if (userDetails && userDetails.id && (openNotifications || !openNotifications)) {
+        if (userDetails && userDetails.id &&(openNotifications || !openNotifications)) {
+            console.log("triggered")
+
             fetchNotif({
                 variables: {
                     userId: userDetails.id
                 }
+            }).then(({data}) => {
+                console.log("data")
+
+                setNotifications([...data.notificationLogs])
             })
         }
-    }, [userDetails, openNotifications, fetchNotif])
+    }, [userDetails, fetchNotif,openNotifications,setNotifications])
+
     if (loading) return <Loading/>
     if (error) return <Error message={error.message} onClick={() => {
     }}/>
@@ -149,6 +151,7 @@ const NotificationCenter = () => {
 
                     <List sx={{width: '100%', bgcolor: 'background.paper'}}>
                         {notifications.map(({id, data, notification, createdAt}, index) => <ListView
+                            key={index}
                             createdAt={createdAt}
                             title={notification.title}
                             body={notification.body}

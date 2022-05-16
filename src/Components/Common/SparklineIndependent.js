@@ -68,22 +68,6 @@ const SparkLineIndependent = ({
         Legend,
         Filler
     );
-
-    useEffect(() => {
-        const chart = chartRef.current;
-        if (!chart) {
-            return;
-        }
-        const chartData = {
-            ...chartJSData,
-            datasets: chartJSData.datasets.map(dataset => ({
-                ...dataset,
-                backgroundColor: fill ? createGradient(chart.ctx, chart.chartArea) : finalColor,
-            })),
-        };
-        setChartData(chartData);
-    }, []);
-
     const options = {
         animation: {
             duration: 0
@@ -113,7 +97,7 @@ const SparkLineIndependent = ({
 
     };
 
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     function createGradient(ctx, area) {
         const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
         if (neutralUpDown === 1) {
@@ -128,7 +112,7 @@ const SparkLineIndependent = ({
         }
         return gradient;
     }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     const chartJSData = {
         labels: labels,
         datasets: [
@@ -144,6 +128,24 @@ const SparkLineIndependent = ({
             }
         ],
     }
+    // eslint-disable-next-line
+    useEffect(() => {
+        const chart = chartRef.current;
+        if (!chart) {
+            return;
+        }
+        const chartData = {
+            ...chartJSData,
+            datasets: chartJSData.datasets.map(dataset => ({
+                ...dataset,
+                backgroundColor: fill ? createGradient(chart.ctx, chart.chartArea) : finalColor,
+            })),
+        };
+        setChartData(chartData);
+        // eslint-disable-next-line
+    }, []);
+
+
     if (!data || data.length <= 0) {
         return <p>Could not load sparkline</p>
     }

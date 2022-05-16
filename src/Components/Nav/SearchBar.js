@@ -5,13 +5,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 import {Box, Typography} from "@mui/material";
 import {greyColor} from "../../Common/Colors";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 const SearchBar = ({coins}) => {
     const navigate = useNavigate()
+    const [val,setVal]=useState("")
 
     return (<Stack spacing={2} sx={{width: 300}}>
         <Autocomplete
-
             freeSolo
             color={"secondary"}
             id="free-solo-2-demo"
@@ -20,11 +21,15 @@ const SearchBar = ({coins}) => {
             clearOnBlur={true}
             size="small"
             clearOnEscape={true}
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => option?option.name:""}
             onKeyDown={(event) => {
                 if (event.key === 'Enter') {
                     event.defaultMuiPrevented = true;
                 }
+            }}
+            value={val}
+            onInputChange={(event, value, reason,newValue)=>{
+                setVal(newValue)
             }}
             onChange={(event, newValue) => {
                 navigate(`/coins/${newValue.id}`)

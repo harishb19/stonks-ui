@@ -21,28 +21,26 @@ const CoinsAction = ({coinDetails}) => {
 
     const [openDelete, setOpenDelete] = useState(false);
     const [userCoinData, setUserCoinData] = useState({});
-    const [fetchUserCoin, {data, error, loading}] = useLazyQuery(USER_COIN_BY_COIN_ID, {
+    const [fetchUserCoin, { error}] = useLazyQuery(USER_COIN_BY_COIN_ID, {
         fetchPolicy: "network-only",
     });
 
-    useEffect(() => {
-        if (!loading && data && data.userCoins && data.userCoins[0]) {
-            console.log(data)
-            setUserCoinData({...data.userCoins[0]})
-        }
-    }, [data, loading]);
+
     useEffect(() => {
         if (userDetails && userDetails.id && coinDetails.id) {
-            console.log(data)
-
             fetchUserCoin({
                 variables: {
                     userId: userDetails.id, coinId: coinDetails.id
                 }
+            }).then(({data,loading})=>{
+                if ( !loading && data && data.userCoins && data.userCoins[0]) {
+                    console.log(data)
+                    setUserCoinData({...data.userCoins[0]})
+                }
             })
         }
 
-    }, [coinDetails.id, userDetails])
+    }, [coinDetails.id, userDetails,fetchUserCoin])
 
     if (error) return <Error message={error.message}/>;
     if (userDetails && userDetails.id) {
