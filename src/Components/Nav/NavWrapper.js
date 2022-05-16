@@ -127,7 +127,7 @@ const NormalNav = ({children}) => {
                     }}
                     onClick={() => navigate("/")}
                 >
-                    <Tooltip title={"Home"}>
+                    <Tooltip title={"Home"}  placement={"right"}>
                         <ListItemIcon
                             sx={{
                                 minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
@@ -147,7 +147,7 @@ const NormalNav = ({children}) => {
                         }}
                         onClick={() => navigate("/wallet")}
                     >
-                        <Tooltip title={"Wallet"}>
+                        <Tooltip title={"Wallet"}  placement={"right"}>
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
@@ -165,7 +165,7 @@ const NormalNav = ({children}) => {
                         }}
                         onClick={() => navigate("/profile")}
                     >
-                        <Tooltip title={"Profile"}>
+                        <Tooltip title={"Profile"} placement={"right"}>
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
@@ -187,7 +187,7 @@ const NormalNav = ({children}) => {
                     }}
                     onClick={() => setOpenSettings(true)}
                 >
-                    <Tooltip title={"Settings"}>
+                    <Tooltip title={"Settings"}  placement={"right"}>
                         <ListItemIcon
                             sx={{
                                 minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
@@ -208,7 +208,7 @@ const NormalNav = ({children}) => {
                     }}
                     onClick={handleAuth}
                 >
-                    <Tooltip title={userDetails && userDetails.id ? "Logout" : "Login / signup"}>
+                    <Tooltip title={userDetails && userDetails.id ? "Logout" : "Login / signup"} placement={"right"}>
                         <ListItemIcon
                             sx={{
                                 minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
