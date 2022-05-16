@@ -57,7 +57,7 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
         coinId: Yup.string().typeError("Coin must be a string").required('Coin required'),
         topic: Yup.string().typeError("Topic must be selected").required('Topic required'),
         conditionType: Yup.string().typeError("Condition is required").required('Condition is required'),
-        condition: Yup.number().typeError("Value must be a number").min(0, "Minimum value must ve greater than 0").required('Value is required'),
+        condition: Yup.number().typeError("Value must be a number").min(1, "Minimum value must ve greater than 0").required('Value is required'),
         amountType: Yup.string().typeError("Magnitude required").required('Magnitude is required')
     })
 
@@ -324,7 +324,7 @@ export const UpdateNotification = ({
     const validationSchema = Yup.object({
         topic: Yup.string().typeError("Topic must be selected").required('Topic required'),
         conditionType: Yup.string().typeError("Condition is required").required('Condition is required'),
-        condition: Yup.number().typeError("Value must be a number").min(0, "Minimum value must ve greater than 0").required('Value is required'),
+        condition: Yup.number().typeError("Value must be a number").min(1, "Minimum value must ve greater than 0").required('Value is required'),
         amountType: Yup.string().typeError("Magnitude required").required('Magnitude is required')
     })
 
