@@ -16,9 +16,22 @@ import ListItemText from "@mui/material/ListItemText";
 import {useTheme} from "@mui/material/styles";
 
 function stringAvatar(name) {
-    return {
-        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
+    if (name.split(' ')[0][0] && name.split(' ')[1][0]){
+        return {
+            children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+        };
+    }
+    else if(name.split(' ')[0][0]){
+        return {
+            children: `${name.split(' ')[0][0]}`,
+        };
+    }
+    else {
+        return {
+            children: `S`,
+        };
+    }
+
 }
 
 export const NotificationBadge = ({sideMenu, open}) => {
@@ -80,7 +93,7 @@ const PrimaryAppBar = ({onClick, open}) => {
     const matches = useMediaQuery('(max-width:600px)');
     const [coins, setCoins] = useState([])
     const userDetails = useStoreState(state => state.user.userDetails)
-    const {data, loading, error} = useQuery(GET_ALL_COINS)
+    const {data, loading} = useQuery(GET_ALL_COINS)
 
     const handleProfileMenuOpen = () => {
         navigate('/profile')
