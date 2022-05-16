@@ -14,8 +14,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     }))
    ```
     
-2. Run `yarn install` (Preferred)
+2. Run `yarn install` (necessary)
 3. Run `yarn start`
 
+### Hosting:
+You can directly visit stonks by going on
+https://stonks-harishb19.vercel.app/
 
 **_NOTE:_**  You may skip step 1 and directly start with step 2
