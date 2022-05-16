@@ -227,12 +227,20 @@ const Coin = () => {
                             <Typography variant={"body2"} color={greyColor}>
                                 TOTAL COINS
                             </Typography>
-                            <AnimatedNumberWrapper displayType={'text'}
-                                                   value={getDollarNumber(coinDetails.coins_market_data.totalCoins)}
-                                                   suffix={getDollarText(coinDetails.coins_market_data.totalCoins)}
-                                                   thousandSeparator={true}
-                                                   decimalScale={2}
-                                                   decimalSeparator="." className={coinStyle.marketCap}/>
+                            {
+                                coinDetails.coins_market_data.totalCoins === 0 ?
+                                    <Typography variant={"h6"} component={"p"} fontSize={"1.2em"}>
+                                        Not Available
+                                    </Typography>
+                                    :
+                                    <AnimatedNumberWrapper displayType={'text'}
+                                                           value={getDollarNumber(coinDetails.coins_market_data.totalCoins)}
+                                                           suffix={getDollarText(coinDetails.coins_market_data.totalCoins)}
+                                                           thousandSeparator={true}
+                                                           decimalScale={2}
+                                                           decimalSeparator="." className={coinStyle.marketCap}/>
+                            }
+
                         </Stack>
                         <Stack direction={"column"}>
                             <Typography variant={"body2"} color={greyColor}>
