@@ -26,7 +26,7 @@ import {DELETE_NOTIFICATION_LOGS} from "../../graphql/mutation";
 import {toast} from "react-toastify";
 import {format} from "date-fns";
 
-const ListView = ({id, coinId, coinIcon, title, body, createdAt}) => {
+const ListView = ({id, coinId, coinIcon, title, body, createdAt,isDeleted}) => {
     const userDetails = useStoreState(state => state.user.userDetails)
     const deleteNotificationsArray = useStoreActions(actions => actions.notifications.deleteNotificationsArray)
 
@@ -65,6 +65,9 @@ const ListView = ({id, coinId, coinIcon, title, body, createdAt}) => {
         })
     }
     let formattedTime = createdAt ? format(new Date(createdAt), "dd-MM-yyyy HH:mm") : "now"
+    if (isDeleted){
+        return null
+    }
     return (
         <>
             <ListItem

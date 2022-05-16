@@ -30,34 +30,34 @@ import NotificationCenter from "./Components/Notification/NotificationCenter";
 
 const theme = createTheme({
     palette: {
-        mode: 'dark',
-        primary: {
+        mode: 'dark', primary: {
             main: pinkColor,
         }, secondary: {
             main: pinkColor,
-        },
-        success: {
+        }, success: {
             main: upColor
         }, error: {
             main: downColor
         }, background: {
             paper: blackColor,
-        },
-        action: {
-            disabledBackground: disabledPinkColor,
-            disabled: "#a8a8a8"
+        }, action: {
+            disabledBackground: disabledPinkColor, disabled: "#a8a8a8"
         }
     },
 });
 
 function App() {
-    const graphQlUri = "stonk-backend.herokuapp.com"
-
+    // PROD URLS
+    const GRAPH_URL = "https://stonk-backend.herokuapp.com/graphql"
+    const WSS_URL = "wss://stonk-backend.herokuapp.com/graphql"
+    // DEV URLS
+    const GRAPH_DEV_URL = "http://localhost:3002/graphql"
+    const WSS_DEV_URL = "ws://localhost:3002/graphql"
     const httpLink = new HttpLink({
-        uri: `https://${graphQlUri}/graphql`,
+        uri: GRAPH_URL,
     });
     const wsLink = new GraphQLWsLink(createClient({
-        url: `wss://${graphQlUri}/graphql`,
+        url: WSS_URL,
     }))
 
     const splitLink = split(({query}) => {
