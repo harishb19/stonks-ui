@@ -139,8 +139,7 @@ const NotificationCenter = () => {
     }, [userDetails, fetchNotif,openNotifications,setNotifications])
 
     if (loading) return <Loading/>
-    if (error) return <Error message={error.message} onClick={() => {
-    }}/>
+    if (error) return <Error message={error.message}/>
     return (<>
         <Dialog open={openNotifications} onClose={() => setOpenNotifications(false)} maxWidth={"md"} fullWidth>
             <DialogTitle sx={{

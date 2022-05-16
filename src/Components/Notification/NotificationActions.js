@@ -33,8 +33,7 @@ const NotificationActions = ({coinId}) => {
         }
     }, [coinId, userDetails, fetchUserNotification, openNotificationList])
 
-    if (error) return <Error message={error.message} onClick={() => {
-    }}/>
+    if (error) return <Error message={error.message}/>
     return (<>
         {userNotification && userNotification.length > 0 ? <Stack direction={"row"}>
             <Tooltip title={"View notification"}>
