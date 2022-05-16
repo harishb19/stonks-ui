@@ -19,6 +19,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Hosting:
 You can directly visit stonks by going on
-https://stonks-harishb19.vercel.app/
+https://stonk-backend.herokuapp.com/
 
 **_NOTE:_**  You may skip step 1 and directly start with step 2
