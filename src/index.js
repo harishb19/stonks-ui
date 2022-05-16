@@ -17,6 +17,14 @@ if ("serviceWorker" in navigator) {
         });
 }
 
+function noop() {
+}
+
+    console.log = noop;
+    console.warn = noop;
+    console.info = noop;
+    console.table = noop;
+    console.error = noop;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -102,9 +102,12 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
     const handleSubmit = (values, {setSubmitting}) => {
         setSubmitting(true)
         let condition = {}
-        condition[values.conditionType] = numberConverter(Number(values.condition), values.amountType)
-        console.log("=>(AddUpdateNotification.js:98) values.amountType", values.amountType);
-        console.log("=>(AddUpdateNotification.js:81) condition", condition);
+        if (values.topic==="price"){
+            condition[values.conditionType]=Number(values.condition)
+        }else {
+            condition[values.conditionType] = numberConverter(Number(values.condition), values.amountType)
+        }
+
         let insertObj = {
             userId: userDetails.id,
             coinId: values.coinId,
@@ -231,7 +234,7 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                                         />
                                     </Grid>
                                     {
-                                        values.topic && values.topic !== "price" && <Grid item xs={12} md={6}>
+                                        values.topic && values.topic !== "price" && <Grid key={"con"} item xs={12} md={6}>
                                             <FormControl fullWidth variant={"filled"}
                                                          error={errors.amountType && touched.amountType}
                                             >
@@ -239,7 +242,7 @@ const AddUpdateNotification = ({open, setOpen, userNotification, coinId, setUser
                                                 <Select
                                                     labelId="conditionType-label"
                                                     id="amountType"
-                                                    value={values.conditionType}
+                                                    value={values.amountType}
                                                     label="Magnitude"
                                                     defaultValue={"na"}
                                                     onChange={(e) => setFieldValue("amountType", e.target.value)}>
