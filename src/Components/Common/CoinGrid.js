@@ -74,7 +74,7 @@ const defaultColumns = [{
             </Typography>
         }
     </Stack>),
-    valueGetter: (params) => `${params.row.coins_market_data && params.row.coins_market_data.name ? params.row.name : ''}`
+    valueGetter: (params) => `${params.row.name ? params.row.name : ''}`
 }, {
     field: 'currentPrice',
     headerName: 'Price',
